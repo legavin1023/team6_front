@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div>
+    <div id="app">
+      <edukit />
+    </div>
     <div id="nav">
       <!-- <router-link to="/main"><h1 id="logo">logo</h1></router-link> -->
       <div v-if="!isLoggedin" class="nav_box">
@@ -20,7 +23,14 @@
 </template>
 
 <script>
-export default {}
+import edukit from './views/index.vue'
+
+export default {
+  name: 'App',
+  components: {
+    edukit
+  }
+}
 </script>
 <style lang="scss">
 #nav {
@@ -48,5 +58,12 @@ export default {}
 body {
   font-family: 'NEXON Lv2 Gothic';
   background: #000;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  /* margin-top: 60px; */
 }
 </style>

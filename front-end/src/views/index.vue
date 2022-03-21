@@ -1,11 +1,23 @@
 <template>
-  <div>
-    <h1>Hello Vue</h1>
-  </div>
+  <helloEdukit />
 </template>
 
 <script>
-export default {}
+import Three from '../js/example'
+
+let helloEdukit = {
+  template: '<div ref="webgl"></div>',
+  mounted() {
+    Three(this.$refs.webgl)
+  }
+}
+
+export default {
+  name: 'Edukit',
+  components: {
+    helloEdukit
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

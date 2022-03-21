@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Hello Signup</h1>
-    <form @submit="checkInput">
+    <form @submit="checkInput" @submit.prevent="onSubmit">
       <div class="form-group">
         <input
           id="userName"
@@ -67,7 +67,7 @@
           placeholder="전화번호"
         />
       </div>
-      <input type="submit" value="회원가입" @click="onSubmit" />
+      <button type="submit" @click="onSubmit">회원가입</button>
     </form>
   </div>
 </template>

@@ -9,11 +9,15 @@ const routes = [
   {
     path: '/',
     redirect: '/home',
+    // component: () => import('../views/auth/signup'),
     component: () => import('../views/edukit'),
+    meta: { noLogin: true },
     children: [
       {
         path: '/home',
-        component: () => import('../views/edukit')
+        // component: () => import('../views/auth/signup')
+        component: () => import('../views/edukit'),
+        meta: { noLogin: true }
       }
     ]
   },

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import edukit from './views/index.vue'
+import edukit from './views/edukit'
 
 export default {
   name: 'App',

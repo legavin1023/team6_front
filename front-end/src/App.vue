@@ -20,8 +20,24 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    isLoggedin() {
+      let login = false
+      const test = this.$store.getters.TokenUser
+      const token = window.localStorage.getItem('accessToken')
+
+      if (token) {
+        // 로컬스토리지에 토큰 존재여부 확인
+        login = true
+      }
+
+      return login
+    }
+  }
+}
 </script>
+
 <style lang="scss">
 #nav {
   position: fixed;

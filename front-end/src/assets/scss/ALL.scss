@@ -1,3 +1,10 @@
+$dark:#2b4032;
+$light:#eee;
+$main:#888BBF;
+$sub1:#dec9f2;
+$sub2:#c1b3f2;
+$sub3:#68718c;
+
 /*
 Reset.css
 Updated: 2021-08-25
@@ -152,13 +159,7 @@ BDO[DIR="rtl"] {
 ::-webkit-scrollbar-thumb {
   height: 50px;
   width: 50px;
-  background: $sum1;
+  background: $sub1;
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-$dark:#2b4032;
-$light:#eee;
-$main:#888BBF;
-$sub1:#dec9f2;
-$sub2:#c1b3f2;
-$sub3:#68718c;

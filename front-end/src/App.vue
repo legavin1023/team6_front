@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/main"><h1 id="logo">logo</h1></router-link>
+      <!-- <router-link to="/main"><h1 id="logo">logo</h1></router-link> -->
       <div v-if="!isLoggedin">
         <router-link to="/auth/sign">회원가입</router-link>
         <router-link to="/auth/login">로그인</router-link>
@@ -22,5 +22,8 @@
 <script>
 export default {}
 </script>
-
-<style lang="scss"></style>
+<style lang="scss">
+#nav {
+  position: fixed;
+}
+</style>

@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "chart.js": "^3.7.1",
     "core-js": "^3.6.5",
     "mqtt": "^4.3.6",
+    "sass-loader": "^10.2.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.14",

@@ -19,7 +19,8 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: () => import('../views/dashboard')
+    component: () => import('../views/dashboard'),
+    meta: { noLogin: true }
   },
   {
     path: '/auth',

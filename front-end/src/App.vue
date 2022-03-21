@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app">
-      <edukit />
+      <!-- <edukit /> -->
     </div>
     <div id="nav">
       <!-- <router-link to="/main"><h1 id="logo">logo</h1></router-link> -->
@@ -23,27 +23,24 @@
 </template>
 
 <script>
-import edukit from './views/edukit'
-
+// import edukit from './views/edukit'
 export default {
-  name: 'App',
-  components: {
-    edukit
-  },
-  computed: {
-    isLoggedin() {
-      let login = false
-      // const test = this.$store.getters.TokenUser
-      const token = window.localStorage.getItem('accessToken')
-
-      if (token) {
-        // 로컬스토리지에 토큰 존재여부 확인
-        login = true
-      }
-
-      return login
-    }
-  }
+  // name: 'App',
+  // components: {
+  //   edukit
+  // },
+  // computed: {
+  //   isLoggedin() {
+  //     let login = false
+  //     // const test = this.$store.getters.TokenUser
+  //     const token = window.localStorage.getItem('accessToken')
+  //     if (token) {
+  //       // 로컬스토리지에 토큰 존재여부 확인
+  //       login = true
+  //     }
+  //     return login
+  //   }
+  // }
 }
 </script>
 
@@ -69,9 +66,5 @@ export default {
     position: fixed;
     bottom: 5%;
   }
-}
-body {
-  font-family: 'NEXON Lv2 Gothic';
-  background: #000;
 }
 </style>

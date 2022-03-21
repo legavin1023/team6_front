@@ -1,9 +1,9 @@
-$dark:#2b4032;
+$dark:#1f1c3b;
 $light:#eee;
 $main:#888BBF;
 $sub1:#dec9f2;
 $sub2:#c1b3f2;
-$sub3:#68718c;
+$sub3:#9e4fd4;
 @font-face {
   font-family: 'NEXON Lv2 Gothic';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
@@ -174,7 +174,11 @@ BDO[DIR="rtl"] {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-
-
+*{box-sizing: border-box;}
+body {
+  font-family: 'NEXON Lv2 Gothic';
+  background: linear-gradient(45deg, $dark 0%, #000000 100%);
+  min-height: 100vh;
+}
 
 

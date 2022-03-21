@@ -15,12 +15,12 @@ class Scene {
     this.light = new Light()
 
     this.setScene()
-    this.setMesh()
-    this.setGrid()
+    // this.setMesh()
+    // this.setGrid()
   }
 
   setScene() {
-    this.scene.background = new THREE.Color(0xdddddd)
+    this.scene.background = new THREE.Color(0x101010)
 
     this.scene.add(this.resource.obj)
 
@@ -29,24 +29,24 @@ class Scene {
     this.scene.add(this.camera.camera)
   }
 
-  setMesh() {
-    this.mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1000, 1000),
-      new THREE.MeshPhongMaterial({ color: 0xdddddd, depthWrite: false })
-    )
-    this.mesh.rotation.x = -Math.PI / 2
-    this.mesh.receiveShadow = true
+  // setMesh() {
+  //   this.mesh = new THREE.Mesh(
+  //     new THREE.PlaneGeometry(1000, 1000),
+  //     new THREE.MeshPhongMaterial({ color: 0x1a1a1a, depthWrite: false })
+  //   )
+  //   this.mesh.rotation.x = -Math.PI / 2
+  //   this.mesh.receiveShadow = true
 
-    this.scene.add(this.mesh)
-  }
+  //   this.scene.add(this.mesh)
+  // }
 
-  setGrid() {
-    this.grid = new THREE.GridHelper(2000, 300, 0x000000, 0x000000)
-    this.grid.material.opacity = 0.3
-    this.grid.material.transparent = true
+  // setGrid() {
+  //   this.grid = new THREE.GridHelper(2000, 300, 0x000000, 0x000000)
+  //   this.grid.material.opacity = 0.3
+  //   this.grid.material.transparent = true
 
-    this.scene.add(this.grid)
-  }
+  //   this.scene.add(this.grid)
+  // }
 
   setLight() {
     this.scene.add(this.light.dirLight)

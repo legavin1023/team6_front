@@ -4,14 +4,7 @@
 </template>
 
 <script>
-import Three from '../../js/example'
-
-let helloEdukit = {
-  template: '<div ref="webgl"></div>',
-  mounted() {
-    Three(this.$refs.webgl)
-  }
-}
+import helloEdukit from './edukit.vue'
 
 export default {
   name: 'Edukit',

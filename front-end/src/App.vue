@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import edukit from './views/edukit'
-
+// import edukit from './views/edukit'
 export default {
   name: 'App',
   components: {
@@ -69,9 +68,5 @@ export default {
     position: fixed;
     bottom: 5%;
   }
-}
-body {
-  font-family: 'NEXON Lv2 Gothic';
-  background: #000;
 }
 </style>

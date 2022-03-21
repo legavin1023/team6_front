@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Hello Signup</h1>
     <form @submit="checkInput">
       <div class="form-group">
         <input

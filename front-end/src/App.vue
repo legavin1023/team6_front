@@ -24,7 +24,7 @@ export default {
   computed: {
     isLoggedin() {
       let login = false
-      const test = this.$store.getters.TokenUser
+      // const test = this.$store.getters.TokenUser
       const token = window.localStorage.getItem('accessToken')
 
       if (token) {

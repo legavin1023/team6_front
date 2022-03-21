@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app">
-      <edukit />
+      <!-- <edukit /> -->
     </div>
     <div id="nav">
       <!-- <router-link to="/main"><h1 id="logo">logo</h1></router-link> -->
@@ -28,7 +28,7 @@ import edukit from './views/edukit'
 export default {
   name: 'App',
   components: {
-    edukit
+    // edukit
   },
   computed: {
     isLoggedin() {

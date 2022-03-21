@@ -4,7 +4,18 @@ $main:#888BBF;
 $sub1:#dec9f2;
 $sub2:#c1b3f2;
 $sub3:#68718c;
-
+@font-face {
+  font-family: 'NEXON Lv2 Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NEXON Lv2 Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 /*
 Reset.css
 Updated: 2021-08-25
@@ -159,7 +170,11 @@ BDO[DIR="rtl"] {
 ::-webkit-scrollbar-thumb {
   height: 50px;
   width: 50px;
-  background: $sub1;
+  background: $main;
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
+
+
+
+

@@ -20,7 +20,7 @@ class Scene {
   }
 
   setScene() {
-    this.scene.background = new THREE.Color(0x000000)
+    this.scene.background = new THREE.Color(0xdddddd)
 
     this.scene.add(this.resource.obj)
 
@@ -32,7 +32,7 @@ class Scene {
   setMesh() {
     this.mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(1000, 1000),
-      new THREE.MeshPhongMaterial({ color: 0x000000, depthWrite: false })
+      new THREE.MeshPhongMaterial({ color: 0xdddddd, depthWrite: false })
     )
     this.mesh.rotation.x = -Math.PI / 2
     this.mesh.receiveShadow = true

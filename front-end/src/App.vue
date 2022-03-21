@@ -14,7 +14,7 @@
         <router-link to="/auth/logout">로그아웃</router-link>
       </div>
       <div id="data">
-        <router-link to="/dashboard">대쉬보드</router-link><br /><br />
+        <router-link to="/dashboard">대시보드</router-link><br /><br />
         <router-link to="/edukit">Edukit 제어</router-link>
       </div>
     </div>
@@ -73,12 +73,5 @@ export default {
 body {
   font-family: 'NEXON Lv2 Gothic';
   background: #000;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  /* margin-top: 60px; */
 }
 </style>

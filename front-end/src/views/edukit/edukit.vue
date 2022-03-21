@@ -1,26 +1,23 @@
 <template>
-  <div id="app">
-    <edukit />
-  </div>
+  <helloEdukit />
 </template>
 
 <script>
-import edukit from './views/index.vue'
+import Three from '../../js/example'
+
+let helloEdukit = {
+  template: '<div ref="webgl"></div>',
+  mounted() {
+    Three(this.$refs.webgl)
+  }
+}
 
 export default {
-  name: 'App',
+  name: 'Edukit',
   components: {
-    edukit
+    helloEdukit
   }
 }
 </script>
 
-<style lang="scss" scoped>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $main ;
-  margin-top: 60px;
-}
-</style>
+<style scoped></style>

@@ -18,12 +18,12 @@
         <p>{{}}</p>
       </div>
     </div>
-    <div class="line_chart"><AreaChart style="height: 300px; width: 1000px" /></div>
+    <div class="line_chart"><AreaChart style="height: 280px; width: 980px" /></div>
     <div class="chart_box">
       <div class="donut_chart">
         <PieChart_1 style="height: 160px; width: 245px" /><PieChart_2 style="height: 160px; width: 245px" />
       </div>
-      <div class="bar_chart"><BarChart style="height: 200px; width: 490px" /></div>
+      <div class="bar_chart"><BarChart style="height: 190px; width: 470px" /></div>
     </div>
   </div>
 </template>
@@ -91,23 +91,27 @@ export default {
     margin-left: -20px;
     margin-top: 20px;
     border-radius: 20px;
-    #line-chart {
-      height: 300px;
-    }
+    display: flex;
+    justify-content: center;
   }
   .chart_box {
     width: 1000px;
     margin-left: -20px;
     margin-top: 20px;
     display: flex;
+    justify-content: center;
     .donut_chart,
     .bar_chart {
+      display: flex;
+      justify-content: center;
       width: 490px;
       border: 3px solid $sub3;
       border-radius: 20px;
       height: 200px;
     }
     .donut_chart {
+      display: flex;
+      justify-content: center;
       margin-right: 20px;
       display: flex;
       padding-top: 10px;

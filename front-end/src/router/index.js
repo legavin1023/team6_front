@@ -22,6 +22,11 @@ const routes = [
     ]
   },
   {
+    path: '/edukit',
+    component: () => import('../views/edukit'),
+    meta: { noLogin: true }
+  },
+  {
     path: '/dashboard',
     component: () => import('../views/dashboard'),
     meta: { noLogin: true }

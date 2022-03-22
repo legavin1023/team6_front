@@ -74,7 +74,7 @@ export default {
     }
   },
   created() {
-    const token = window.localStorage.getItem('accessToken')
+    const token = window.localStorage.getItem('token')
 
     // 이미 토큰을 가지고 있는 경우
     if (token) {
@@ -87,7 +87,7 @@ export default {
         this.$router.push('/home') //메인 페이지 이동
       } else {
         // 이미 토큰을 가지고 있으나 그 토큰이 만료된 경우
-        window.localStorage.removeItem('accessToken') // 토큰 삭제
+        window.localStorage.removeItem('token') // 토큰 삭제
       }
     }
   },

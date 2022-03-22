@@ -47,6 +47,7 @@ export default {
     actAuthLogin(context, payload) {
       // 상태값 초기화
       context.commit('clearError')
+      console.log(payload)
       // context.commit('setLoading', true)
 
       api
@@ -58,6 +59,7 @@ export default {
           // 정상인 경우 처리
           // context.commit('setLoading', false)
           context.commit('setTokenUser', decodedToken)
+          console.log('로그인 성공')
         })
         .catch(error => {
           // 에러인 경우 처리

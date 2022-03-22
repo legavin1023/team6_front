@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Hello Signup</h1>
     <div class="box" onsubmit="return false;" @submit.prevent="onSubmit">
       <div class="form-group">
         <span class="img">프로필 사진</span>
@@ -236,6 +235,7 @@ div.box {
     border-radius: 20px;
     padding-left: 5%;
     margin-top: 15px;
+    font-family: 'NEXON Lv2 Gothic';
   }
   p {
     padding: 0 3%;

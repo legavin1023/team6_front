@@ -15,12 +15,13 @@ class Scene {
     this.light = new Light()
 
     this.setScene()
-    this.setMesh()
-    this.setGrid()
+    this.setParticle()
+    // this.setMesh()
+    // this.setGrid()
   }
 
   setScene() {
-    this.scene.background = new THREE.Color(0xdddddd)
+    this.scene.background = new THREE.Color(0x101010)
 
     this.scene.add(this.resource.obj)
 
@@ -29,24 +30,87 @@ class Scene {
     this.scene.add(this.camera.camera)
   }
 
-  setMesh() {
-    this.mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1000, 1000),
-      new THREE.MeshPhongMaterial({ color: 0xdddddd, depthWrite: false })
-    )
-    this.mesh.rotation.x = -Math.PI / 2
-    this.mesh.receiveShadow = true
+  setParticle() {
+    // 파티클 생성
+    const particlesGeometry = new THREE.BufferGeometry()
+    const particlesCnt = 1000 // 파티클 갯수
 
-    this.scene.add(this.mesh)
+    const posArray = new Float32Array(particlesCnt * 3) // x,y,z 값이 존재하기 때문에 * 3 = Multiply by 3 because each position is composed of 3 values (x, y, z)
+
+    for (let i = 0; i < particlesCnt * 3; i++) {
+      // 골고루 퍼지게
+      posArray[i] = (Math.random() - 0.5) * (Math.random() * 1000)
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
+
+    // Materials
+
+    const material = new THREE.PointsMaterial({
+      // 파티클 입자 설정
+      size: 0.005
+    })
+
+    // Mesh
+    const particlesMesh = new THREE.Points(particlesGeometry, material)
+
+    // add it to the scene
+    this.scene.add(particlesMesh)
+
+    //mouse 좌표값 설정
+    document.addEventListener('mousemove', animateParticles)
+
+    let mouseX = 0
+    let mouseY = 0
+
+    function animateParticles(event) {
+      mouseY = event.clientY
+      mouseX = event.clientX
+    }
+
+    /**
+     * Animate
+     */
+
+    const clock = new THREE.Clock()
+
+    const animate = () => {
+      window.requestAnimationFrame(animate)
+
+      const elapsedTime = clock.getElapsedTime()
+      // 경과 시간 (Update objects)
+
+      particlesMesh.rotation.y = -1 * (elapsedTime * 0.01)
+      // 파티클이 경과 시간마다 음의 방향으로 이동
+
+      if (mouseX > 0) {
+        // 마우스 좌표값에 따라 움직임
+        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00008)
+        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.00008)
+      }
+    }
+
+    animate()
   }
 
-  setGrid() {
-    this.grid = new THREE.GridHelper(2000, 300, 0x000000, 0x000000)
-    this.grid.material.opacity = 0.3
-    this.grid.material.transparent = true
+  // setMesh() {
+  //   this.mesh = new THREE.Mesh(
+  //     new THREE.PlaneGeometry(1000, 1000),
+  //     new THREE.MeshPhongMaterial({ color: 0x1a1a1a, depthWrite: false })
+  //   )
+  //   this.mesh.rotation.x = -Math.PI / 2
+  //   this.mesh.receiveShadow = true
 
-    this.scene.add(this.grid)
-  }
+  //   this.scene.add(this.mesh)
+  // }
+
+  // setGrid() {
+  //   this.grid = new THREE.GridHelper(2000, 300, 0x000000, 0x000000)
+  //   this.grid.material.opacity = 0.3
+  //   this.grid.material.transparent = true
+
+  //   this.scene.add(this.grid)
+  // }
 
   setLight() {
     this.scene.add(this.light.dirLight)

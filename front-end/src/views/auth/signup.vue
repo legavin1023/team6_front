@@ -244,12 +244,12 @@ div.box {
     line-height: 1.2em;
   }
   .button {
-    border: 1px solid $main;
+    border: 3px solid $main;
     color: $sub2;
     border-radius: 20px;
     width: 95%;
     height: 40px;
-    line-height: 40px;
+    line-height: 35px;
     margin-top: 40px;
     transition-duration: 1s;
     background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <form @submit="checkInput" @submit.prevent="onSubmit">
+    <h1>Hello Signup</h1>
+    <div onsubmit="return false;" @submit.prevent="onSubmit">
+
       <div class="form-group">
         <span class="img">프로필 사진</span>
         <input
@@ -69,8 +71,8 @@
           placeholder="전화번호"
         />
       </div>
-      <button type="submit" @click="onSubmit">회원가입</button>
-    </form>
+      <input type="button" value="회원가입" @click="onSubmit" />
+    </div>
   </div>
 </template>
 
@@ -197,6 +199,7 @@ export default {
 
     // Sign button click
     onSubmit() {
+      // console.log(this.checkInput())
       if (this.checkInput() === false) {
         return false
       } else {

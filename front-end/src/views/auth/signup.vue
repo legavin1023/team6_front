@@ -195,9 +195,8 @@ export default {
 
     // Sign button click
     onSubmit() {
-      const checkInput = this.checkInput()
-
-      if (checkInput === false) {
+      // console.log(this.checkInput())
+      if (this.checkInput() === false) {
         return false
       } else {
         // 초기화

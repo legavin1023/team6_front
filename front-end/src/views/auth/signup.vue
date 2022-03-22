@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Hello Signup</h1>
-    <form @submit="checkInput" @submit.prevent="onSubmit">
+    <div onsubmit="return false;" @submit.prevent="onSubmit">
       <div class="form-group">
         <input
           id="userName"
@@ -67,8 +67,8 @@
           placeholder="전화번호"
         />
       </div>
-      <button type="submit" @click="onSubmit">회원가입</button>
-    </form>
+      <input type="button" value="회원가입" @click="onSubmit" />
+    </div>
   </div>
 </template>
 
@@ -195,7 +195,9 @@ export default {
 
     // Sign button click
     onSubmit() {
-      if (this.checkInput() === false) {
+      const checkInput = this.checkInput()
+
+      if (checkInput === false) {
         return false
       } else {
         // 초기화

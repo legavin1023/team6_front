@@ -32,6 +32,11 @@ const routes = [
     meta: { noLogin: true }
   },
   {
+    path: '/mypage',
+    component: () => import('../views/mypage'),
+    meta: { noLogin: true }
+  },
+  {
     path: '/auth',
     component: () => import('../views/auth'),
     children: [

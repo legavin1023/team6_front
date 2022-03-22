@@ -10,7 +10,7 @@
         <router-link to="/auth/login"><img src="@/assets/image/login.png" alt="로그인" /></router-link>
       </div>
       <div v-if="isLoggedin" class="nav_box">
-        <router-link to="/my-page" @click="onClick"
+        <router-link to="/mypage" @click="onClick"
           ><img src="@/assets/image/mypage.png" alt="마이페이지"
         /></router-link>
         <router-link to="/auth/logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></router-link>

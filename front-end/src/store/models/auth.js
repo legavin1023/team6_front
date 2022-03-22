@@ -22,6 +22,7 @@ export default {
   },
   mutations: {
     setTokenUser(state, data) {
+      console.log('token:', data)
       state.TokenUser = data
     },
     setTokenLoading(state, data) {
@@ -52,7 +53,7 @@ export default {
       api
         .post('/serverApi/auths/token', payload)
         .then(response => {
-          const token = response && response.headers && response.headers.token
+          const token = window.localStorage.getItem('token')
           const decodedToken = jwtDecode(token)
           console.log(token, decodedToken)
 
@@ -64,6 +65,8 @@ export default {
         .catch(error => {
           // 에러인 경우 처리
           // context.commit('setLoading', false)
+          console.log('에러:', error)
+          alert('아이디, 비밀번호를 확인해주세요.')
           context.commit('setError', error)
         })
     },

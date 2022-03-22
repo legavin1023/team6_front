@@ -123,7 +123,7 @@ export default {
       // 회원가입에 성공한 경우
       if (value === true) {
         alert('회원가입 되었습니다.')
-        this.$router.replace('/auth/login') // 히스토리 기록 안남음
+        this.$router.push('/auth/login').catch(() => true) // 히스토리 기록 안남음
       } else if (value === false) {
         alert('회원가입에 실패하였습니다.')
       }
@@ -200,6 +200,7 @@ export default {
       if (this.checkInput() === false) {
         return false
       } else {
+        console.log('들어가짐!')
         // 초기화
         this.$store.dispatch('actUserInit') // null 값으로 초기화
         // 등록

@@ -39,6 +39,7 @@ export default {
         .post('/serverApi/users', payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id
+          console.log(response)
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {

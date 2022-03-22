@@ -12,9 +12,9 @@ export default {
         labels: [1, 2, 3, 4, 5, 6],
         datasets: [
           {
-            label: 'Data One',
+            label: '주사위 갯수',
             backgroundColor: this.gradient,
-            data: [40, 20, 12, 39, 10, 40]
+            data: [30, 20, 12, 39, 22, 27]
           }
         ]
       },

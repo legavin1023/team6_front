@@ -5,8 +5,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('authLogout')
-    this.$router.push('/auth/login')
+    this.$store.dispatch('authLogout').then(this.$router.push('/auth/login').catch(() => true))
   }
 }
 </script>

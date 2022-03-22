@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app">
-      <Header />
+      <Header v-if="this.$route.meta.header !== false" />
       <!-- <edukit /> -->
     </div>
     <router-view />

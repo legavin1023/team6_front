@@ -9,12 +9,10 @@ const routes = [
   {
     path: '/',
     redirect: '/home',
-    // component: () => import('../views/auth/signup'),
-    component: () => import('../views/edukit'),
+    component: () => import('../views'),
     children: [
       {
         path: '/home',
-        // component: () => import('../views/auth/signup')
         component: () => import('../views/edukit')
       }
     ]
@@ -70,7 +68,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (noLogin === true) {
     // 로그인이 필요없는 페이지는 그냥 이동
-    return next()
+    next()
   } else {
     // 로그인이 필요한 페이지는 토큰 체크 후 통과 여부 결정
 
@@ -92,16 +90,15 @@ router.beforeEach(async (to, from, next) => {
         }
 
         // 2. 처리후 다음 라우터로 이동
-        return next()
+        next()
       } else {
         // 토큰이 만료된 경우
-
-        return next('/auth/login')
+        next('/auth/login')
         // 로그인 페이지로 이동 (로그인 페이지에서 토큰을 삭제한다.)
       }
     } catch (err) {
       // 토큰 추출이 실패한 경우에 대한 처리
-      return next('/auth/login')
+      next('/auth/login')
       //로그인 페이지로 이동
     }
   }

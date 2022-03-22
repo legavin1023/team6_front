@@ -197,7 +197,6 @@ export default {
 
     // Sign button click
     onSubmit() {
-      // console.log(this.checkInput())
       if (this.checkInput() === false) {
         return false
       } else {

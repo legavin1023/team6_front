@@ -54,10 +54,12 @@ export default {
         .then(response => {
           const token = response && response.headers && response.headers.token
           const decodedToken = jwtDecode(token)
+          console.log(token, decodedToken)
 
           // 정상인 경우 처리
           // context.commit('setLoading', false)
           context.commit('setTokenUser', decodedToken)
+          console.log('로그인 성공')
         })
         .catch(error => {
           // 에러인 경우 처리
@@ -73,10 +75,14 @@ export default {
       context.commit('clearError')
       // context.commit('setLoading', true)
 
-      setTimeout(() => {
+      try {
+        await api.delete('/serverApi/auths/token') // await를 걸지 않으면 토큰 삭제 후 전송될 수 있음
         context.commit('setLogout') // 로그아웃 처리
         window.localStorage.removeItem('token') // 토큰 삭제
-      }, 300)
+      } catch (err) {
+        context.commit('setLogout') // 로그아웃 처리
+        window.localStorage.removeItem('token') // 토큰 삭제
+      }
     },
 
     authTokenUser(context, payload) {

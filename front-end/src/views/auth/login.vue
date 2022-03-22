@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div onsubmit="return false;" @submit.prevent="onSubmit">
+    <div class="box" onsubmit="return false;" @submit.prevent="onSubmit">
       <div class="form-group">
+        <span class="img">프로필 사진</span>
         <input
           id="loginId"
           ref="loginId"
@@ -23,7 +24,7 @@
         />
         <p v-if="!loginPwState">비밀번호를 입력해주세요.</p>
       </div>
-      <input type="button" value="로그인" @click="onSubmit" />
+      <input class="button" type="button" value="로그인" @click="onSubmit" />
     </div>
   </div>
 </template>
@@ -102,4 +103,53 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+div.box {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 140px;
+  .img {
+    display: block;
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+    background: url('../../assets/image/hi.png') center/cover no-repeat;
+    text-indent: -9999px;
+    filter: invert(88%) sepia(14%) saturate(1356%) hue-rotate(199deg) brightness(99%) contrast(91%);
+  }
+  input {
+    width: 95%;
+    height: 35px;
+    line-height: 40px;
+    border: 1px solid $main;
+    color: $dark;
+    border-radius: 20px;
+    padding-left: 5%;
+    margin-top: 15px;
+    font-family: 'NEXON Lv2 Gothic';
+  }
+  p {
+    padding: 0 3%;
+    color: $main;
+    margin-top: 10px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+  .button {
+    border: 1px solid $main;
+    color: $sub2;
+    border-radius: 20px;
+    width: 95%;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 40px;
+    transition-duration: 1s;
+    background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+    cursor: pointer;
+  }
+  .button:hover {
+    background: rgba(136, 139, 191, 0.3);
+  }
+}
+</style>

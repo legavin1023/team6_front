@@ -36,6 +36,7 @@ div {
     background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
     a {
       color: $light;
+      font-family: 'NEXON Lv2 Gothic';
     }
   }
   button:hover {

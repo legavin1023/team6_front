@@ -252,6 +252,7 @@ form {
     margin-top: 40px;
     transition-duration: 1s;
     background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+    cursor: pointer;
   }
   button:hover {
     background: rgba(136, 139, 191, 0.3);

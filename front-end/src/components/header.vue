@@ -5,10 +5,8 @@
         <router-link to="/auth/sign"><img src="@/assets/image/signup.png" alt="회원가입" /></router-link>
         <router-link to="/auth/login"><img src="@/assets/image/login.png" alt="로그인" /></router-link>
       </div>
-      <div v-if="isLoggedin" class="nav_box">
-        <router-link to="/my-page" @click="onClick"
-          ><img src="@/assets/image/mypage.png" alt="마이페이지"
-        /></router-link>
+      <div v-if="isLoggedIn" class="nav_box">
+        <router-link to="/my-page"><img src="@/assets/image/mypage.png" alt="마이페이지" /></router-link>
         <router-link to="/auth/logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></router-link>
       </div>
       <div id="data">
@@ -22,7 +20,7 @@
 <script>
 export default {
   computed: {
-    isLoggedin() {
+    isLoggedIn() {
       let login = false
       // const test = this.$store.getters.TokenUser
       const token = window.localStorage.getItem('token')

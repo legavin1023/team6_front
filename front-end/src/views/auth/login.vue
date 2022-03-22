@@ -75,6 +75,7 @@ export default {
   },
   created() {
     const token = window.localStorage.getItem('token')
+    console.log(token)
 
     // 이미 토큰을 가지고 있는 경우
     if (token) {

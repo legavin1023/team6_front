@@ -75,14 +75,10 @@ export default {
       context.commit('clearError')
       // context.commit('setLoading', true)
 
-      try {
-        await api.delete('/serverApi/auths/token') // await를 걸지 않으면 토큰 삭제 후 전송될 수 있음
+      setTimeout(() => {
         context.commit('setLogout') // 로그아웃 처리
         window.localStorage.removeItem('token') // 토큰 삭제
-      } catch (err) {
-        context.commit('setLogout') // 로그아웃 처리
-        window.localStorage.removeItem('token') // 토큰 삭제
-      }
+      }, 300)
     },
 
     authTokenUser(context, payload) {

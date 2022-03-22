@@ -54,7 +54,7 @@ const routes = [
     // path: '*'는 not found route 처리를 위한 것으로 항상 routes 배열 최하단에 위치해 있어야 합니다.
     path: '*',
     component: () => import('../components/NotFound.vue'),
-    meta: { header: false }
+    meta: { header: false, noLogin: true }
   }
 ]
 

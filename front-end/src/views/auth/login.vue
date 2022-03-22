@@ -62,8 +62,8 @@ export default {
     tokenUser(value) {
       if (value && value.id && value.id !== null) {
         // 로그인이 완료된 상황
-        this.$router.replace('/home') // 메인 페이지 이동
-        this.$router.go() // 새로고침
+        this.$router.push('/home') // 메인 페이지 이동
+        // this.$router.go() // 새로고침
       }
     },
     error(errValue) {

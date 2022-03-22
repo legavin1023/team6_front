@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Hello Signup</h1>
     <form @submit="checkInput" @submit.prevent="onSubmit">
       <div class="form-group">
+        <span class="img">프로필 사진</span>
         <input
           id="userName"
           ref="userName"
@@ -33,7 +33,8 @@
           type="text"
           placeholder="아이디"
         />
-        <p v-if="!userIdState">아이디는 영문 대소문자와 숫자 5-12자리로 입력해야 합니다.</p>
+        <!-- <p v-if="!userIdState">아이디는 영문 대소문자와 숫자 5-12자리로 입력해야 합니다.</p> -->
+        <p v-if="!userIdState">영문 대소문자와 숫자 5-12자리.</p>
       </div>
       <div class="form-group">
         <input
@@ -44,7 +45,8 @@
           type="password"
           placeholder="비밀번호"
         />
-        <p v-if="!userPwState">비밀번호는 영문 대소문자, 숫자, 특수문자 8-20자리로 입력해야 합니다.</p>
+        <!-- <p v-if="!userPwState">비밀번호는 영문 대소문자, 숫자, 특수문자 8-20자리로 입력해야 합니다.</p> -->
+        <p v-if="!userPwState">영문 대소문자, 숫자, 특수문자 8-20자리</p>
       </div>
       <div class="form-group">
         <input
@@ -208,4 +210,51 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 40px;
+  .img {
+    display: block;
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+    background: url('../../assets/image/hi.png') center/cover no-repeat;
+    text-indent: -9999px;
+    filter: invert(88%) sepia(14%) saturate(1356%) hue-rotate(199deg) brightness(99%) contrast(91%);
+  }
+  input {
+    width: 95%;
+    height: 35px;
+    line-height: 40px;
+    border: 1px solid $main;
+    color: $dark;
+    border-radius: 20px;
+    padding-left: 5%;
+    margin-top: 15px;
+  }
+  p {
+    padding: 0 3%;
+    color: $main;
+    margin-top: 10px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+  button {
+    border: 1px solid $main;
+    color: $sub2;
+    border-radius: 20px;
+    width: 95%;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 40px;
+    transition-duration: 1s;
+    background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+  }
+  button:hover {
+    background: rgba(136, 139, 191, 0.3);
+  }
+}
+</style>

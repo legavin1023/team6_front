@@ -47,6 +47,7 @@ export default {
     background: url('../../assets/image/x.png') center/cover no-repeat;
     margin: auto;
     position: relative;
+    cursor: pointer;
     left: 115px;
   }
 
@@ -62,10 +63,10 @@ export default {
     margin-top: 20px;
   }
   button {
-    border: 1px solid $main;
+    border: 3px solid $main;
     border-radius: 20px;
     padding: 10px 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     color: $main;
     cursor: pointer;
     font-weight: bold;

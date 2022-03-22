@@ -45,11 +45,18 @@ class Scene {
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
     // Materials
+    const material = new THREE.PointsMaterial()
+    material.size = (Math.random() - 0.02) * (Math.random() * 5)
+    // material.transparent = true
+    material.sizeAttenuation = true
 
-    const material = new THREE.PointsMaterial({
-      // 파티클 입자 설정
-      size: 0.005
-    })
+    // color
+    material.color = new THREE.Color('0xFFFFFF')
+
+    // Textures
+    const textureLoader = new THREE.TextureLoader()
+    const particleTexture = textureLoader.load('../../assets/image/particle.png')
+    material.map = particleTexture
 
     // Mesh
     const particlesMesh = new THREE.Points(particlesGeometry, material)

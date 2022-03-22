@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="main box">
     <div class="text_box">
       <div>
         <p>3호기 x 좌표값 : {{}}</p>
@@ -18,16 +18,39 @@
         <p>{{}}</p>
       </div>
     </div>
-    <div class="line_chart"></div>
+    <div class="line_chart"><AreaChart style="height: 280px; width: 980px" /></div>
     <div class="chart_box">
-      <div class="donut_chart"></div>
-      <div class="bar_chart"></div>
+      <div class="donut_chart">
+        <PieChart_1 style="height: 160px; width: 245px" /><PieChart_2 style="height: 160px; width: 245px" />
+      </div>
+      <div class="bar_chart"><BarChart style="height: 190px; width: 470px" /></div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import AreaChart from './AreaChart.vue'
+import PieChart_1 from './PieChart_1.vue'
+import PieChart_2 from './PieChart_2.vue'
+import BarChart from './BarChart.vue'
+
+export default {
+  name: 'App',
+  components: {
+    AreaChart,
+    PieChart_1,
+    PieChart_2,
+    BarChart
+  },
+  data() {
+    return {
+      chartData: {
+        Books: 24,
+        Magazine: 30
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -41,10 +64,10 @@ export default {}
     margin-top: 2.5%;
     > div {
       display: inline-block;
-      border: 3px solid $sub2;
-      color: $sub2;
+      border: 3px solid $sub3;
+      color: $light;
       width: 230px;
-      background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #000000 100%);
+      background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
       height: 80px;
       transition-duration: 1s;
       text-align: center;
@@ -62,27 +85,36 @@ export default {}
     }
   }
   .line_chart {
-    background: $main;
+    border: 3px solid $sub3;
     width: 1000px;
     height: 300px;
     margin-left: -20px;
     margin-top: 20px;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
   }
   .chart_box {
     width: 1000px;
     margin-left: -20px;
     margin-top: 20px;
     display: flex;
+    justify-content: center;
     .donut_chart,
     .bar_chart {
+      display: flex;
+      justify-content: center;
       width: 490px;
-      border: 3px solid $sub2;
+      border: 3px solid $sub3;
       border-radius: 20px;
       height: 200px;
     }
     .donut_chart {
+      display: flex;
+      justify-content: center;
       margin-right: 20px;
+      display: flex;
+      padding-top: 10px;
     }
   }
 }

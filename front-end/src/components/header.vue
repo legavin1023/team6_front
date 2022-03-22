@@ -1,12 +1,12 @@
 <template>
   <div>
     <div id="nav">
-      <div v-if="!isLoggedin" class="nav_box">
+      <div v-if="!token" class="nav_box">
         <router-link to="/auth/sign"><img src="@/assets/image/signup.png" alt="회원가입" /></router-link>
         <router-link to="/auth/login"><img src="@/assets/image/login.png" alt="로그인" /></router-link>
       </div>
-      <div v-if="isLoggedIn" class="nav_box">
-        <router-link to="/my-page"><img src="@/assets/image/mypage.png" alt="마이페이지" /></router-link>
+      <div v-if="token" class="nav_box">
+        <router-link to="/mypage"><img src="@/assets/image/mypage.png" alt="마이페이지" /></router-link>
         <router-link to="/auth/logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></router-link>
       </div>
       <div id="data">
@@ -20,17 +20,20 @@
 <script>
 export default {
   computed: {
-    isLoggedIn() {
-      let login = false
-      // const test = this.$store.getters.TokenUser
-      const token = window.localStorage.getItem('token')
-
-      if (token) {
-        // 로컬스토리지에 토큰 존재여부 확인
-        login = true
+    token() {
+      return window.localStorage.getItem('token')
+    }
+  },
+  watch: {
+    token(value) {
+      if (value && value.id && value.id !== null) {
+        // 로그인이 완료된 상황
+        console.log('login')
+        this.login = true
+      } else {
+        console.log('not login')
+        this.login = false
       }
-
-      return login
     }
   }
 }

@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1>Hello Signup</h1>
-    <div onsubmit="return false;" @submit.prevent="onSubmit">
-
+    <div class="box" onsubmit="return false;" @submit.prevent="onSubmit">
       <div class="form-group">
         <span class="img">프로필 사진</span>
         <input
@@ -71,7 +70,7 @@
           placeholder="전화번호"
         />
       </div>
-      <input type="button" value="회원가입" @click="onSubmit" />
+      <input class="button" type="button" value="회원가입" @click="onSubmit" />
     </div>
   </div>
 </template>
@@ -214,7 +213,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+div.box {
   width: 300px;
   margin: 0 auto;
   text-align: center;
@@ -245,7 +244,7 @@ form {
     font-size: 0.9em;
     line-height: 1.2em;
   }
-  button {
+  .button {
     border: 1px solid $main;
     color: $sub2;
     border-radius: 20px;
@@ -255,8 +254,9 @@ form {
     margin-top: 40px;
     transition-duration: 1s;
     background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+    cursor: pointer;
   }
-  button:hover {
+  .button:hover {
     background: rgba(136, 139, 191, 0.3);
   }
 }

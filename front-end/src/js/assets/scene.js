@@ -46,7 +46,7 @@ class Scene {
 
     // Materials
     const material = new THREE.PointsMaterial()
-    material.size = (Math.random() - 0.02) * (Math.random() * 5)
+    material.size = Math.random() * 5
     // material.transparent = true
     material.sizeAttenuation = true
 

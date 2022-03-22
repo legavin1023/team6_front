@@ -60,9 +60,9 @@ export default {
   },
   watch: {
     tokenUser(value) {
-      if (value && value.id && value.id !== null) {
+      if (value && value.id && value.id > 0) {
         // 로그인이 완료된 상황
-        this.$router.push('/home') // 메인 페이지 이동
+        this.$router.push('/home').catch() // 메인 페이지 이동
         // this.$router.go() // 새로고침
       }
     },
@@ -75,7 +75,6 @@ export default {
   },
   created() {
     const token = window.localStorage.getItem('token')
-    console.log(token)
 
     // 이미 토큰을 가지고 있는 경우
     if (token) {

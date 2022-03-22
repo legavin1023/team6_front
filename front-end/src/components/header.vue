@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="nav">
-      <div v-if="!isLoggedin" class="nav_box">
+      <div v-if="!isLoggedIn" class="nav_box">
         <router-link to="/auth/sign"><img src="@/assets/image/signup.png" alt="회원가입" /></router-link>
         <router-link to="/auth/login"><img src="@/assets/image/login.png" alt="로그인" /></router-link>
       </div>
@@ -21,16 +21,17 @@
 export default {
   computed: {
     isLoggedIn() {
-      let login = false
-      // const test = this.$store.getters.TokenUser
-      const token = window.localStorage.getItem('token')
-
-      if (token) {
-        // 로컬스토리지에 토큰 존재여부 확인
-        login = true
+      return this.$store.getters.TokenUser
+    }
+  },
+  watch: {
+    isLoggedIn(value) {
+      if (value) {
+        console.log(value)
+        return true
+      } else {
+        return false
       }
-
-      return login
     }
   }
 }

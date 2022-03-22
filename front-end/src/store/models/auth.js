@@ -44,24 +44,24 @@ export default {
   },
   actions: {
     // 로그인 처리
-    actauthLogin(context, payload) {
+    actAuthLogin(context, payload) {
       // 상태값 초기화
       context.commit('clearError')
-      context.commit('setLoading', true)
+      // context.commit('setLoading', true)
 
       api
-        .post('/serverApi/auth', payload)
+        .post('/serverApi/auths/token', payload)
         .then(response => {
-          const token = response && response.data && response.data.accessToken
+          const token = response && response.headers && response.headers.token
           const decodedToken = jwtDecode(token)
 
           // 정상인 경우 처리
-          context.commit('setLoading', false)
+          // context.commit('setLoading', false)
           context.commit('setTokenUser', decodedToken)
         })
         .catch(error => {
           // 에러인 경우 처리
-          context.commit('setLoading', false)
+          // context.commit('setLoading', false)
           context.commit('setError', error)
         })
     },
@@ -71,11 +71,11 @@ export default {
 
       // 상태값 초기화
       context.commit('clearError')
-      context.commit('setLoading', true)
+      // context.commit('setLoading', true)
 
       setTimeout(() => {
         context.commit('setLogout') // 로그아웃 처리
-        window.localStorage.removeItem('accessToken') // 토큰 삭제
+        window.localStorage.removeItem('token') // 토큰 삭제
       }, 300)
     },
 

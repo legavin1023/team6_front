@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="app">
+      <Header />
       <!-- <edukit /> -->
     </div>
     <router-view />

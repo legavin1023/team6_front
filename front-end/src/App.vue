@@ -3,7 +3,6 @@
     <div id="app">
       <!-- <edukit /> -->
     </div>
-    <Header />
     <router-view />
   </div>
 </template>

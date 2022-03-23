@@ -1,6 +1,10 @@
 <template>
   <div id="edukit">
     <helloEdukit />
+    <span class="top">+y</span>
+    <span class="bottom">-y</span>
+    <span class="left">-x</span>
+    <span class="right">+x</span>
   </div>
 </template>
 
@@ -16,6 +20,62 @@ export default {
 </script>
 
 <style lang="scss">
+.top,
+.bottom,
+.left,
+.right {
+  z-index: 90;
+  position: fixed;
+  display: block;
+  z-index: 99;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  color: $light;
+  overflow: hidden;
+}
+.top {
+  left: 200px;
+  line-height: 90px;
+  bottom: 170px;
+  background: url('../../../src/assets/image/arrow.png') center/contain no-repeat;
+}
+.bottom {
+  line-height: 55px;
+  left: 200px;
+  bottom: 30px;
+}
+.left {
+  line-height: 70px;
+  text-indent: 10px;
+  left: 130px;
+  bottom: 100px;
+}
+.right {
+  line-height: 70px;
+  text-indent: -10px;
+  left: 270px;
+  bottom: 100px;
+}
+.bottom:before,
+.left:before,
+.right:before {
+  content: '';
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  left: 0px;
+  background: url('../../../src/assets/image/arrow.png') center/contain no-repeat;
+}
+.bottom:before {
+  transform: rotate(180deg);
+}
+.left:before {
+  transform: rotate(270deg);
+}
+.right:before {
+  transform: rotate(90deg);
+}
 #edukit {
   width: 100vw;
   height: 100vh;

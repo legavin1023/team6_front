@@ -208,7 +208,19 @@ export default {
   p {
     margin-top: 20px;
   }
+  input {
+    margin-top: 12px;
+    width: 80%;
+    border: 1px solid $main;
+    border-radius: 20px;
+    padding-left: 10px;
+  }
   button.btnmy {
+    position: absolute;
+    width: 120px;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -60px;
     border: 3px solid $main;
     border-radius: 20px;
     padding: 10px 20px;

@@ -7,9 +7,9 @@ import { Scene } from './assets/scene'
 import { Renderer } from './assets/renderer'
 import { Control } from './assets/control'
 import { Render } from './assets/render'
-// import { Event } from "./assets/event";
+import { Event } from './assets/event'
 
-// import { Gui } from "./plugins/gui"
+import { Gui } from './plugins/gui'
 
 export default async element => {
   element.style.width = 'window.innerWidth'
@@ -60,20 +60,20 @@ export default async element => {
     false
   )
 
-  // // Dat.GUI Setting
-  // let gui = new Gui(element);
-  // let options = {
-  //     "yAxis": -27,
-  //     "xAxis": -4375,
-  // }
-  // gui.addOptions(options);
-  // gui.addFolder("Example");
+  // Dat.GUI Setting
+  let gui = new Gui(element)
+  let options = {
+    yAxis: -27,
+    xAxis: -4375
+  }
+  gui.addOptions(options)
+  gui.addFolder('Example')
 
-  // gui.addExample("yAxis", -27, 1301828, scene.resource.edukit);
-  // gui.addExample("xAxis", -4375, 25021563, scene.resource.edukit);
+  gui.addExample('yAxis', -27, 1301828, scene.resource.edukit)
+  gui.addExample('xAxis', -4375, 25021563, scene.resource.edukit)
 
-  // // MQTT Event Setting
-  // new Event(element, scene.resource.edukit);
+  // MQTT Event Setting
+  new Event(element, scene.resource.edukit)
 
   return element
 }

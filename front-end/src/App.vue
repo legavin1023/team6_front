@@ -75,6 +75,7 @@ export default {
     }
   },
   watch: {
+    // token 확인 watch 입니다.
     token(value) {
       if (value && value.id && value.id !== null) {
         // 로그인이 완료된 상황 (토큰이 존재함)
@@ -87,8 +88,22 @@ export default {
         this.$router.push('/auth/login')
       }
     },
+
+    // 마이페이지 모달 관련 watch 입니다.
     infoData(value) {
       this.mypage = { ...value }
+    },
+    modifiedResult(value) {
+      // 수정 후 처리
+      if (value !== null) {
+        if (value > 0) {
+          // 수정이 성공한 경우
+          return
+        } else {
+          // 수정이 실패한 경우
+          alert('사용자 정보 수정이 실패하였습니다.')
+        }
+      }
     }
   },
   created() {

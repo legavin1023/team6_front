@@ -50,6 +50,23 @@ export default {
     // 회원가입 데이터 초기화
     actUserInit(context, payload) {
       context.commit('setUser', { ...stateInit.User })
+    },
+
+    // 사용자 상세정보 조회
+    actUserInfo(context, payload) {
+      // 상태값 초기화
+      context.commit('setUser', { ...stateInit.User })
+
+      api
+        .get(`/serverApi/users/${payload}`)
+        .then(response => {
+          const user = response && response.data
+          context.commit('setUser', user)
+        })
+        .catch(error => {
+          console.error('UserInfo.error', error)
+          context.commit('setUser', null)
+        })
     }
   }
 }

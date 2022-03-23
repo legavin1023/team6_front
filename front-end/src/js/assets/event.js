@@ -7,7 +7,7 @@ import mqtt from 'mqtt'
 class Event {
   constructor(element, edukit) {
     const eventElement = document.createElement('div')
-
+    eventElement.setAttribute('id', 'MQTT')
     const inputAddressElement = eventElement.appendChild(document.createElement('input'))
     inputAddressElement.placeholder = 'MQTT Host 입력'
 
@@ -23,9 +23,9 @@ class Event {
     const buttonElement = eventElement.appendChild(document.createElement('button'))
     buttonElement.innerText = 'Connect'
 
-    const statusElement = eventElement.appendChild(document.createElement('span'))
-    statusElement.innerText = '연결'
-    statusElement.style.color = 'red'
+    // const statusElement = eventElement.appendChild(document.createElement('span'))
+    // statusElement.innerText = '연결'
+    // statusElement.style.color = 'red'
 
     buttonElement.addEventListener('click', () => {
       let props = {
@@ -33,10 +33,10 @@ class Event {
         port: inputPortElement.value,
         path: inputPathElement.value,
         topic: inputTopicElement.value,
-        status: statusElement.style,
+        // status: statusElement.style,
         edukit: edukit
       }
-      statusElement.style.color = 'red'
+      // statusElement.style.color = 'red'
       if (this.client) this.client.end()
 
       this.setEvent(props)

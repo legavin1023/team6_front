@@ -9,14 +9,13 @@ const stateInit = {
     phone: null,
     email: null,
     auth: null
-  },
-  SignSuccess: null
+  }
 }
 
 export default {
   state: {
     User: { ...stateInit.User },
-    InsertedResult: stateInit.SignSuccess
+    InsertedResult: null
   },
   getters: {
     User: state => state.User,
@@ -39,7 +38,7 @@ export default {
         .post('/serverApi/users', payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id
-          console.log(response)
+          console.log(insertedResult)
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {

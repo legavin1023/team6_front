@@ -47,11 +47,8 @@ export default {
     tokenUser() {
       return this.$store.getters.TokenUser
     },
-    error() {
-      return this.$store.getters.Error
-    },
 
-    // 로그인 validation 위한 computed 입니다.
+    // 로그인 null값 확인 위한 computed 입니다.
     loginIdState() {
       return Boolean(this.userLogin.loginId)
     },
@@ -66,12 +63,6 @@ export default {
         this.$router.push('/home').catch(() => true) // 메인 페이지 이동
         // this.$router.go() // 새로고침
       }
-    },
-    error(errValue) {
-      if (errValue !== null) {
-        // 메시지 출력
-        alert('아이디, 비밀번호를 확인해주세요.')
-      }
     }
   },
   created() {
@@ -79,9 +70,9 @@ export default {
 
     // 이미 토큰을 가지고 있는 경우
     if (token) {
-      const decodedToken = jwtDecode(token)
-      const today = new Date()
-      const expDate = new Date(decodedToken.exp * 1000)
+      let decodedToken = jwtDecode(token)
+      let today = new Date()
+      let expDate = new Date(decodedToken.exp * 1000)
 
       if (expDate && expDate >= today) {
         // 이미 토큰을 가지고 있고 그 토큰이 유효한 경우
@@ -97,6 +88,7 @@ export default {
       if (this.loginIdState && this.loginPwState) {
         this.$store.dispatch('actAuthLogin', { ...this.userLogin })
       } else {
+        alert('아이디, 비밀번호를 입력해주세요.')
         return false
       }
     }

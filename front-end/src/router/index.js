@@ -89,7 +89,7 @@ router.beforeEach(async (to, from, next) => {
         next()
       } else {
         // 토큰이 만료된 경우
-        next('/auth/login')
+        return next('/auth/login')
         // 로그인 페이지로 이동 (로그인 페이지에서 토큰을 삭제한다.)
       }
     } catch (err) {

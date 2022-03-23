@@ -113,22 +113,9 @@ export default {
     },
     userPwCheckState() {
       return this.user.pwCheck === this.user.password
-    },
-    signResult() {
-      return this.$store.getters.UserInsertedResult
     }
   },
-  watch: {
-    signResult(value) {
-      // 회원가입에 성공한 경우
-      if (value === true) {
-        alert('회원가입 되었습니다.')
-        this.$router.replace('/auth/login') // 히스토리 기록 안남음
-      } else if (value === false) {
-        alert('회원가입에 실패하였습니다.')
-      }
-    }
-  },
+  watch: {},
   methods: {
     // 공란, 유효성 여부 확인
     checkInput() {
@@ -202,8 +189,8 @@ export default {
       } else {
         // 초기화
         this.$store.dispatch('actUserInit') // null 값으로 초기화
-        // 등록
-        this.$store.dispatch('actUserInsert', this.user)
+        // 등록 및 home 화면으로 이동
+        this.$store.dispatch('actUserInsert', this.user).then(this.$router.push('/home').catch(() => true))
       }
     }
   }

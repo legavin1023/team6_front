@@ -46,13 +46,15 @@ class Scene {
 
     // Textures
     const textureLoader = new THREE.TextureLoader()
-    const particleTexture = textureLoader.load('../../assets/image/particle.png')
+    const particleTexture = textureLoader.load(require('../../assets/image/particle.png'))
 
     // Materials
     const material = new THREE.PointsMaterial({
-      map: particleTexture
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.5
     })
-    material.size = Math.random() * 5
+    material.size = Math.random() * 50
     material.sizeAttenuation = true
 
     // color

@@ -54,7 +54,7 @@ class Scene {
       transparent: true,
       opacity: 0.5
     })
-    material.size = Math.random() * 50
+    material.size = Math.random() * 10
     material.sizeAttenuation = true
 
     // color

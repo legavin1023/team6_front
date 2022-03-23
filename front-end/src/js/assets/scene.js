@@ -119,8 +119,8 @@ class Scene {
 
       if (mouseX > 0) {
         // 마우스 좌표값에 따라 움직임
-        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00008)
-        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.00008)
+        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.000003)
+        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.000003)
       }
     }
 

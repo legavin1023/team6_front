@@ -24,7 +24,7 @@
       <span class="xbtn" @click="showModal = false">X</span>
       <span class="my">마이페이지</span>
       <div v-if="showMode === 'show'">
-        <p>{{ mypage.name }}</p>
+        <p class="name">{{ mypage.name }}</p>
         <p>{{ mypage.email }}</p>
         <p>{{ mypage.userid }}</p>
         <p>{{ mypage.phone }}</p>
@@ -127,7 +127,7 @@ export default {
 
 <style lang="scss">
 #nav {
-  z-index: 99;
+  z-index: 80;
   position: fixed;
   padding-left: 40px;
   // width: 135px;
@@ -185,6 +185,9 @@ export default {
   padding: 20px;
   background: $light;
   text-align: center;
+  .name {
+    font-weight: bold;
+  }
   .xbtn {
     display: block;
     text-indent: -9999px;
@@ -204,12 +207,14 @@ export default {
     height: 70px;
     background: url('assets/image/my.png') center/cover no-repeat;
     margin: auto;
+    margin-top: -30px;
   }
   p {
     margin-top: 20px;
   }
   input {
     margin-top: 12px;
+    height: 30px;
     width: 80%;
     border: 1px solid $main;
     border-radius: 20px;

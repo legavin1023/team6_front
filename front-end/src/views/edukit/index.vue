@@ -23,12 +23,9 @@ export default {
 }
 .dg {
   width: 190px;
-
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  bottom: 140px;
-  right: 142px;
+  position: fixed;
+  bottom: 270px;
+  right: 40px;
   color: $sub1;
   ul {
     border-radius: 20px;

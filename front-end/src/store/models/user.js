@@ -15,11 +15,16 @@ const stateInit = {
 export default {
   state: {
     User: { ...stateInit.User },
-    InsertedResult: null
+    InsertedResult: null,
+    ModifiedResult: null,
+    ShowMode: 'show'
   },
   getters: {
     User: state => state.User,
-    UserInsertedResult: state => state.InsertedResult
+    UserInsertedResult: state => state.InsertedResult,
+    UserModifiedResult: state => state.ModifiedResult,
+    UserShowMode: state => state.ShowMode
+    // 쇼잉모드 (show: 모달 사용자 정보 쇼잉, modify: 모달 사용자 정보 수정)
   },
   mutations: {
     setUser(state, data) {
@@ -27,6 +32,12 @@ export default {
     },
     setInsertedResult(state, data) {
       state.InsertedResult = data
+    },
+    setModifiedResult(state, data) {
+      state.ModifiedResult = data
+    },
+    setShowMode(state, data) {
+      state.ShowMode = data
     }
   },
   actions: {
@@ -52,6 +63,11 @@ export default {
       context.commit('setUser', { ...stateInit.User })
     },
 
+    // 쇼잉모드
+    actUserShowMode(context, payload) {
+      context.commit('setShowMode', payload)
+    },
+
     // 사용자 상세정보 조회
     actUserInfo(context, payload) {
       // 상태값 초기화
@@ -66,6 +82,23 @@ export default {
         .catch(error => {
           console.error('UserInfo.error', error)
           context.commit('setUser', null)
+        })
+    },
+
+    // 사용자 정보 수정
+    actUserModify(context, payload) {
+      // 상태값 최고하
+      context.commit('setModifiedResult', null)
+
+      api
+        .put(`/serverApi/users/${payload.id}`, payload)
+        .then(response => {
+          const modifiedResult = response && response.data && response.data.updatedCount
+          context.commit('setModifiedResult', modifiedResult)
+        })
+        .catch(error => {
+          console.error('UserModify.error', error)
+          context.commit('setModifiedResult', -1)
         })
     }
   }

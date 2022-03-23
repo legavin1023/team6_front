@@ -18,7 +18,7 @@ class Resource {
   setResource(file) {
     if (!file) {
       const geometry = new THREE.BoxGeometry(1, 1, 1)
-      const material = new THREE.MeshBasicMaterial({ color: 0x0a0ffa })
+      const material = new THREE.MeshBasicMaterial({ color: 0x888bbf })
       const cube = new THREE.Mesh(geometry, material)
 
       if (cube.isMesh) {

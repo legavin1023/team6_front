@@ -8,7 +8,7 @@
           <router-link to="/auth/login"><img src="@/assets/image/login.png" alt="로그인" /></router-link>
         </div>
         <div v-if="token" class="nav_box">
-          <a @click="showModal = true"><img src="@/assets/image/mypage.png" alt="마이페이지" /></a>
+          <a @click="clickModal"><img src="@/assets/image/mypage.png" alt="마이페이지" /></a>
           <a @click="logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></a>
         </div>
         <div id="data">
@@ -23,10 +23,10 @@
     <div v-if="showModal" class="white-bg">
       <span class="xbtn" @click="showModal = false">X</span>
       <span class="my">마이페이지</span>
-      <p>{{}}</p>
-      <p>{{}}</p>
-      <p>{{}}</p>
-      <p>{{}}</p>
+      <p>{{ mypage.name }}</p>
+      <p>{{ mypage.email }}</p>
+      <p>{{ mypage.userid }}</p>
+      <p>{{ mypage.phone }}</p>
       <button class="btnmy">수정하기</button>
     </div>
   </div>
@@ -36,12 +36,24 @@
 export default {
   data() {
     return {
-      showModal: false
+      showModal: false,
+      mypage: {
+        name: null,
+        email: null,
+        userid: null,
+        phone: null
+      }
     }
   },
   computed: {
     token() {
       return this.$store.getters['TokenUser']
+    },
+    tokenUserId() {
+      return this.$store.getters['TokenUser'] && this.$store.getters['TokenUser'].id
+    },
+    infoData() {
+      return this.$store.getters.User
     }
   },
   watch: {
@@ -55,16 +67,22 @@ export default {
         // console.log('not login')
         this.$router.push('/auth/login')
       }
+    },
+    infoData(value) {
+      this.mypage = { ...value }
     }
   },
+  created() {
+    this.$store.dispatch('actUserInfo', this.tokenUserId)
+    this.mypage = { ...this.infoData }
+  },
   methods: {
-    clickmodar: function (mymodal) {
-      if (mymodal == false) {
-        console.log('펄스')
-        this.mymodal = true
-      } else if (mymodal == true) {
-        console.log('트루')
-        this.mymodal = false
+    clickModal() {
+      console.log(this.showModal)
+      if (this.showModal === true) {
+        this.showModal = false
+      } else {
+        this.showModal = true
       }
     },
     logout() {

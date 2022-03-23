@@ -24,7 +24,7 @@ export default {
 .dg {
   width: 190px;
   position: fixed;
-  bottom: 270px;
+  bottom: 320px;
   right: 40px;
   color: $sub1;
   ul {
@@ -43,6 +43,13 @@ export default {
       }
       .c {
         padding-right: 10px;
+        .slider {
+          margin-left: -30px;
+        }
+        input[type='text'] {
+          width: 50px;
+          display: block;
+        }
       }
     }
   }
@@ -77,6 +84,16 @@ export default {
   }
   button:hover {
     background: rgba(136, 139, 191, 0.3);
+  }
+  .textOn {
+    border: 3px solid $main;
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 190px;
+    margin-top: 10px;
+    color: $main;
+    font-weight: bold;
+    text-align: center;
   }
 }
 </style>

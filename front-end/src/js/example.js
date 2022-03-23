@@ -67,7 +67,7 @@ export default async element => {
     xAxis: -4375
   }
   gui.addOptions(options)
-  gui.addFolder('Example')
+  gui.addFolder('에듀킷 3호기 제어')
 
   gui.addExample('yAxis', -27, 1301828, scene.resource.edukit)
   gui.addExample('xAxis', -4375, 25021563, scene.resource.edukit)

@@ -44,19 +44,46 @@ class Scene {
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
+    // Textures
+    const textureLoader = new THREE.TextureLoader()
+    const particleTexture = textureLoader.load(require('../../assets/image/particle.png'))
+
     // Materials
-    const material = new THREE.PointsMaterial()
-    material.size = Math.random() * 5
-    // material.transparent = true
+    const material = new THREE.PointsMaterial({
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.5
+    })
+    material.size = Math.random() * 10
     material.sizeAttenuation = true
 
     // color
-    material.color = new THREE.Color('0xFFFFFF')
+    // material.color = new THREE.Color('0xFFFFFF')
 
-    // Textures
-    const textureLoader = new THREE.TextureLoader()
-    const particleTexture = textureLoader.load('../../assets/image/particle.png')
-    material.map = particleTexture
+    // // Textures
+    // const textureLoader = new THREE.TextureLoader()
+    // const particleTexture = textureLoader.load('../../assets/image/particle.png')
+    // material.transparent = true
+    // material.alphaMap = particleTexture
+
+    // // Textures
+    // const textureLoader = new THREE.TextureLoader()
+
+    // // load a resource
+    // textureLoader.load(
+    //   '../../assets/image/particle.png',
+    //   function (texture) {
+    //     this.material.map = texture
+    //   },
+
+    //   // onProgress callback currently not supported
+    //   undefined,
+
+    //   // onError callback
+    //   function (err) {
+    //     console.error('particle texture error', err)
+    //   }
+    // )
 
     // Mesh
     const particlesMesh = new THREE.Points(particlesGeometry, material)
@@ -92,8 +119,8 @@ class Scene {
 
       if (mouseX > 0) {
         // 마우스 좌표값에 따라 움직임
-        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00008)
-        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.00008)
+        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.000003)
+        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.000003)
       }
     }
 

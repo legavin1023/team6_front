@@ -9,7 +9,7 @@
         </div>
         <div v-if="token" class="nav_box">
           <a @click="showModal = true"><img src="@/assets/image/mypage.png" alt="마이페이지" /></a>
-          <router-link to="/auth/logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></router-link>
+          <a @click="logout"><img src="@/assets/image/logout.png" alt="로그아웃" /></a>
         </div>
         <div id="data">
           <router-link to="/dashboard"><img src="@/assets/image/dashboard.png" alt="대시보드" /></router-link>
@@ -33,12 +33,7 @@
 </template>
 
 <script>
-// import header from './components/header.vue'
 export default {
-  name: 'App',
-  components: {
-    // Header: header,
-  },
   data() {
     return {
       showModal: false
@@ -46,18 +41,19 @@ export default {
   },
   computed: {
     token() {
-      return window.localStorage.getItem('token')
+      return this.$store.getters['TokenUser']
     }
   },
   watch: {
     token(value) {
       if (value && value.id && value.id !== null) {
-        // 로그인이 완료된 상황
-        console.log('login')
-        this.login = true
+        // 로그인이 완료된 상황 (토큰이 존재함)
+        return
+        // console.log('login')
       } else {
-        console.log('not login')
-        this.login = false
+        // 로그아웃 후 라우팅 처리 (토큰이 존재하지 않음)
+        // console.log('not login')
+        this.$router.push('/auth/login')
       }
     }
   },
@@ -70,6 +66,10 @@ export default {
         console.log('트루')
         this.mymodal = false
       }
+    },
+    logout() {
+      // 로그아웃 처리
+      this.$store.dispatch('authLogout')
     }
   }
 }

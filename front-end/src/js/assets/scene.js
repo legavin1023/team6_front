@@ -44,19 +44,44 @@ class Scene {
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
 
-    // Materials
-    const material = new THREE.PointsMaterial()
-    material.size = Math.random() * 5
-    // material.transparent = true
-    material.sizeAttenuation = true
-
-    // color
-    material.color = new THREE.Color('0xFFFFFF')
-
     // Textures
     const textureLoader = new THREE.TextureLoader()
     const particleTexture = textureLoader.load('../../assets/image/particle.png')
-    material.map = particleTexture
+
+    // Materials
+    const material = new THREE.PointsMaterial({
+      map: particleTexture
+    })
+    material.size = Math.random() * 5
+    material.sizeAttenuation = true
+
+    // color
+    // material.color = new THREE.Color('0xFFFFFF')
+
+    // // Textures
+    // const textureLoader = new THREE.TextureLoader()
+    // const particleTexture = textureLoader.load('../../assets/image/particle.png')
+    // material.transparent = true
+    // material.alphaMap = particleTexture
+
+    // // Textures
+    // const textureLoader = new THREE.TextureLoader()
+
+    // // load a resource
+    // textureLoader.load(
+    //   '../../assets/image/particle.png',
+    //   function (texture) {
+    //     this.material.map = texture
+    //   },
+
+    //   // onProgress callback currently not supported
+    //   undefined,
+
+    //   // onError callback
+    //   function (err) {
+    //     console.error('particle texture error', err)
+    //   }
+    // )
 
     // Mesh
     const particlesMesh = new THREE.Points(particlesGeometry, material)

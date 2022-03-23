@@ -19,8 +19,8 @@ export default {
         labels: ['양품', '불량'],
         datasets: [
           {
+            borderWidth: 1,
             borderColor: '#9e4fd4',
-            borderWidth: 0,
             backgroundColor: [this.gradient, this.gradient2],
             data: [92, 8]
           }

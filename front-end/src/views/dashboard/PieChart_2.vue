@@ -19,8 +19,8 @@ export default {
         labels: ['홀수', '짝수'],
         datasets: [
           {
+            borderWidth: 1,
             borderColor: '#9e4fd4',
-            borderWidth: 0,
             backgroundColor: [this.gradient, this.gradient2],
             data: [57, 43]
           }

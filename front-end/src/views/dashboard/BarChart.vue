@@ -14,7 +14,9 @@ export default {
           {
             label: '주사위 갯수',
             backgroundColor: this.gradient,
-            data: [30, 20, 12, 39, 22, 27]
+            data: [30, 20, 12, 39, 22, 27],
+            borderWidth: 1,
+            borderColor: '#9e4fd4'
           }
         ]
       },

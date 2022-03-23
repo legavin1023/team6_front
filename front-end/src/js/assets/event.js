@@ -26,8 +26,9 @@ class Event {
     const statusElement = eventElement.appendChild(document.createElement('span'))
     statusElement.setAttribute('class', 'textOn')
 
-    statusElement.innerText = '연결'
-    statusElement.style.color = '#FF0000'
+    statusElement.innerText = '연결 상태'
+    statusElement.style.color = '#888BBF'
+    statusElement.style.opacity = '0.3'
 
     buttonElement.addEventListener('click', () => {
       let props = {
@@ -40,6 +41,7 @@ class Event {
       }
       statusElement.style.color = '#FF0000'
       statusElement.style.border = '3px solid #FF0000'
+      statusElement.style.opacity = '1'
 
       if (this.client) this.client.end()
 
@@ -66,7 +68,8 @@ class Event {
     this.client.on('connect', () => {
       console.log('MQTT Connected')
       status.color = '#00ff00'
-
+      status.border = '3px solid #00ff00'
+      status.opacity = '1'
       this.client.subscribe([topic], () => {
         console.log(`토픽 연결 완료: ${topic}`)
       })

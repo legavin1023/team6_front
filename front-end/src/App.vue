@@ -23,11 +23,20 @@
     <div v-if="showModal" class="white-bg">
       <span class="xbtn" @click="showModal = false">X</span>
       <span class="my">마이페이지</span>
-      <p>{{ mypage.name }}</p>
-      <p>{{ mypage.email }}</p>
-      <p>{{ mypage.userid }}</p>
-      <p>{{ mypage.phone }}</p>
-      <button class="btnmy">수정하기</button>
+      <div v-if="showMode === 'show'">
+        <p>{{ mypage.name }}</p>
+        <p>{{ mypage.email }}</p>
+        <p>{{ mypage.userid }}</p>
+        <p>{{ mypage.phone }}</p>
+        <button class="btnmy" @click="onClickEdit">수정하기</button>
+      </div>
+      <div v-if="showMode === 'modify'">
+        <input v-model="mypage.name" type="text" />
+        <input v-model="mypage.email" type="text" />
+        <input v-model="mypage.userid" type="text" />
+        <input v-model="mypage.phone" type="text" />
+        <button class="btnmy" @click="onClickSubmit">저장하기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,14 +55,23 @@ export default {
     }
   },
   computed: {
+    // token 확인 computed 입니다.
     token() {
       return this.$store.getters['TokenUser']
     },
     tokenUserId() {
       return this.$store.getters['TokenUser'] && this.$store.getters['TokenUser'].id
     },
+
+    // 마이페이지 모달 관련 computed 입니다.
     infoData() {
       return this.$store.getters.User
+    },
+    showMode() {
+      return this.$store.getters.UserShowMode
+    },
+    modifiedResult() {
+      return this.$store.getters.UserModifiedResult
     }
   },
   watch: {
@@ -64,6 +82,7 @@ export default {
         // console.log('login')
       } else {
         // 로그아웃 후 라우팅 처리 (토큰이 존재하지 않음)
+        // 로그인 화면으로 이동시킨다.
         // console.log('not login')
         this.$router.push('/auth/login')
       }
@@ -73,10 +92,17 @@ export default {
     }
   },
   created() {
+    console.log(this.showMode)
     this.$store.dispatch('actUserInfo', this.tokenUserId)
     this.mypage = { ...this.infoData }
   },
   methods: {
+    // 로그아웃 처리
+    logout() {
+      this.$store.dispatch('authLogout')
+    },
+
+    // 마이페이지 모달 제어 method입니다.
     clickModal() {
       console.log(this.showModal)
       if (this.showModal === true) {
@@ -85,9 +111,15 @@ export default {
         this.showModal = true
       }
     },
-    logout() {
-      // 로그아웃 처리
-      this.$store.dispatch('authLogout')
+    onClickEdit() {
+      // 입력모드 '수정'으로 전환
+      this.$store.dispatch('actUserShowMode', 'modify')
+    },
+    onClickSubmit() {
+      // 사용자 정보 수정
+      this.$store.dispatch('actUserModify', this.mypage)
+      // 입력모드 '쇼잉'으로 전환
+      this.$store.dispatch('actUserShowMode', 'show')
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="modal == true" class="black-bg">
+  <div class="black-bg">
     <div class="white-bg">
       <span class="xbtn">X</span>
       <span class="my">마이페이지</span>
@@ -13,17 +13,13 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      modal: true
-    }
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
 .black-bg {
+  z-index: 30;
+  position: fixed;
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
@@ -44,7 +40,7 @@ export default {
     text-indent: -9999px;
     width: 30px;
     height: 30px;
-    background: url('../../assets/image/x.png') center/cover no-repeat;
+    background: url('../assets/image/x.png') center/cover no-repeat;
     margin: auto;
     position: relative;
     cursor: pointer;
@@ -56,7 +52,7 @@ export default {
     text-indent: -9999px;
     width: 70px;
     height: 70px;
-    background: url('../../assets/image/my.png') center/cover no-repeat;
+    background: url('../assets/image/my.png') center/cover no-repeat;
     margin: auto;
   }
   p {

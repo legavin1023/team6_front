@@ -70,6 +70,7 @@
         />
       </div>
       <input class="button" type="button" value="회원가입" @click="onSubmit" />
+      <router-link class="login" to="/auth/login">로그인 하러 가기</router-link>
     </div>
   </div>
 </template>
@@ -244,6 +245,15 @@ div.box {
   }
   .button:hover {
     background: rgba(136, 139, 191, 0.3);
+  }
+  .login {
+    display: block;
+    color: $main;
+    padding-top: 20px;
+    font-size: 0.9em;
+  }
+  .login:hover {
+    color: $light;
   }
 }
 </style>

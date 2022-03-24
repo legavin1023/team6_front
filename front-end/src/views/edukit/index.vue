@@ -24,24 +24,36 @@ export default {
       if (event.keyCode === 38) {
         this.isActiveT = true
         // console.log('위')
+        setTimeout(() => {
+          this.isActiveT = false
+        }, 1000)
       } else {
         this.isActiveT = false
       }
       if (event.keyCode === 40) {
         // console.log('아래')
         this.isActiveB = true
+        setTimeout(() => {
+          this.isActiveB = false
+        }, 1000)
       } else {
         this.isActiveB = false
       }
       if (event.keyCode === 37) {
         // console.log('왼')
         this.isActiveL = true
+        setTimeout(() => {
+          this.isActiveL = false
+        }, 1000)
       } else {
         this.isActiveL = false
       }
       if (event.keyCode === 39) {
         // console.log('오')
         this.isActiveR = true
+        setTimeout(() => {
+          this.isActiveR = false
+        }, 1000)
       } else {
         this.isActiveR = false
       }
@@ -109,7 +121,16 @@ export default {
   transform: rotate(90deg);
 }
 .up {
-  opacity: 1;
+  animation-name: upup;
+  animation-duration: 1s;
+}
+@keyframes upup {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
 }
 #edukit {
   width: 100vw;

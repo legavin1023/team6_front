@@ -10,7 +10,7 @@ import { Render } from './assets/render'
 import { Event } from './assets/event'
 import * as THREE from 'three'
 
-import { Interaction } from 'three.interaction'
+// import { Interaction } from 'three.interaction'
 
 import { Gui } from './plugins/gui'
 
@@ -153,13 +153,14 @@ export default async element => {
 
   // 1번째 방식
   renderer.domElement.addEventListener('click', onclick, true)
-  var selectedObject = sceneElement
-  var raycaster = new THREE.Raycaster()
+  let selectedObject
+  const raycaster = new THREE.Raycaster()
   function onclick(event) {
     // alert('onclick')
-    var mouse = new THREE.Vector2()
+    console.log('click', event)
+    const mouse = new THREE.Vector2()
     raycaster.setFromCamera(mouse, cameraElement)
-    var intersects = raycaster.intersectObjects(sceneElement, true) //array
+    const intersects = raycaster.intersectObjects(scene.resource.obj, true) //array
     if (intersects.length > 0) {
       selectedObject = intersects[0]
       alert(selectedObject)

@@ -100,7 +100,7 @@ class Scene {
       const elapsedTime = clock.getElapsedTime()
       // 경과 시간 (Update objects)
 
-      particlesMesh.rotation.y = -1 * (elapsedTime * 0.01)
+      particlesMesh.rotation.y = -1 * 0.01
       // 파티클이 경과 시간마다 음의 방향으로 이동
 
       if (mouseX > 0) {

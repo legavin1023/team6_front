@@ -110,6 +110,8 @@ export default {
     console.log(this.showMode)
     this.$store.dispatch('actUserInfo', this.tokenUserId)
     this.mypage = { ...this.infoData }
+
+    window.addEventListener('keyup', this.keyup)
   },
   methods: {
     // 로그아웃 처리
@@ -135,6 +137,10 @@ export default {
       this.$store.dispatch('actUserModify', this.mypage)
       // 입력모드 '쇼잉'으로 전환
       this.$store.dispatch('actUserShowMode', 'show')
+    },
+
+    keyup() {
+      console.log('key up!')
     }
   }
 }

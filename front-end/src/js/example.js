@@ -10,11 +10,11 @@ import { Render } from './assets/render'
 import { Event } from './assets/event'
 import * as THREE from 'three'
 
-// import { Interaction } from 'three.interaction'
+import { Interaction } from 'three.interaction'
 
 import { Gui } from './plugins/gui'
 
-// three.interaction 방식
+// // three.interaction 방식
 // // new a interaction, then you can add interaction-event with your free style
 // const interaction = new Interaction(this.renderer, this.scene, this.camera)
 
@@ -148,6 +148,23 @@ export default async element => {
   render.edukit = scene.resource.edukit
   render.camera = cameraElement
   render.renderer = rendererElement
+
+  /* raycaster 형식 클릭 이벤트 */
+
+  // 1번째 방식
+  renderer.domElement.addEventListener('click', onclick, true)
+  var selectedObject = sceneElement
+  var raycaster = new THREE.Raycaster()
+  function onclick(event) {
+    // alert('onclick')
+    var mouse = new THREE.Vector2()
+    raycaster.setFromCamera(mouse, cameraElement)
+    var intersects = raycaster.intersectObjects(sceneElement, true) //array
+    if (intersects.length > 0) {
+      selectedObject = intersects[0]
+      alert(selectedObject)
+    }
+  }
 
   // Rendering Start
   render.start()

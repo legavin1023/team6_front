@@ -13,8 +13,9 @@
         <p>3호기 가동 시작 : {{}}</p>
         <p>3호기 가동 종료 : {{}}</p>
       </div>
-      <div>
-        <p><span>시계아이콘</span>작동 시간</p>
+      <div class="clack">
+        <span>시계아이콘</span>
+        <p>작동 시간</p>
         <p>{{}}</p>
       </div>
     </div>
@@ -82,6 +83,20 @@ export default {
     p {
       position: relative;
       top: 10px;
+    }
+    .clack p {
+      position: relative;
+      top: -10px;
+    }
+    span {
+      display: block;
+      position: relative;
+      left: 40px;
+      top: 15px;
+      text-indent: -9999px;
+      width: 20px;
+      height: 20px;
+      background: url('../../assets/image/clock.png') center/cover no-repeat;
     }
   }
   .line_chart {

@@ -81,25 +81,25 @@ export default {
 .top {
   left: 200px;
   line-height: 90px;
-  bottom: 170px;
+  bottom: 180px;
   background: url('../../../src/assets/image/arrow.png') center/contain no-repeat;
 }
 .bottom {
   line-height: 55px;
   left: 200px;
-  bottom: 30px;
+  bottom: 40px;
 }
 .left {
   line-height: 70px;
   text-indent: 10px;
   left: 130px;
-  bottom: 100px;
+  bottom: 110px;
 }
 .right {
   line-height: 70px;
   text-indent: -10px;
   left: 270px;
-  bottom: 100px;
+  bottom: 110px;
 }
 .bottom:before,
 .left:before,

@@ -179,6 +179,7 @@ export default {
     }
   }
 }
+
 .black-bg {
   z-index: 95;
   position: fixed;
@@ -187,6 +188,7 @@ export default {
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
 }
+
 .white-bg {
   z-index: 98;
   position: fixed;
@@ -253,5 +255,35 @@ export default {
   button.btnmy:hover {
     background: rgba(136, 139, 191, 0.3);
   }
+}
+
+.black-bg {
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.white-bg {
+  animation-name: fadeinW;
+  animation-duration: 1s;
+}
+@keyframes fadeinW {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+  }
+}
+.xbtn:checked {
+  animation-name: fadeout;
 }
 </style>

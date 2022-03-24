@@ -53,7 +53,7 @@
     "resolve-url-loader": "^5.0.0",
     "vue-template-compiler": "^2.6.11"
   },
-  "description": "## Project setup ``` npm install ```",
+  "description": "## Project setup npm install ",
   "main": ".eslintrc.js",
   "author": "",
   "license": "ISC",

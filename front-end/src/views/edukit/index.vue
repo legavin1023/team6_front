@@ -1,10 +1,10 @@
 <template>
   <div id="edukit">
     <helloEdukit />
-    <span class="top">+y</span>
-    <span class="bottom">-y</span>
-    <span class="left">-x</span>
-    <span class="right">+x</span>
+    <span class="top" :class="{ up: isActiveT }">+y</span>
+    <span class="bottom" :class="{ up: isActiveB }" @keyup.down="kbottom">-y</span>
+    <span class="left" :class="{ up: isActiveL }" @keyup.left="kleft">-x</span>
+    <span class="right" :class="{ up: isActiveR }" @keyup.right="kright">+x</span>
   </div>
 </template>
 
@@ -15,6 +15,49 @@ export default {
   name: 'Edukit',
   components: {
     helloEdukit
+  },
+  data: function () {
+    return { isActiveT: false, isActiveB: false, isActiveL: false, isActiveR: false }
+  },
+  mounted() {
+    window.addEventListener('keyup', event => {
+      if (event.keyCode === 38) {
+        this.isActiveT = true
+        // console.log('위')
+        setTimeout(() => {
+          this.isActiveT = false
+        }, 1000)
+      } else {
+        this.isActiveT = false
+      }
+      if (event.keyCode === 40) {
+        // console.log('아래')
+        this.isActiveB = true
+        setTimeout(() => {
+          this.isActiveB = false
+        }, 1000)
+      } else {
+        this.isActiveB = false
+      }
+      if (event.keyCode === 37) {
+        // console.log('왼')
+        this.isActiveL = true
+        setTimeout(() => {
+          this.isActiveL = false
+        }, 1000)
+      } else {
+        this.isActiveL = false
+      }
+      if (event.keyCode === 39) {
+        // console.log('오')
+        this.isActiveR = true
+        setTimeout(() => {
+          this.isActiveR = false
+        }, 1000)
+      } else {
+        this.isActiveR = false
+      }
+    })
   }
 }
 </script>
@@ -33,6 +76,7 @@ export default {
   text-align: center;
   color: $light;
   overflow: hidden;
+  opacity: 0.3;
 }
 .top {
   left: 200px;
@@ -75,6 +119,18 @@ export default {
 }
 .right:before {
   transform: rotate(90deg);
+}
+.up {
+  animation-name: upup;
+  animation-duration: 1s;
+}
+@keyframes upup {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
 }
 #edukit {
   width: 100vw;

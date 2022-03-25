@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="this.$route.meta.header !== false" id="app">
+    <div v-if="this.$route.meta.header !== false">
       <!-- <Header v-if="this.$route.meta.header !== false" /> -->
       <div id="nav">
         <div v-if="!token" class="nav_box">
@@ -16,7 +16,6 @@
           <router-link to="/home"><img src="@/assets/image/edukit.png" alt="Edukit 제어" /></router-link>
         </div>
       </div>
-      <!-- <edukit /> -->
     </div>
     <router-view />
     <div v-if="showModal" class="black-bg" :class="{ closed: isActive }" @click="closed"></div>

@@ -10,8 +10,6 @@ import { Render } from './assets/render'
 import { Event } from './assets/event'
 import * as THREE from 'three'
 
-// import { Interaction } from 'three.interaction'
-
 import { Gui } from './plugins/gui'
 
 // // three.interaction 방식
@@ -153,14 +151,23 @@ export default async element => {
 
   // 1번째 방식
   renderer.domElement.addEventListener('click', onclick, true)
+  window.addEventListener('mousemove', onMouseMove, false)
+
   let selectedObject
   const raycaster = new THREE.Raycaster()
+  const mouse = new THREE.Vector2()
+  function onMouseMove(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = (event.clientY / window.innerHeight) * 2 + 1
+  }
   function onclick(event) {
     // alert('onclick')
     console.log('click', event)
-    const mouse = new THREE.Vector2()
+    console.log('mouse', mouse)
+    console.log('scene.resource.obj', scene.resource.obj.children)
+    let intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
     raycaster.setFromCamera(mouse, cameraElement)
-    const intersects = raycaster.intersectObjects(scene.resource.obj, true) //array
+    console.log('intersects', intersects)
     if (intersects.length > 0) {
       selectedObject = intersects[0]
       alert(selectedObject)
@@ -169,6 +176,15 @@ export default async element => {
 
   // Rendering Start
   render.start()
+
+  // // three.interaction 방식
+  // // new a interaction, then you can add interaction-event with your free style
+  // const interaction = new THREE.Interaction(renderer, scene, cameraElement)
+
+  // scene.resource.obj.children.cursor = 'pointer'
+  // scene.resource.obj.children.on('click', function (ev) {
+  //   console.log(ev, interaction)
+  // })
 
   // WebGL Context Lost Handling
   renderElement.addEventListener(

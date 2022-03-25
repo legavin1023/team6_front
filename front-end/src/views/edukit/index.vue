@@ -1,5 +1,6 @@
 <template>
   <div id="edukit">
+    <button class="stop">비상 정지</button>
     <helloEdukit />
     <span class="top" :class="{ up: isActiveT }">+y</span>
     <span class="bottom" :class="{ up: isActiveB }" @keyup.down="kbottom">-y</span>
@@ -63,6 +64,27 @@ export default {
 </script>
 
 <style lang="scss">
+.stop {
+  border: 3px solid rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+  display: block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 50px;
+  position: fixed;
+  z-index: 80;
+  right: 40px;
+  top: 40px;
+  transition-duration: 1s;
+  cursor: pointer;
+}
+.stop:hover {
+  border: 3px solid rgba(255, 0, 0, 1);
+  background: rgba(255, 0, 0, 0.5);
+  color: #fff;
+}
 .top,
 .bottom,
 .left,

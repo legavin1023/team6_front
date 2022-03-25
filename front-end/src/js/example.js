@@ -150,27 +150,39 @@ export default async element => {
   /* raycaster 형식 클릭 이벤트 */
 
   // 1번째 방식
-  renderer.domElement.addEventListener('click', onclick, true)
-  window.addEventListener('mousemove', onMouseMove, false)
+  document.addEventListener('click', onclick, true)
+  // window.addEventListener('mousemove', onMouseMove, false)
 
-  let selectedObject
+  let selectedObject = null
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
-  function onMouseMove(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = (event.clientY / window.innerHeight) * 2 + 1
-  }
+  // function onMouseMove(event) {
+  //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+  //   mouse.y = (event.clientY / window.innerHeight) * 2 + 1
+  // }
   function onclick(event) {
     // alert('onclick')
     console.log('click', event)
     console.log('mouse', mouse)
     console.log('scene.resource.obj', scene.resource.obj.children)
-    let intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
+    if (selectedObject) {
+      console.log('selectedObj', selectedObject)
+    }
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     raycaster.setFromCamera(mouse, cameraElement)
+    const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
     console.log('intersects', intersects)
     if (intersects.length > 0) {
-      selectedObject = intersects[0]
-      alert(selectedObject)
+      const res = intersects.filter(function (res) {
+        return res && res.object
+      })[0]
+      if (res && res.object) {
+        selectedObject = res.object
+        alert(selectedObject)
+      }
+      // selectedObject = intersects[0]
+      // alert(selectedObject)
     }
   }
 

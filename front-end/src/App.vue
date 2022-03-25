@@ -19,9 +19,9 @@
       <!-- <edukit /> -->
     </div>
     <router-view />
-    <div v-if="showModal" class="black-bg" @click="showModal = false"></div>
-    <div v-if="showModal" class="white-bg">
-      <span class="xbtn" @click="showModal = false">X</span>
+    <div v-if="showModal" class="black-bg" :class="{ closed: isActive }" @click="closed"></div>
+    <div v-if="showModal" class="white-bg" :class="{ closedW: isActive }">
+      <span class="xbtn" @click="closed">X</span>
       <span class="my">마이페이지</span>
       <div v-if="showMode === 'show'">
         <p class="name">{{ mypage.name }}</p>
@@ -45,6 +45,7 @@
 export default {
   data() {
     return {
+      isActive: false,
       showModal: false,
       mypage: {
         name: null,
@@ -112,6 +113,13 @@ export default {
     this.mypage = { ...this.infoData }
   },
   methods: {
+    closed() {
+      this.isActive = true
+      setTimeout(() => {
+        this.isActive = false
+        this.showModal = false
+      }, 1000)
+    },
     // 로그아웃 처리
     logout() {
       this.$store.dispatch('authLogout')
@@ -283,7 +291,28 @@ export default {
     opacity: 1;
   }
 }
-.xbtn:checked {
+.closed {
   animation-name: fadeout;
+}
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.closedW {
+  animation-name: fadeoutW;
+}
+@keyframes fadeoutW {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 </style>

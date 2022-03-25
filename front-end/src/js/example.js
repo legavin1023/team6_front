@@ -65,7 +65,7 @@ export default async element => {
       })[0]
       if (res && res.object) {
         selectedObject = res.object
-        alert(selectedObject.parent.name)
+        // alert(selectedObject.parent.name)
         if (selectedObject.parent.name == 'StaticMesh4') {
           alert('모델 찾았습니다')
         }

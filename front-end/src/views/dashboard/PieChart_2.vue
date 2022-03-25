@@ -1,8 +1,8 @@
 <script>
-import { Pie } from 'vue-chartjs'
+import { Doughnut } from 'vue-chartjs'
 
 export default {
-  extends: Pie,
+  extends: Doughnut,
   mounted() {
     this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
     this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)

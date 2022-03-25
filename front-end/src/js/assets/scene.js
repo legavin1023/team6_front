@@ -30,6 +30,20 @@ class Scene {
     this.scene.add(this.camera.camera)
   }
 
+  // // 오브젝트 클릭
+
+  // init() {
+  //   const pointer = new THREE.Vector2()
+  //   const raycaster = new THREE.Raycaster()
+
+  //   document.addEventListener('mousemove', onPointerMove)
+
+  //   function onPointerMove(event) {
+  //     pointer.x = (event.clientX / window.innerWidth) * 2 - 1
+  //     pointer.y = -(event.clientY / window.innerHeight) * 2 + 1
+  //   }
+  // }
+
   setParticle() {
     // 파티클 생성
     const particlesGeometry = new THREE.BufferGeometry()
@@ -56,34 +70,6 @@ class Scene {
     })
     material.size = Math.random() * 10
     material.sizeAttenuation = true
-
-    // color
-    // material.color = new THREE.Color('0xFFFFFF')
-
-    // // Textures
-    // const textureLoader = new THREE.TextureLoader()
-    // const particleTexture = textureLoader.load('../../assets/image/particle.png')
-    // material.transparent = true
-    // material.alphaMap = particleTexture
-
-    // // Textures
-    // const textureLoader = new THREE.TextureLoader()
-
-    // // load a resource
-    // textureLoader.load(
-    //   '../../assets/image/particle.png',
-    //   function (texture) {
-    //     this.material.map = texture
-    //   },
-
-    //   // onProgress callback currently not supported
-    //   undefined,
-
-    //   // onError callback
-    //   function (err) {
-    //     console.error('particle texture error', err)
-    //   }
-    // )
 
     // Mesh
     const particlesMesh = new THREE.Points(particlesGeometry, material)
@@ -114,7 +100,7 @@ class Scene {
       const elapsedTime = clock.getElapsedTime()
       // 경과 시간 (Update objects)
 
-      particlesMesh.rotation.y = -1 * (elapsedTime * 0.01)
+      particlesMesh.rotation.y = -1 * 0.01
       // 파티클이 경과 시간마다 음의 방향으로 이동
 
       if (mouseX > 0) {

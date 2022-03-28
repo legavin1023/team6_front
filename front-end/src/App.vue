@@ -13,7 +13,7 @@
         </div>
         <div id="data">
           <router-link to="/dashboard"><img src="@/assets/image/dashboard.png" alt="대시보드" /></router-link>
-          <router-link to="/home"><img src="@/assets/image/edukit.png" alt="Edukit 제어" /></router-link>
+          <router-link to="/home"><img src="@/assets/image/settings.png" alt="Edukit 제어" /></router-link>
         </div>
       </div>
     </div>
@@ -108,6 +108,8 @@ export default {
   },
   created() {
     console.log(this.showMode)
+  },
+  mounted() {
     this.$store.dispatch('actUserInfo', this.tokenUserId)
     this.mypage = { ...this.infoData }
   },

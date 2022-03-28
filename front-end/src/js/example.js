@@ -149,28 +149,50 @@ export default async element => {
 
   /* raycaster 형식 클릭 이벤트 */
 
-  // 1번째 방식
-  renderer.domElement.addEventListener('click', onclick, true)
-  window.addEventListener('mousemove', onMouseMove, false)
+  document.addEventListener('click', onclick, true)
 
-  let selectedObject
+  let selectedObject = null
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
-  function onMouseMove(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = (event.clientY / window.innerHeight) * 2 + 1
-  }
   function onclick(event) {
-    // alert('onclick')
-    console.log('click', event)
-    console.log('mouse', mouse)
-    console.log('scene.resource.obj', scene.resource.obj.children)
-    let intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     raycaster.setFromCamera(mouse, cameraElement)
-    console.log('intersects', intersects)
+    const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
+
+    // object define
+    const allObject = scene.resource.obj.children
+
+    if (!this.allSelectObject) {
+      for (let i = 1; i < 5; i++) {
+        allObject[i].children[0].material.forEach(element => {
+          element.emissive.setHex(0x000000)
+        })
+      }
+    }
+
     if (intersects.length > 0) {
-      selectedObject = intersects[0]
-      alert(selectedObject)
+      const res = intersects.filter(function (res) {
+        return res && res.object
+      })[0]
+      if (res && res.object) {
+        selectedObject = res.object
+        const allSelectObject =
+          selectedObject.parent.name == 'StaticMesh1' ||
+          selectedObject.parent.name == 'StaticMesh2' ||
+          selectedObject.parent.name == 'StaticMesh3' ||
+          selectedObject.parent.name == 'StaticMesh4'
+
+        if (allSelectObject) {
+          for (let i = 1; i < 5; i++) {
+            allObject[i].children[0].material.forEach(element => {
+              element.emissive.setHex(0xff0000)
+            })
+          }
+          alert('모델 찾았습니다')
+          return
+        }
+      }
     }
   }
 

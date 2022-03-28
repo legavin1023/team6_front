@@ -3,9 +3,9 @@
     <button class="stop">비상 정지</button>
     <helloEdukit />
     <span class="top" :class="{ up: isActiveT }">+y</span>
-    <span class="bottom" :class="{ up: isActiveB }" @keyup.down="kbottom">-y</span>
-    <span class="left" :class="{ up: isActiveL }" @keyup.left="kleft">-x</span>
-    <span class="right" :class="{ up: isActiveR }" @keyup.right="kright">+x</span>
+    <span class="bottom" :class="{ up: isActiveB }">-y</span>
+    <span class="left" :class="{ up: isActiveL }">-x</span>
+    <span class="right" :class="{ up: isActiveR }">+x</span>
   </div>
 </template>
 

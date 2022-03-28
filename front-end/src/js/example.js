@@ -84,7 +84,7 @@ export default async element => {
           //   selectedObject.parent.name == 'StaticMesh4'
           // ]
           selectedObject.material.forEach(element => {
-            element.emissive.setHex(0xff0000)
+            element.emissive.setHex(0x9e4fd4)
           })
           alert('모델 찾았습니다')
           return

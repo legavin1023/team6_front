@@ -92,21 +92,21 @@ class Scene {
      * Animate
      */
 
-    const clock = new THREE.Clock()
+    // const clock = new THREE.Clock()
 
     const animate = () => {
       window.requestAnimationFrame(animate)
 
-      const elapsedTime = clock.getElapsedTime()
-      // 경과 시간 (Update objects)
+      // const elapsedTime = clock.getElapsedTime()
+      // // 경과 시간 (Update objects)
 
       particlesMesh.rotation.y = -1 * 0.01
-      // 파티클이 경과 시간마다 음의 방향으로 이동
+      // 파티클이 음의 방향으로 이동
 
       if (mouseX > 0) {
         // 마우스 좌표값에 따라 움직임
-        particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.000003)
-        particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.000003)
+        particlesMesh.rotation.x = -mouseY * 0.00008
+        particlesMesh.rotation.y = -mouseX * 0.00008
       }
     }
 

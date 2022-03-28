@@ -47,45 +47,41 @@ export default async element => {
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
   function onclick(event) {
-    // alert('onclick')
-    // console.log('click', event)
-    // console.log('mouse', mouse)
-    // console.log('scene.resource.obj', scene.resource.obj.children)
-    if (selectedObject) {
-      // console.log('selectedObj', selectedObject)
-    }
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     raycaster.setFromCamera(mouse, cameraElement)
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
-    // console.log('intersects', intersects)
+
+    // object define
+    const allObject = scene.resource.obj.children
+
+    if (!this.allSelectObject) {
+      for (let i = 1; i < 5; i++) {
+        allObject[i].children[0].material.forEach(element => {
+          element.emissive.setHex(0x000000)
+        })
+      }
+    }
+
     if (intersects.length > 0) {
       const res = intersects.filter(function (res) {
         return res && res.object
       })[0]
       if (res && res.object) {
         selectedObject = res.object
-        // alert(selectedObject.parent.name)
-        if (
+        const allSelectObject =
           selectedObject.parent.name == 'StaticMesh1' ||
           selectedObject.parent.name == 'StaticMesh2' ||
           selectedObject.parent.name == 'StaticMesh3' ||
           selectedObject.parent.name == 'StaticMesh4'
-        ) {
-          // selectedParentObj = selectedObject.parent
 
-          console.log(selectedObject.material)
-          // console.log(selectedParentObj)
-          console.log(selectedObject)
-          // colorChangeObj = [
-          //   selectedObject.parent.name == 'StaticMesh1',
-          //   selectedObject.parent.name == 'StaticMesh2',
-          //   selectedObject.parent.name == 'StaticMesh3',
-          //   selectedObject.parent.name == 'StaticMesh4'
-          // ]
-          selectedObject.material.forEach(element => {
-            element.emissive.setHex(0x9e4fd4)
-          })
+
+        if (allSelectObject) {
+          for (let i = 1; i < 5; i++) {
+            allObject[i].children[0].material.forEach(element => {
+              element.emissive.setHex(0xff0000)
+            })
+          }
           alert('모델 찾았습니다')
           return
         }

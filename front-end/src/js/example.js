@@ -58,34 +58,33 @@ export default async element => {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     raycaster.setFromCamera(mouse, cameraElement)
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
-    // console.log('intersects', intersects)
+
+    // object define
+    const allObject = scene.resource.obj.children
+
     if (intersects.length > 0) {
       const res = intersects.filter(function (res) {
         return res && res.object
       })[0]
       if (res && res.object) {
         selectedObject = res.object
-        // alert(selectedObject.parent.name)
-        if (
+        const allSelectObject =
           selectedObject.parent.name == 'StaticMesh1' ||
           selectedObject.parent.name == 'StaticMesh2' ||
           selectedObject.parent.name == 'StaticMesh3' ||
           selectedObject.parent.name == 'StaticMesh4'
-        ) {
-          // selectedParentObj = selectedObject.parent
 
-          console.log(selectedObject.material)
-          // console.log(selectedParentObj)
-          console.log(selectedObject)
-          // colorChangeObj = [
-          //   selectedObject.parent.name == 'StaticMesh1',
-          //   selectedObject.parent.name == 'StaticMesh2',
-          //   selectedObject.parent.name == 'StaticMesh3',
-          //   selectedObject.parent.name == 'StaticMesh4'
-          // ]
-          selectedObject.material.forEach(element => {
-            element.emissive.setHex(0xff0000)
-          })
+        if (allSelectObject) {
+          // console.log(selectedObject.material)
+          // console.log(selectedObject)
+          // console.log('allObject', allObject)
+          // console.log('allObject.StaticMesh2.material', allObject[1].children)
+
+          for (let i = 1; i < 5; i++) {
+            allObject[i].children[0].material.forEach(element => {
+              element.emissive.setHex(0xff0000)
+            })
+          }
           alert('모델 찾았습니다')
           return
         }

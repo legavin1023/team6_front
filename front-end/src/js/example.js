@@ -66,8 +66,28 @@ export default async element => {
       if (res && res.object) {
         selectedObject = res.object
         // alert(selectedObject.parent.name)
-        if (selectedObject.parent.name == 'StaticMesh4') {
+        if (
+          selectedObject.parent.name == 'StaticMesh1' ||
+          selectedObject.parent.name == 'StaticMesh2' ||
+          selectedObject.parent.name == 'StaticMesh3' ||
+          selectedObject.parent.name == 'StaticMesh4'
+        ) {
+          // selectedParentObj = selectedObject.parent
+
+          console.log(selectedObject.material)
+          // console.log(selectedParentObj)
+          console.log(selectedObject)
+          // colorChangeObj = [
+          //   selectedObject.parent.name == 'StaticMesh1',
+          //   selectedObject.parent.name == 'StaticMesh2',
+          //   selectedObject.parent.name == 'StaticMesh3',
+          //   selectedObject.parent.name == 'StaticMesh4'
+          // ]
+          selectedObject.material.forEach(element => {
+            element.emissive.setHex(0xff0000)
+          })
           alert('모델 찾았습니다')
+          return
         }
       }
     }

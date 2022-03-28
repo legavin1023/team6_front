@@ -10,6 +10,7 @@
           aria-describedby="아이디"
           type="text"
           placeholder="아이디"
+          @keyup.enter="onSubmit"
         />
         <p v-if="!loginIdState">아이디를 입력해주세요.</p>
       </div>
@@ -21,6 +22,7 @@
           aria-describedby="비밀번호"
           type="password"
           placeholder="비밀번호"
+          @keyup.enter="onSubmit"
         />
         <p v-if="!loginPwState">비밀번호를 입력해주세요.</p>
       </div>

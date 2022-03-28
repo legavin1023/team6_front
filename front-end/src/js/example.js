@@ -75,6 +75,7 @@ export default async element => {
           selectedObject.parent.name == 'StaticMesh3' ||
           selectedObject.parent.name == 'StaticMesh4'
 
+
         if (allSelectObject) {
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {

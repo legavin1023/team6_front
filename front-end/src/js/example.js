@@ -47,13 +47,6 @@ export default async element => {
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
   function onclick(event) {
-    // alert('onclick')
-    // console.log('click', event)
-    // console.log('mouse', mouse)
-    // console.log('scene.resource.obj', scene.resource.obj.children)
-    if (selectedObject) {
-      // console.log('selectedObj', selectedObject)
-    }
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     raycaster.setFromCamera(mouse, cameraElement)
@@ -61,6 +54,14 @@ export default async element => {
 
     // object define
     const allObject = scene.resource.obj.children
+
+    if (!this.allSelectObject) {
+      for (let i = 1; i < 5; i++) {
+        allObject[i].children[0].material.forEach(element => {
+          element.emissive.setHex(0x000000)
+        })
+      }
+    }
 
     if (intersects.length > 0) {
       const res = intersects.filter(function (res) {
@@ -75,11 +76,6 @@ export default async element => {
           selectedObject.parent.name == 'StaticMesh4'
 
         if (allSelectObject) {
-          // console.log(selectedObject.material)
-          // console.log(selectedObject)
-          // console.log('allObject', allObject)
-          // console.log('allObject.StaticMesh2.material', allObject[1].children)
-
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {
               element.emissive.setHex(0xff0000)

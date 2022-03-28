@@ -109,6 +109,8 @@ export default {
   },
   created() {
     console.log(this.showMode)
+  },
+  mounted() {
     this.$store.dispatch('actUserInfo', this.tokenUserId)
     this.mypage = { ...this.infoData }
   },

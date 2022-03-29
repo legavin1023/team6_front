@@ -78,7 +78,7 @@ export default async element => {
         if (allSelectObject) {
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {
-              element.emissive.setHex(0xff0000)
+              element.emissive.setHex(0x9e4fd4)
             })
           }
           alert('모델 찾았습니다')

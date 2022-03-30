@@ -186,10 +186,43 @@ export default async element => {
         if (allSelectObject) {
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {
-              element.emissive.setHex(0xff0000)
+              element.emissive.setHex(0x9e4fd4)
             })
           }
-          alert('모델 찾았습니다')
+          console.log('모델 찾았습니다')
+
+          // 키 제어
+          document.onkeydown = function (e) {
+            if (e.keyCode === 40) {
+              // keyDown
+              // for (let i = 1; i < 5; i++) {
+              //   allObject[i].forEach(element => {
+              //     element.position.z -= 1
+              //   })
+              // }
+              // scene.resource.edukit.yAxis -= 1
+              allObject[1].position.y -= 1
+              allObject[2].position.y -= 1
+              allObject[3].position.y -= 1
+            } else if (e.keyCode == 38) {
+              // keyUp
+              // allSelectObject.position.y += 1
+              // allObject[1].position.y += 1
+              // allObject[2].position.y += 1
+              // allObject[3].position.y += 1
+              console.log(allSelectObject)
+            } else if (e.keyCode == 37) {
+              // keyLeft
+              allObject[1].rotation.z -= 1
+              // allObject[2].rotation.z -= 1
+              // allObject[3].rotation.z -= 1
+            } else if (e.keyCode == 39) {
+              // keyRight
+              allObject[1].rotation.z += 1
+              // allObject[2].rotation.z += 1
+              // allObject[3].rotation.z += 1
+            }
+          }
           return
         }
       }

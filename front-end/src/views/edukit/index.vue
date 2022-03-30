@@ -2,10 +2,12 @@
   <div id="edukit">
     <button class="stop">비상 정지</button>
     <helloEdukit />
-    <span class="top" :class="{ up: isActiveT }">+y</span>
-    <span class="bottom" :class="{ up: isActiveB }">-y</span>
-    <span class="left" :class="{ up: isActiveL }">-x</span>
-    <span class="right" :class="{ up: isActiveR }">+x</span>
+    <div>
+      <span class="top" :class="{ up: isActiveT }">+y</span>
+      <span class="bottom" :class="{ up: isActiveB }">-y</span>
+      <span class="left" :class="{ up: isActiveL }">-x</span>
+      <span class="right" :class="{ up: isActiveR }">+x</span>
+    </div>
   </div>
 </template>
 
@@ -18,7 +20,13 @@ export default {
     helloEdukit
   },
   data: function () {
-    return { isActiveT: false, isActiveB: false, isActiveL: false, isActiveR: false }
+    return {
+      isActiveT: false,
+      isActiveB: false,
+      isActiveL: false,
+      isActiveR: false,
+      controlArrow: ''
+    }
   },
   mounted() {
     window.addEventListener('keyup', event => {

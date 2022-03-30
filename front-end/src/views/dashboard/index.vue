@@ -55,25 +55,15 @@ import AreaChart from './AreaChart.vue'
 import PieChart_1 from './PieChart_1.vue'
 import PieChart_2 from './PieChart_2.vue'
 import PieChart_3 from './PieChart_3.vue'
-
 import BarChart from './BarChart.vue'
 
 export default {
-  name: 'App',
   components: {
     AreaChart,
     PieChart_1,
     PieChart_2,
     PieChart_3,
     BarChart
-  },
-  data() {
-    return {
-      chartData: {
-        Books: 24,
-        Magazine: 30
-      }
-    }
   }
 }
 </script>

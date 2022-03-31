@@ -2,10 +2,12 @@
   <div id="edukit">
     <button class="stop">비상 정지</button>
     <helloEdukit />
-    <span class="top" :class="{ up: isActiveT }">+y</span>
-    <span class="bottom" :class="{ up: isActiveB }">-y</span>
-    <span class="left" :class="{ up: isActiveL }">-x</span>
-    <span class="right" :class="{ up: isActiveR }">+x</span>
+    <div>
+      <!-- <span class="top" :class="{ up: isActiveT }">+y</span>
+      <span class="bottom" :class="{ up: isActiveB }">-y</span>
+      <span class="left" :class="{ up: isActiveL }">-x</span>
+      <span class="right" :class="{ up: isActiveR }">+x</span> -->
+    </div>
   </div>
 </template>
 
@@ -18,47 +20,52 @@ export default {
     helloEdukit
   },
   data: function () {
-    return { isActiveT: false, isActiveB: false, isActiveL: false, isActiveR: false }
+    return {
+      // isActiveT: false,
+      // isActiveB: false,
+      // isActiveL: false,
+      // isActiveR: false
+    }
   },
   mounted() {
-    window.addEventListener('keyup', event => {
-      if (event.keyCode === 38) {
-        this.isActiveT = true
-        // console.log('위')
-        setTimeout(() => {
-          this.isActiveT = false
-        }, 1000)
-      } else {
-        this.isActiveT = false
-      }
-      if (event.keyCode === 40) {
-        // console.log('아래')
-        this.isActiveB = true
-        setTimeout(() => {
-          this.isActiveB = false
-        }, 1000)
-      } else {
-        this.isActiveB = false
-      }
-      if (event.keyCode === 37) {
-        // console.log('왼')
-        this.isActiveL = true
-        setTimeout(() => {
-          this.isActiveL = false
-        }, 1000)
-      } else {
-        this.isActiveL = false
-      }
-      if (event.keyCode === 39) {
-        // console.log('오')
-        this.isActiveR = true
-        setTimeout(() => {
-          this.isActiveR = false
-        }, 1000)
-      } else {
-        this.isActiveR = false
-      }
-    })
+    // window.addEventListener('keyup', event => {
+    //   if (event.keyCode === 38) {
+    //     this.isActiveT = true
+    //     // console.log('위')
+    //     setTimeout(() => {
+    //       this.isActiveT = false
+    //     }, 1000)
+    //   } else {
+    //     this.isActiveT = false
+    //   }
+    //   if (event.keyCode === 40) {
+    //     // console.log('아래')
+    //     this.isActiveB = true
+    //     setTimeout(() => {
+    //       this.isActiveB = false
+    //     }, 1000)
+    //   } else {
+    //     this.isActiveB = false
+    //   }
+    //   if (event.keyCode === 37) {
+    //     // console.log('왼')
+    //     this.isActiveL = true
+    //     setTimeout(() => {
+    //       this.isActiveL = false
+    //     }, 1000)
+    //   } else {
+    //     this.isActiveL = false
+    //   }
+    //   if (event.keyCode === 39) {
+    //     // console.log('오')
+    //     this.isActiveR = true
+    //     setTimeout(() => {
+    //       this.isActiveR = false
+    //     }, 1000)
+    //   } else {
+    //     this.isActiveR = false
+    //   }
+    // })
   }
 }
 </script>

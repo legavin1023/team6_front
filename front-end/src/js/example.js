@@ -8,6 +8,7 @@ import { Renderer } from './assets/renderer'
 import { Control } from './assets/control'
 import { Render } from './assets/render'
 import { Event } from './assets/event'
+import store from '../store'
 import * as THREE from 'three'
 
 import { Gui } from './plugins/gui'
@@ -163,7 +164,9 @@ export default async element => {
     // object define
     const allObject = scene.resource.obj.children
 
+    // 3호기 클릭 해제 시
     if (!this.allSelectObject) {
+      // console.log('선택해제')
       for (let i = 1; i < 5; i++) {
         allObject[i].children[0].material.forEach(element => {
           element.emissive.setHex(0x000000)
@@ -172,6 +175,7 @@ export default async element => {
     }
 
     if (intersects.length > 0) {
+      // 3호기 클릭 시
       const res = intersects.filter(function (res) {
         return res && res.object
       })[0]
@@ -190,12 +194,17 @@ export default async element => {
             })
           }
           console.log('모델 찾았습니다')
+          // console.log(KeyShow.actions.actKeyShowMode('setKeyShowMode', 'true'))
+          let keyControlShow = store.getters.keyShowMode
+          console.log('keyControlShow before', keyControlShow)
+          keyControlShow = 'true'
+          console.log('keyControlShow after', keyControlShow)
 
           // 키 제어
           document.onkeydown = function (e) {
             if (e.keyCode === 40) {
               // keyDown
-              // for (let i = 1; i < 5; i++) {
+              // for (let i = 1; i < 4; i++) {
               //   allObject[i].forEach(element => {
               //     element.position.z -= 1
               //   })
@@ -206,11 +215,12 @@ export default async element => {
               allObject[3].position.y -= 1
             } else if (e.keyCode == 38) {
               // keyUp
+              // scene.resource.edukit.yAxis += 1
               // allSelectObject.position.y += 1
               // allObject[1].position.y += 1
               // allObject[2].position.y += 1
               // allObject[3].position.y += 1
-              console.log(allSelectObject)
+              // console.log(allSelectObject)
             } else if (e.keyCode == 37) {
               // keyLeft
               allObject[1].rotation.z -= 1

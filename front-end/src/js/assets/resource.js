@@ -140,6 +140,8 @@ class Resource {
         if (obj) this.obj.add(obj)
       })
 
+      // this.edukit.yAxis = -27
+      // this.edukit.xAxis = -4375
       this.edukit.yAxis = Event
       this.edukit.xAxis = Event
     }

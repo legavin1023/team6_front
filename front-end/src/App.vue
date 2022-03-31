@@ -108,11 +108,10 @@ export default {
   },
   created() {
     console.log(this.showMode)
-  },
-  mounted() {
     this.$store.dispatch('actUserInfo', this.tokenUserId)
     this.mypage = { ...this.infoData }
   },
+  mounted() {},
   methods: {
     closed() {
       this.isActive = true

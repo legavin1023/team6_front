@@ -5,6 +5,7 @@
 import { Group } from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import * as THREE from 'three'
+import { Event } from './event'
 
 class Resource {
   constructor(file) {
@@ -139,8 +140,10 @@ class Resource {
         if (obj) this.obj.add(obj)
       })
 
-      this.edukit.yAxis = -27
-      this.edukit.xAxis = -4375
+      // this.edukit.yAxis = -27
+      // this.edukit.xAxis = -4375
+      this.edukit.yAxis = Event
+      this.edukit.xAxis = Event
     }
   }
 

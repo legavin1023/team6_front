@@ -84,6 +84,8 @@ class Event {
         edukit['xAxis'] = data[1]
       })
     })
+    let smartConnectormessage = this.message
+    return smartConnectormessage
   }
 }
 

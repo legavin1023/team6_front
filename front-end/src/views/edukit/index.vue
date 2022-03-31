@@ -2,7 +2,7 @@
   <div id="edukit">
     <button class="stop">비상 정지</button>
     <helloEdukit />
-    <div>
+    <div v-if="showKeyControl">
       <span class="top" :class="{ up: isActiveT }">+y</span>
       <span class="bottom" :class="{ up: isActiveB }">-y</span>
       <span class="left" :class="{ up: isActiveL }">-x</span>
@@ -25,7 +25,19 @@ export default {
       isActiveB: false,
       isActiveL: false,
       isActiveR: false,
-      controlArrow: ''
+      showKeyControl: false
+    }
+  },
+  computed: {
+    keyShowMode() {
+      this.$store.getters.keyShowMode
+      return console.log('computed', this.$store.getters.keyShowMode)
+    }
+  },
+  watch: {
+    keyShowMode() {
+      this.$store.getters.keyShowMode
+      console.log('watch', this.$store.getters.keyShowMode)
     }
   },
   mounted() {

@@ -2,7 +2,7 @@
   <div class="main">
     <div class="text_box wrap">
       <div>
-        <p>1호기 x 좌표값 : {{}}</p>
+        <p>1호기 x 좌표값 : {{ mqttData }}</p>
         <p>2호기 x 좌표값 : {{}}</p>
       </div>
       <div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import mqtt from 'mqtt'
 import AreaChart from './AreaChart.vue'
 import PieChart_1 from './PieChart_1.vue'
 import PieChart_2 from './PieChart_2.vue'
@@ -64,6 +65,35 @@ export default {
     PieChart_2,
     PieChart_3,
     BarChart
+  },
+  data() {
+    return {
+      mqttData: null
+    }
+  },
+  created() {
+    this.createMqtt()
+  },
+  methods: {
+    createMqtt() {
+      // mqtt 연결
+      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+
+      mqttClient.on('connect', () => {
+        // mqtt 연결 시 구독한다.
+        const topic = 'UVC' // 구독할 토픽
+        mqttClient.subscribe(topic, {}, (error, res) => {
+          if (error) {
+            console.error('mqtt client error', error)
+          }
+        })
+      })
+
+      // 메세지 실시간 수신
+      mqttClient.on('message', (topic, message) => {
+        this.mqttData = JSON.parse(message) // json string으로만 받을 수 있음
+      })
+    }
   }
 }
 </script>

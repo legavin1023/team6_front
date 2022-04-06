@@ -80,11 +80,9 @@ export default {
       if (value && value.id && value.id !== null) {
         // 로그인이 완료된 상황 (토큰이 존재함)
         return
-        // console.log('login')
       } else {
         // 로그아웃 후 라우팅 처리 (토큰이 존재하지 않음)
         // 로그인 화면으로 이동시킨다.
-        // console.log('not login')
         this.$router.push('/auth/login')
       }
     },
@@ -106,12 +104,7 @@ export default {
       }
     }
   },
-  created() {
-    console.log(this.showMode)
-    this.$store.dispatch('actUserInfo', this.tokenUserId)
-    this.mypage = { ...this.infoData }
-  },
-  mounted() {},
+  created() {},
   methods: {
     closed() {
       this.isActive = true
@@ -127,11 +120,11 @@ export default {
 
     // 마이페이지 모달 제어 method입니다.
     clickModal() {
-      console.log(this.showModal)
       if (this.showModal === true) {
         this.showModal = false
       } else {
         this.showModal = true
+        this.searchInfoData()
       }
     },
     onClickEdit() {
@@ -143,6 +136,11 @@ export default {
       this.$store.dispatch('actUserModify', this.mypage)
       // 입력모드 '쇼잉'으로 전환
       this.$store.dispatch('actUserShowMode', 'show')
+      this.searchInfoData()
+    },
+    searchInfoData() {
+      this.$store.dispatch('actUserInfo', this.tokenUserId)
+      this.mypage = { ...this.infoData }
     }
   }
 }

@@ -13,7 +13,7 @@
         <p>인식한 상자 수</p>
         <p>{{}}</p>
       </div>
-      <div>
+      <div class="border">
         <p>내보낸 주사위 수</p>
         <p>{{}}</p>
       </div>
@@ -33,18 +33,27 @@
           <p>3호기 가동 시작 : {{}}</p>
           <p>3호기 가동 종료 : {{}}</p>
         </div>
-        <div class="clack">
+        <div class="clack border">
           <span>시계아이콘</span>
           <p>작동 시간</p>
           <p>{{}}</p>
         </div>
       </div>
-      <div class="line_chart"><AreaChart style="height: 260px; width: 980px" /></div>
+      <div class="line_chart pc"><AreaChart style="height: 260px; width: 980px" /></div>
+      <div class="line_chart movi"><AreaChart style="height: 260px; width: 320px" /></div>
+
       <div class="chart_box">
-        <div class="donut_chart">
+        <div class="donut_chart pc">
           <PieChart_1 style="height: 160px; width: 245px" /><PieChart_2 style="height: 160px; width: 245px" />
         </div>
-        <div class="bar_chart"><BarChart style="height: 190px; width: 470px" /></div>
+        <div class="donut_chart movi">
+          <PieChart_1 style="height: 160px; width: 245px" />
+        </div>
+        <div class="donut_chart movi">
+          <PieChart_2 style="height: 160px; width: 245px" />
+        </div>
+        <div class="bar_chart pc"><BarChart style="height: 190px; width: 470px" /></div>
+        <div class="bar_chart movi"><BarChart style="height: 190px; width: 320px" /></div>
       </div>
     </div>
   </div>
@@ -99,101 +108,159 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  display: flex;
-  justify-content: center;
+@media screen and (min-width: 481px) {
+  .main {
+    display: flex;
+    justify-content: center;
 
-  .box {
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .line_chart {
+      border: 3px solid $sub3;
+      width: 1000px;
+      height: 280px;
+      margin-left: -20px;
+      margin-top: 20px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .chart_box {
+      width: 1000px;
+      margin-left: -20px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .donut_chart,
+    .bar_chart {
+      display: flex;
+      justify-content: center;
+      width: 490px;
+      border: 3px solid $sub3;
+      border-radius: 20px;
+      height: 200px;
+    }
+    .donut_chart {
+      display: flex;
+      justify-content: center;
+      margin-right: 20px;
+      display: flex;
+      padding-top: 10px;
+    }
+    .text_box {
+      display: flex;
+      margin-top: 40px;
+      > div {
+        display: inline-block;
+        width: 235px;
+        border: 3px solid $sub3;
+        color: $light;
+        background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+        height: 80px;
+        transition-duration: 1s;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        margin-right: 20px;
+      }
+      > div:hover {
+        background: rgba(136, 139, 191, 0.3);
+      }
+      p {
+        position: relative;
+        top: 10px;
+      }
+      .clack p {
+        position: relative;
+        top: -10px;
+      }
+      span {
+        display: block;
+        position: relative;
+        left: 40px;
+        top: 15px;
+        text-indent: -9999px;
+        width: 20px;
+        height: 20px;
+        background: url('../../assets/image/clock.png') center/cover no-repeat;
+      }
+    }
+    .wrap {
+      flex-wrap: wrap;
+      flex-direction: column;
+      margin-top: 40px;
+      padding-left: 20px;
+      > div {
+        margin-bottom: 20px;
+      }
+      > div:last-child {
+        margin-bottom: 0px;
+        height: 200px;
+        background: none;
+      }
+    }
+  }
+  .movi {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main {
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .line_chart {
-    border: 3px solid $sub3;
-    width: 1000px;
-    height: 280px;
-    margin-left: -20px;
-    margin-top: 20px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    overflow-x: hidden;
+    .text_box {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      > div:not(.donut_chart) {
+        width: 100%;
+        line-height: 35px;
+        padding: 5px;
+        text-align: center;
+        border-top: 3px solid $sub3;
+        color: $light;
+        background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
+      }
+      .border {
+        border-bottom: 3px solid $sub3;
+      }
+      span {
+        display: block;
+        position: absolute;
+        left: 120px;
+        top: 920px;
+        text-indent: -9999px;
+        width: 20px;
+        height: 20px;
+        background: url('../../assets/image/clock.png') center/cover no-repeat;
+      }
+    }
   }
   .chart_box {
-    width: 1000px;
-    margin-left: -20px;
-    margin-top: 20px;
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
   }
   .donut_chart,
+  .line_chart,
   .bar_chart {
-    display: flex;
-    justify-content: center;
-    width: 490px;
-    border: 3px solid $sub3;
-    border-radius: 20px;
-    height: 200px;
+    margin: 30px auto;
   }
-  .donut_chart {
-    display: flex;
-    justify-content: center;
-    margin-right: 20px;
-    display: flex;
-    padding-top: 10px;
-  }
-  .text_box {
-    display: flex;
-    margin-top: 40px;
-    > div {
-      display: inline-block;
-      border: 3px solid $sub3;
-      color: $light;
-      width: 235px;
-      background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
-      height: 80px;
-      transition-duration: 1s;
-      text-align: center;
-      line-height: 30px;
-      border-radius: 20px;
-      font-size: 0.9em;
-      margin-right: 20px;
-    }
-    > div:hover {
-      background: rgba(136, 139, 191, 0.3);
-    }
-    p {
-      position: relative;
-      top: 10px;
-    }
-    .clack p {
-      position: relative;
-      top: -10px;
-    }
-    span {
-      display: block;
-      position: relative;
-      left: 40px;
-      top: 15px;
-      text-indent: -9999px;
-      width: 20px;
-      height: 20px;
-      background: url('../../assets/image/clock.png') center/cover no-repeat;
-    }
-  }
-  .wrap {
-    flex-wrap: wrap;
-    flex-direction: column;
-    margin-top: 40px;
-    padding-left: 20px;
-    > div {
-      margin-bottom: 20px;
-    }
-    > div:last-child {
-      margin-bottom: 0px;
-      height: 200px;
-      background: none;
-    }
+  .pc {
+    display: none;
   }
 }
 </style>

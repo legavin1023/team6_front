@@ -99,7 +99,7 @@ export default {
   position: fixed;
   z-index: 80;
   right: 40px;
-  top: 40px;
+  top: 60px;
   transition-duration: 1s;
   cursor: pointer;
 }

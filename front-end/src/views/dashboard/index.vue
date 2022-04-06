@@ -40,13 +40,9 @@
           <p>{{}}</p>
         </div>
       </div>
-<<<<<<< HEAD
-      <div class="line_chart">
-=======
 
       <div class="line_chart pc">
         <!-- <canvas ref="canvas" style="height: 260px; width: 980px"> -->
->>>>>>> 6868bcaa034c96712c1f5b171bcf1548f37d9d67
         <line-chart
           :key="lineChartKey"
           :chart-data="chart.chartData"

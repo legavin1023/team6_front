@@ -30,36 +30,65 @@ export default {
     }
   },
   created() {
-    this.createMqtt()
+    // this.publishMqtt()
   },
   mounted() {
-    window.addEventListener('keyup', event => {
+    let xAxis = null
+    let yAxis = null
+
+    window.addEventListener('keydown', event => {
+      let message = { yAxis: yAxis, xAxis: xAxis }
+      // 위 키보드 입력
       if (event.keyCode === 38) {
         this.isActiveT = true
+        yAxis += 1
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveT = false
         }, 1000)
       } else {
         this.isActiveT = false
       }
+
+      // 아래 키보드 입력
       if (event.keyCode === 40) {
         this.isActiveB = true
+        yAxis -= 1
+        if (yAxis < 0) {
+          yAxis = 0
+        }
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveB = false
         }, 1000)
       } else {
         this.isActiveB = false
       }
+
+      // 왼쪽 키보드 입력
       if (event.keyCode === 37) {
         this.isActiveL = true
+        xAxis -= 1
+        if (xAxis < 0) {
+          xAxis = 0
+        }
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveL = false
         }, 1000)
       } else {
         this.isActiveL = false
       }
+
+      // 오른쪽 키보드 입력
       if (event.keyCode === 39) {
         this.isActiveR = true
+        xAxis += 1
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveR = false
         }, 1000)
@@ -69,19 +98,19 @@ export default {
     })
   },
   methods: {
-    createMqtt() {
-      // mqtt 연결
+    publishMqtt(message) {
+      // mqtt pubish
       const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
       const topic = toString(process.env.MQTT_TOPIC)
+      message = JSON.stringify(message)
 
-      mqttClient.publish(topic, 'message', error => {
-        console.log('message')
+      mqttClient.publish(topic, message, error => {
+        console.log(message)
         if (error) {
           console.error('mqtt client error', error)
         }
       })
-    },
-    activeTop() {}
+    }
   }
 }
 </script>

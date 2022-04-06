@@ -147,45 +147,66 @@ export default {
 </script>
 
 <style lang="scss">
-#nav {
-  z-index: 80;
-  position: fixed;
-  padding-left: 40px;
-  // width: 135px;
-  // height: 100vh;
-  // background-color: rgba(31, 28, 59, 0.4);
-  a {
-    img {
-      cursor: pointer;
-      width: 30px;
-      height: 30px;
-    }
-  }
-  a:hover {
-    filter: invert(56%) sepia(53%) saturate(7244%) hue-rotate(250deg) brightness(87%) contrast(89%);
-  }
-  .nav_box {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+@media screen and (min-width: 481px) {
+  #nav {
+    z-index: 80;
     position: fixed;
-    top: 5%;
+    padding-left: 40px;
+    // width: 135px;
+    // height: 100vh;
+    // background-color: rgba(31, 28, 59, 0.4);
     a {
-      margin-bottom: 20px;
+      img {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+      }
     }
-  }
-  #data {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    position: fixed;
-    bottom: 5%;
-    a {
-      margin-top: 20px;
+    a:hover {
+      filter: invert(56%) sepia(53%) saturate(7244%) hue-rotate(250deg) brightness(87%) contrast(89%);
+    }
+    .nav_box {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 5%;
+      a {
+        margin-bottom: 20px;
+      }
+    }
+    #data {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      position: fixed;
+      bottom: 5%;
+      a {
+        margin-top: 20px;
+      }
     }
   }
 }
-
+@media screen and (max-width: 480px) {
+  #nav {
+    padding-top: 10px;
+    width: 100%;
+    height: 50px;
+    z-index: 80;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: #000;
+    a {
+      padding: 20px;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
 .black-bg {
   z-index: 95;
   position: fixed;

@@ -93,38 +93,64 @@ export default async element => {
           console.log('keyControlShow after', keyControlShow)
 
           // 키 제어
-          document.onkeydown = function (e) {
-            if (e.keyCode === 40) {
-              // keyDown
-              // for (let i = 1; i < 4; i++) {
-              //   allObject[i].forEach(element => {
-              //     element.position.z -= 1
-              //   })
-              // }
-              // scene.resource.edukit.yAxis -= 1
-              allObject[1].position.y -= 1
-              allObject[2].position.y -= 1
-              allObject[3].position.y -= 1
-            } else if (e.keyCode == 38) {
-              // keyUp
-              // scene.resource.edukit.yAxis += 1
-              // allSelectObject.position.y += 1
-              // allObject[1].position.y += 1
-              // allObject[2].position.y += 1
-              // allObject[3].position.y += 1
-              // console.log(allSelectObject)
-            } else if (e.keyCode == 37) {
-              // keyLeft
-              allObject[1].rotation.z -= 1
-              // allObject[2].rotation.z -= 1
-              // allObject[3].rotation.z -= 1
-            } else if (e.keyCode == 39) {
-              // keyRight
-              allObject[1].rotation.z += 1
-              // allObject[2].rotation.z += 1
-              // allObject[3].rotation.z += 1
-            }
-          }
+          document.addEventListener('keydown', function (event) {
+            let code = event.keyCode
+            if (code == 37) {
+              // scene.resource.edukit.xAxis -= 0.01
+              // console.log('왼쪽키 입력', scene.resource.edukit)
+              allObject[1].rotation.z -= 0.01
+            } // leftKey, -z
+            if (code == 39) {
+              allObject[1].rotation.z += 0.01
+            } // rightKey +z
+            if (code == 38) {
+              // scene.resource.edukit.yAxis += 0.01
+              // console.log('위에 키 입력', scene.resource.edukit)
+              for (let i = 1; i < 4; i++) {
+                allObject[i].position.y += 0.1
+              }
+            } // upKey +y
+            if (code == 40) {
+              for (let i = 1; i < 4; i++) {
+                allObject[i].position.y -= 0.1
+              }
+            } // downKey -y
+          })
+
+          // const LEFT = 37,
+          //   RIGHT = 39,
+          //   UP = 38,
+          //   DOWN = 40
+          // document.onkeydown = function (e) {
+          //   if (e.keyCode === DOWN) {
+          //     // keyDown
+          //     for (let i = 1; i < 4; i++) {
+          //       allObject[i].position.y -= 1
+          //     }
+          //     // scene.resource.edukit.yAxis -= 1
+          //     // allObject[1].position.y -= 1
+          //     // allObject[2].position.y -= 1
+          //     // allObject[3].position.y -= 1
+          //   } else if (e.keyCode == UP) {
+          //     // keyUp
+          //     render.edukit.yAxis += 1
+          //     console.log(scene.resource.edukit)
+          //     // scene.resource.obj.position.y += 1
+          //     // allObject[1].position.y += 1
+          //     // allObject[2].position.y += 1
+          //     // allObject[3].position.y += 1
+          //   } else if (e.keyCode == LEFT) {
+          //     // keyLeft
+          //     allObject[1].rotation.z -= 1
+          //     // allObject[2].rotation.z -= 1
+          //     // allObject[3].rotation.z -= 1
+          //   } else if (e.keyCode == RIGHT) {
+          //     // keyRight
+          //     allObject[1].rotation.z += 1
+          //     // allObject[2].rotation.z += 1
+          //     // allObject[3].rotation.z += 1
+          //   }
+          // }
           return
         }
       }

@@ -87,6 +87,7 @@ export default {
         // 로그인 화면으로 이동시킨다.
         // console.log('not login')
         this.$router.push('/auth/login')
+        this.$router.go()
       }
     },
 

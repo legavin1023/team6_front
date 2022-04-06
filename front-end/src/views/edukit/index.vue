@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import mqtt from 'mqtt'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -19,13 +20,17 @@ export default {
   components: {
     helloEdukit
   },
-  data: function () {
+  data() {
     return {
+      // 방향키 제어 관련 data들입니다.
       isActiveT: false,
       isActiveB: false,
       isActiveL: false,
       isActiveR: false
     }
+  },
+  created() {
+    this.createMqtt()
   },
   mounted() {
     window.addEventListener('keyup', event => {
@@ -64,6 +69,18 @@ export default {
     })
   },
   methods: {
+    createMqtt() {
+      // mqtt 연결
+      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+      const topic = toString(process.env.MQTT_TOPIC)
+
+      mqttClient.publish(topic, 'message', error => {
+        console.log('message')
+        if (error) {
+          console.error('mqtt client error', error)
+        }
+      })
+    },
     activeTop() {}
   }
 }

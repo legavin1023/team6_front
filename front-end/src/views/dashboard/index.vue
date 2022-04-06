@@ -40,15 +40,12 @@
         </div>
       </div>
       <div class="line_chart">
-        <!-- <canvas ref="canvas" style="height: 260px; width: 980px"> -->
         <line-chart
-          ref="lineChartRef"
           :key="lineChartKey"
           :chart-data="chart.chartData"
           :options="chart.options"
           style="height: 260px; width: 980px"
         />
-        <!-- </canvas> -->
       </div>
       <div class="chart_box">
         <div class="donut_chart">
@@ -209,7 +206,7 @@ export default {
 
       mqttClient.on('connect', () => {
         // mqtt 연결 시 구독한다.
-        const topic = 'UVC' // 구독할 토픽
+        const topic = toString(process.env.MQTT_TOPIC) // 구독할 토픽
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
             console.error('mqtt client error', error)

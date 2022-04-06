@@ -66,12 +66,13 @@
 
       <div class="chart_box">
         <div class="donut_chart pc">
-          <PieChart_1 style="height: 160px; width: 245px" /><PieChart_2 style="height: 160px; width: 245px" />
+          <PieChart_1 style="height: 160px; width: 245px" />
+          <PieChart_2 style="height: 160px; width: 245px" />
         </div>
         <div class="donut_chart movi">
           <PieChart_1 style="height: 160px; width: 245px" />
         </div>
-        <div class="donut_chart movi">
+        <div id="movi" class="donut_chart movi">
           <PieChart_2 style="height: 160px; width: 245px" />
         </div>
         <div class="bar_chart pc"><BarChart style="height: 190px; width: 470px" /></div>
@@ -321,11 +322,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width: 481px) {
+@media (min-width: 481px) {
   .main {
     display: flex;
     justify-content: center;
-
     .box {
       display: flex;
       flex-direction: column;
@@ -420,11 +420,11 @@ export default {
     }
   }
   .movi {
-    display: none;
+    display: none !important;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media (max-width: 480px) {
   .main {
     padding-top: 50px;
     display: flex;
@@ -473,7 +473,7 @@ export default {
     margin: 30px auto;
   }
   .pc {
-    display: none;
+    display: none !important;
   }
 }
 </style>

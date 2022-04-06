@@ -117,6 +117,7 @@ export default async element => {
             } // downKey -y
           })
 
+          // 시도한 다른 방법
           // const LEFT = 37,
           //   RIGHT = 39,
           //   UP = 38,

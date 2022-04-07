@@ -13,17 +13,7 @@ import store from './store'
 // vue 인스턴스 변수로 등록
 // Vue.prototype.$socket = socket
 
-import VueSocketIO from 'vue-socket.io'
-
 Vue.use(VueRouter)
-Vue.use(
-  new VueSocketIO({
-    debug: true,
-    connection: 'http://localhost:3001',
-    extraHeaders: { 'Edukit-webSocket-header': 'hello websocket' },
-    withCredentials: true
-  })
-)
 
 Vue.config.productionTip = false
 

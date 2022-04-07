@@ -13,20 +13,13 @@
 
 <script>
 import mqtt from 'mqtt'
+import { io } from 'socket.io-client'
 import helloEdukit from './edukit.vue'
 
 export default {
   name: 'Edukit',
   components: {
     helloEdukit
-  },
-  sockets: {
-    connect: function () {
-      console.log('socket-connected')
-    },
-    customEmit: function (data) {
-      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
-    }
   },
   data() {
     return {
@@ -37,17 +30,22 @@ export default {
       isActiveR: false,
 
       // webSocket 관련 data들입니다.
-      socket: null,
-      wsAddress: 'ws://localhost:8088'
+      // socket: null,
+      // wsAddress: 'ws://localhost:8088'
+
+      // socketio-client 관련 data들입니다.
+      socket: null
     }
   },
-  created() {
+  async created() {
     // this.publishMqtt()
     // this.wsConnect()
-
-    // socket.io 시도
-    this.$socket.on('msg', data => {
-      console.log(data)
+    this.socket = io('http://localhost:3001')
+    this.socket.on('connect', () => {
+      console.log('hello socketio')
+    })
+    this.socket.on('msg', msg => {
+      console.log(msg)
     })
   },
   mounted() {
@@ -131,35 +129,9 @@ export default {
     //   })
     // },
 
-    // websocket 시도
-    // wsConnect() {
-    //   if (this.socket === null || this.socket.readyState === 3) {
-    //     this.socket = new WebSocket(this.wsAddress)
-    //     this.socket.onopen = () => {
-    //       console.log('connected')
-    //       this.wsSendMessage()
-    //     }
-    //     this.socket.onerror = error => {
-    //       console.log('error', error)
-    //     }
-    //     this.socket.onmessage = ({ data }) => {
-    //       console.log('onmessage', data)
-    //     }
-    //     this.socket.onclose = () => {
-    //       console.log('socket closed')
-    //     }
-    //   }
-    // },
-    // wsSendMessage() {
-    //   this.socket.send('hello socket')
-    // },
-    // wsDisconnect() {
-    //   if (this.socket.readyState === 1) {
-    //     this.socket.close()
-    //   }
-    // }
     sendMessage() {
-      this.$socket.emit(`SEND${process.env.MQTT_TOPIC}`, 'hello socketio')
+      // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
+      this.socket.emit('msg', 'hello socketio')
     }
   }
 }

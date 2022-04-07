@@ -84,6 +84,7 @@ export default {
         // 로그아웃 후 라우팅 처리 (토큰이 존재하지 않음)
         // 로그인 화면으로 이동시킨다.
         this.$router.push('/auth/login')
+        this.$router.go()
       }
     },
 

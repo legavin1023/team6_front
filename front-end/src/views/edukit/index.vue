@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import mqtt from 'mqtt'
+import { io } from 'socket.io-client'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -19,42 +21,91 @@ export default {
   components: {
     helloEdukit
   },
-  data: function () {
+  data() {
     return {
+      // 방향키 제어 관련 data들입니다.
       isActiveT: false,
       isActiveB: false,
       isActiveL: false,
-      isActiveR: false
+      isActiveR: false,
+
+      // webSocket 관련 data들입니다.
+      // socket: null,
+      // wsAddress: 'ws://localhost:8088'
+
+      // socketio-client 관련 data들입니다.
+      socket: null
     }
   },
+  async created() {
+    // this.publishMqtt()
+    // this.wsConnect()
+    this.socket = io('http://localhost:3001')
+    this.socket.on('connect', () => {
+      console.log('hello socketio')
+    })
+    this.socket.on('msg', msg => {
+      console.log(msg)
+    })
+  },
   mounted() {
-    window.addEventListener('keyup', event => {
+    let xAxis = null
+    let yAxis = null
+
+    window.addEventListener('keydown', event => {
+      let message = { yAxis: yAxis, xAxis: xAxis }
+      // 위 키보드 입력
       if (event.keyCode === 38) {
         this.isActiveT = true
+        yAxis += 1
+        // this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveT = false
         }, 1000)
       } else {
         this.isActiveT = false
       }
+
+      // 아래 키보드 입력
       if (event.keyCode === 40) {
         this.isActiveB = true
+        yAxis -= 1
+        if (yAxis < 0) {
+          yAxis = 0
+        }
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveB = false
         }, 1000)
       } else {
         this.isActiveB = false
       }
+
+      // 왼쪽 키보드 입력
       if (event.keyCode === 37) {
         this.isActiveL = true
+        xAxis -= 1
+        if (xAxis < 0) {
+          xAxis = 0
+        }
+        // this.publishMqtt(message)
+        this.sendMessage()
+
         setTimeout(() => {
           this.isActiveL = false
         }, 1000)
       } else {
         this.isActiveL = false
       }
+
+      // 오른쪽 키보드 입력
       if (event.keyCode === 39) {
         this.isActiveR = true
+        xAxis += 1
+        this.publishMqtt(message)
+
         setTimeout(() => {
           this.isActiveR = false
         }, 1000)
@@ -64,7 +115,24 @@ export default {
     })
   },
   methods: {
-    activeTop() {}
+    // publishMqtt(message) {
+    //   // mqtt pubish
+    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+    //   const topic = toString(process.env.MQTT_TOPIC)
+    //   message = JSON.stringify(message)
+
+    //   mqttClient.publish(topic, message, error => {
+    //     console.log(message)
+    //     if (error) {
+    //       console.error('mqtt client error', error)
+    //     }
+    //   })
+    // },
+
+    sendMessage() {
+      // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
+      this.socket.emit('msg', 'hello socketio')
+    }
   }
 }
 </script>

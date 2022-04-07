@@ -6,25 +6,35 @@
         <p>2호기 전원 : {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}</p>
       </div>
       <div>
-        <p>내보낸 상자 수</p>
-        <p>{{ plc.mqttNo1Box }}</p>
+        <div v-if="plc.mqttNo1Box">
+          <p>내보낸 상자 수</p>
+          <p>{{ plc.mqttNo1Box }}</p>
+        </div>
+        <p v-if="plc.mqttNo1Box == null">PLC와 연결되어있지 않습니다.</p>
       </div>
       <div>
-        <p>내보낸 주사위 수</p>
-        <p>{{ plc.mqttNo2Box }}</p>
+        <div v-if="plc.mqttNo2Box">
+          <p>내보낸 주사위 수</p>
+          <p>{{ plc.mqttNo2Box }}</p>
+        </div>
+        <p v-if="plc.mqttNo2Box == null">PLC와 연결되어있지 않습니다.</p>
       </div>
 
       <div class="border">
-        <p>총 생산량 수</p>
-        <p>{{ plc.mqttNo3Box }}</p>
+        <div v-if="plc.mqttNo3Box">
+          <p>총 생산량 수</p>
+          <p>{{ plc.mqttNo3Box }}</p>
+        </div>
+        <p v-if="plc.mqttNo3Box == null">PLC와 연결되어있지 않습니다.</p>
       </div>
       <div class="donut_chart"><PieChart_3 style="height: 160px; width: 245px" /></div>
     </div>
     <div class="box">
       <div class="text_box">
         <div>
-          <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
-          <p>3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
+          <p v-if="plc.mqttNo3Xaxis">3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
+          <p v-if="plc.mqttNo3Yaxis">3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
+          <p v-if="plc.mqttNo3Xaxis == null || plc.mqttNo3Yaxis == null">PLC와 연결되어있지 않습니다.</p>
         </div>
         <div>
           <p>하루 총 생산량</p>
@@ -51,15 +61,12 @@
         />
       </div>
       <div class="line_chart movi">
-        <!-- <canvas ref="canvas" style="height: 260px; width: 980px"> -->
         <line-chart
-          ref="lineChartRef"
           :key="lineChartKey"
           :chart-data="chart.chartData"
           :options="chart.options"
           style="height: height: 260px; width: 320px"
         />
-        <!-- </canvas> -->
       </div>
 
       <div class="chart_box">
@@ -303,7 +310,7 @@ export default {
           labels: ['0'],
           datasets: [
             {
-              label: 'no data',
+              label: 'PLC와 연결되어있지 않습니다.',
               data: [0]
             }
           ]

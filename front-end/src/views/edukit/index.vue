@@ -20,17 +20,35 @@ export default {
   components: {
     helloEdukit
   },
+  sockets: {
+    connect: function () {
+      console.log('socket-connected')
+    },
+    customEmit: function (data) {
+      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+    }
+  },
   data() {
     return {
       // 방향키 제어 관련 data들입니다.
       isActiveT: false,
       isActiveB: false,
       isActiveL: false,
-      isActiveR: false
+      isActiveR: false,
+
+      // webSocket 관련 data들입니다.
+      socket: null,
+      wsAddress: 'ws://localhost:8088'
     }
   },
   created() {
     // this.publishMqtt()
+    // this.wsConnect()
+
+    // socket.io 시도
+    this.$socket.on('msg', data => {
+      console.log(data)
+    })
   },
   mounted() {
     let xAxis = null
@@ -42,7 +60,7 @@ export default {
       if (event.keyCode === 38) {
         this.isActiveT = true
         yAxis += 1
-        this.publishMqtt(message)
+        // this.publishMqtt(message)
 
         setTimeout(() => {
           this.isActiveT = false
@@ -74,7 +92,8 @@ export default {
         if (xAxis < 0) {
           xAxis = 0
         }
-        this.publishMqtt(message)
+        // this.publishMqtt(message)
+        this.sendMessage()
 
         setTimeout(() => {
           this.isActiveL = false
@@ -98,18 +117,49 @@ export default {
     })
   },
   methods: {
-    publishMqtt(message) {
-      // mqtt pubish
-      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
-      const topic = toString(process.env.MQTT_TOPIC)
-      message = JSON.stringify(message)
+    // publishMqtt(message) {
+    //   // mqtt pubish
+    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+    //   const topic = toString(process.env.MQTT_TOPIC)
+    //   message = JSON.stringify(message)
 
-      mqttClient.publish(topic, message, error => {
-        console.log(message)
-        if (error) {
-          console.error('mqtt client error', error)
-        }
-      })
+    //   mqttClient.publish(topic, message, error => {
+    //     console.log(message)
+    //     if (error) {
+    //       console.error('mqtt client error', error)
+    //     }
+    //   })
+    // },
+
+    // websocket 시도
+    // wsConnect() {
+    //   if (this.socket === null || this.socket.readyState === 3) {
+    //     this.socket = new WebSocket(this.wsAddress)
+    //     this.socket.onopen = () => {
+    //       console.log('connected')
+    //       this.wsSendMessage()
+    //     }
+    //     this.socket.onerror = error => {
+    //       console.log('error', error)
+    //     }
+    //     this.socket.onmessage = ({ data }) => {
+    //       console.log('onmessage', data)
+    //     }
+    //     this.socket.onclose = () => {
+    //       console.log('socket closed')
+    //     }
+    //   }
+    // },
+    // wsSendMessage() {
+    //   this.socket.send('hello socket')
+    // },
+    // wsDisconnect() {
+    //   if (this.socket.readyState === 1) {
+    //     this.socket.close()
+    //   }
+    // }
+    sendMessage() {
+      this.$socket.emit(`SEND${process.env.MQTT_TOPIC}`, 'hello socketio')
     }
   }
 }

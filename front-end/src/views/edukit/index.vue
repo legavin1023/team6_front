@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import mqtt from 'mqtt'
-import { io } from 'socket.io-client'
+// import mqtt from 'mqtt'
+// import { io } from 'socket.io-client'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -27,26 +27,26 @@ export default {
       isActiveT: false,
       isActiveB: false,
       isActiveL: false,
-      isActiveR: false,
+      isActiveR: false
 
       // webSocket 관련 data들입니다.
       // socket: null,
       // wsAddress: 'ws://localhost:8088'
 
       // socketio-client 관련 data들입니다.
-      socket: null
+      // socket: null
     }
   },
   async created() {
     // this.publishMqtt()
     // this.wsConnect()
-    this.socket = io('http://localhost:3001')
-    this.socket.on('connect', () => {
-      console.log('hello socketio')
-    })
-    this.socket.on('msg', msg => {
-      console.log(msg)
-    })
+    // this.socket = io('http://localhost:3001')
+    // this.socket.on('connect', () => {
+    //   console.log('hello socketio')
+    // })
+    // this.socket.on('msg', msg => {
+    //   console.log(msg)
+    // })
   },
   mounted() {
     let xAxis = null
@@ -74,7 +74,7 @@ export default {
         if (yAxis < 0) {
           yAxis = 0
         }
-        this.publishMqtt(message)
+        // this.publishMqtt(message)
 
         setTimeout(() => {
           this.isActiveB = false
@@ -91,7 +91,7 @@ export default {
           xAxis = 0
         }
         // this.publishMqtt(message)
-        this.sendMessage()
+        // this.sendMessage()
 
         setTimeout(() => {
           this.isActiveL = false
@@ -104,7 +104,7 @@ export default {
       if (event.keyCode === 39) {
         this.isActiveR = true
         xAxis += 1
-        this.publishMqtt(message)
+        // this.publishMqtt(message)
 
         setTimeout(() => {
           this.isActiveR = false
@@ -131,7 +131,7 @@ export default {
 
     sendMessage() {
       // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
-      this.socket.emit('msg', 'hello socketio')
+      // this.socket.emit('msg', 'hello socketio')
     }
   }
 }

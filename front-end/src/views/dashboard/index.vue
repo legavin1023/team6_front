@@ -485,19 +485,21 @@ export default {
 
         console.log(diceData)
 
-        if (diceData[0] === 1) {
-          this.barChart.diceNum1 += 1
-        } else if (diceData[0] === 2) {
-          this.barChart.diceNum2 += 1
-        } else if (diceData[0] === 3) {
-          this.barChart.diceNum3 += 1
-        } else if (diceData[0] === 4) {
-          this.barChart.diceNum4 += 1
-        } else if (diceData[0] === 5) {
-          this.barChart.diceNum5 += 1
-        } else if (diceData[0] === 6) {
-          this.barChart.diceNum6 += 1
-        }
+        setTimeout(() => {
+          if (diceData[0] === 1) {
+            this.barChart.diceNum1 += 1
+          } else if (diceData[0] === 2) {
+            this.barChart.diceNum2 += 1
+          } else if (diceData[0] === 3) {
+            this.barChart.diceNum3 += 1
+          } else if (diceData[0] === 4) {
+            this.barChart.diceNum4 += 1
+          } else if (diceData[0] === 5) {
+            this.barChart.diceNum5 += 1
+          } else if (diceData[0] === 6) {
+            this.barChart.diceNum6 += 1
+          }
+        }, 3000)
 
         this.barChart.config.datasets[0].data = [
           this.barChart.diceNum1,
@@ -547,7 +549,6 @@ export default {
 
       this.lineChartKey = +new Date()
       this.lineChart.chartData = this.lineChart.config
-      // console.log(this.lineChart.config.labels, this.lineChart.config.datasets[0].data)
     },
 
     // ---------BARCHART DATA METHOD---------

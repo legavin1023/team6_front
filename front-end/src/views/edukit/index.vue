@@ -255,25 +255,16 @@ details {
 // }
 #btn_box {
   position: fixed;
+  overflow: hidden;
   top: 50px;
   right: 40px;
-  width: 190px;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  button:first-of-type {
-    border-radius: 20px 0 0 20px;
-  }
-  button:last-of-type {
-    border-radius: 0 20px 20px 0;
-  }
   .btn {
-    margin-top: -3px;
     width: 50px;
     height: 50px;
     line-height: 40px;
     text-align: center;
+    border-radius: 50px;
+    margin-left: 20px;
     color: $light;
     background: rgba($color: rgb(168, 168, 168), $alpha: 0.5);
     border: 3px solid $light;
@@ -297,6 +288,10 @@ details {
   }
   .emergency:hover {
     background: rgba($color: rgb(255, 0, 0), $alpha: 1);
+    border: 3px solid #ff0000;
+  }
+  .emergency {
+    background: rgba($color: rgb(255, 0, 0), $alpha: 0.5);
     border: 3px solid #ff0000;
   }
 }

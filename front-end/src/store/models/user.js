@@ -87,7 +87,7 @@ export default {
 
     // 사용자 정보 수정
     actUserModify(context, payload) {
-      // 상태값 최고하
+      // 상태값 초기화
       context.commit('setModifiedResult', null)
 
       api

@@ -59,7 +59,7 @@ class Event {
       clientId,
       clean: true,
       protocol: 'ws',
-      reconnectPeriod: 1000,
+      reconnectPeriod: 200,
       hostname: hostname,
       port: port,
       path: path

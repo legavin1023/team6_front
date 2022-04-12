@@ -124,7 +124,13 @@ export default async element => {
               element.emissive.setHex(0x9e4fd4)
             })
           }
-          console.log('move')
+          // console.log('move')
+        } else {
+          for (let i = 1; i < 5; i++) {
+            allObject[i].children[0].material.forEach(element => {
+              element.emissive.setHex(0x000000)
+            })
+          }
         }
       }
     }

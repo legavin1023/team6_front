@@ -1,13 +1,15 @@
 <template>
   <div id="edukit">
+    <div class="youtube">
+      <div v-if="this.$store.getters.keyShowMode" class="embed-container">
+        <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
     <div id="btn_box">
       <button class="sart btn">시작</button>
       <button class="stop btn">정지</button>
       <button class="reset btn">리셋</button>
       <button class="emergency btn">비상</button>
-      <div v-if="this.$store.getters.keyShowMode" class="embed-container">
-        <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
-      </div>
     </div>
     <helloEdukit />
     <!-- <div>
@@ -392,5 +394,16 @@ details {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.youtube {
+  position: fixed;
+  z-index: 90;
+  width: 600px;
+  height: 350px;
+  top: 50vh;
+  left: 50vw;
+  margin-top: -175px;
+  margin-left: -300px;
 }
 </style>

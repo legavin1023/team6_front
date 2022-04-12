@@ -10,10 +10,28 @@
       </div>
     </div>
     <div id="btn_box">
-      <button class="start btn">시작</button>
-      <button class="stop btn">정지</button>
-      <button class="reset btn">리셋</button>
-      <!-- <button class="emergency btn">비상</button> -->
+      <button
+        :class="plc.isPlcStart ? 'start-active btn' : 'start btn'"
+        :disabled="plc.isPlcStart"
+        @click="onClickStart"
+      >
+        시작
+      </button>
+      <button
+        :class="!plc.isPlcStart ? 'stop-active btn' : 'stop btn'"
+        :disabled="!plc.isPlcStart"
+        @click="onClickStop"
+      >
+        정지
+      </button>
+      <button
+        :class="plc.isPlcReset ? 'reset-active btn' : 'reset btn'"
+        :disabled="plc.isPlcReset"
+        @click="onClickReset"
+      >
+        리셋
+      </button>
+      <button :class="!plc.isPlcEmergency ? 'emergency-active btn' : 'emergency btn'">비상</button>
     </div>
     <helloEdukit />
     <details>
@@ -22,29 +40,29 @@
         <div>
           <label>
             1호기
-            <input v-model="control.no1" type="checkbox" />
+            <input v-model="control.no1" type="checkbox" @change="onChangeControl(control.no1, 9)" />
             <i></i>
           </label>
           <label>
             2호기
-            <input v-model="control.no2" type="checkbox" />
+            <input v-model="control.no2" type="checkbox" @change="onChangeControl(control.no2, 10)" />
             <i></i>
           </label>
           <label>
             3호기
-            <input v-model="control.no3" type="checkbox" />
+            <input v-model="control.no3" type="checkbox" @change="onChangeControl(control.no3, 11)" />
             <i></i>
           </label>
         </div>
         <div>
           <label>
             센서1
-            <input v-model="control.sen1" type="checkbox" />
+            <input v-model="control.sen1" type="checkbox" @change="onChangeControl(control.sen1, 12)" />
             <i></i>
           </label>
           <label>
             센서2
-            <input v-model="control.sen2" type="checkbox" />
+            <input v-model="control.sen2" type="checkbox" @change="onChangeControl(control.sen2, 13)" />
             <i></i>
           </label>
           <!-- {{ this.$store.getters.keyShowMode }} // 스토어 상태 확인용-->
@@ -68,7 +86,6 @@ export default {
       // PLC 프로세스 ON / OFF data들입니다.
       plc: {
         isPlcStart: null,
-        isPlcStop: null,
         isPlcReset: null,
         isPlcEmergency: null
       },
@@ -92,9 +109,44 @@ export default {
   },
 
   created() {
-    this.publishMqtt()
+    this.createMqtt()
   },
   methods: {
+    createMqtt() {
+      // mqtt 연결
+      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+
+      mqttClient.on('connect', () => {
+        // mqtt 연결 시 구독한다.
+        console.log('mqtt success')
+        const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽: "UVC"
+        mqttClient.subscribe(topic, {}, (error, res) => {
+          if (error) {
+            console.error('mqtt client error', error)
+          }
+        })
+      })
+      // 메세지 실시간 수신
+      mqttClient.on('message', (topic, message) => {
+        // console.log('hello mqtt')
+        this.mqttData = JSON.parse(message) // json string으로만 받을 수 있음
+
+        let plcData = this.mqttData.Wrapper.filter(p => p.tagId === '1' || p.tagId === '8' || p.tagId === '35')
+        this.plc.isPlcStart = plcData[0].value // 시작
+        this.plc.isPlcReset = plcData[1].value // 리셋
+        this.plc.isPlcEmergency = plcData[2].value // 비상정지
+
+        let controlData = this.mqttData.Wrapper.filter(
+          p => p.tagId === '9' || p.tagId === '10' || p.tagId === '11' || p.tagId === '12' || p.tagId === '13'
+        )
+        this.control.no1 = controlData[0].value // 1호기 전원
+        this.control.no2 = controlData[1].value // 2호기 전원
+        this.control.no3 = controlData[2].value // 3호기 전원
+
+        this.control.sen1 = controlData[3].value // 1번 센서 전원
+        this.control.sen2 = controlData[4].value // 2번 센서 전원
+      })
+    },
     publishMqtt(id, v) {
       // mqtt pubish
       const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
@@ -102,6 +154,7 @@ export default {
       const message = JSON.stringify({ tagId: id, value: v })
       // PLC 제어에 쓰이는 모든 publish message들은
       // { "tagId" : "id값", "value" : "value값" }으로 이루어져야 합니다.
+      // true와 false 같은 boolean 값은 1과(true) 0으로(false) 입력하도록 합니다.
 
       mqttClient.publish(topic, message, error => {
         console.log(message)
@@ -109,19 +162,28 @@ export default {
           console.error('mqtt client error', error)
         }
       })
-    }
+    },
 
-    // async created() {
-    // this.publishMqtt()
-    // this.wsConnect()
-    // this.socket = io('http://localhost:3001')
-    // this.socket.on('connect', () => {
-    //   console.log('hello socketio')
-    // })
-    // this.socket.on('msg', msg => {
-    //   console.log(msg)
-    // })
-    // },
+    // PLC 프로세스 ON / OFF method 입니다.
+    onClickStart() {
+      this.publishMqtt(1, 1)
+    },
+    onClickStop() {
+      this.publishMqtt(1, 0)
+    },
+    onClickReset() {
+      this.publishMqtt(1, 0)
+      this.publishMqtt(8, 1)
+    },
+
+    // PLC 내부기기 ON / OFF method 입니다.
+    onChangeControl(model, tagId) {
+      if (model) {
+        this.publishMqtt(tagId, 1)
+      } else {
+        this.publishMqtt(tagId, 0)
+      }
+    }
   }
 }
 </script>
@@ -205,75 +267,6 @@ details {
   }
 }
 
-// .top,
-// .bottom,
-// .left,
-// .right {
-//   z-index: 90;
-//   position: fixed;
-//   display: block;
-//   z-index: 99;
-//   width: 70px;
-//   height: 70px;
-//   text-align: center;
-//   color: $light;
-//   overflow: hidden;
-//   opacity: 0.3;
-// }
-// .top {
-//   left: 200px;
-//   line-height: 90px;
-//   bottom: 180px;
-//   background: url('../../../src/assets/image/arrow.png') center/contain no-repeat;
-// }
-// .bottom {
-//   line-height: 55px;
-//   left: 200px;
-//   bottom: 40px;
-// }
-// .left {
-//   line-height: 70px;
-//   text-indent: 10px;
-//   left: 130px;
-//   bottom: 110px;
-// }
-// .right {
-//   line-height: 70px;
-//   text-indent: -10px;
-//   left: 270px;
-//   bottom: 110px;
-// }
-// .bottom:before,
-// .left:before,
-// .right:before {
-//   content: '';
-//   position: absolute;
-//   width: 70px;
-//   height: 70px;
-//   left: 0px;
-//   background: url('../../../src/assets/image/arrow.png') center/contain no-repeat;
-// }
-// .bottom:before {
-//   transform: rotate(180deg);
-// }
-// .left:before {
-//   transform: rotate(270deg);
-// }
-// .right:before {
-//   transform: rotate(90deg);
-// }
-// .up {
-//   animation-name: upup;
-//   animation-duration: 1s;
-// }
-// @keyframes upup {
-//   0% {
-//     opacity: 1;
-//   }
-//   100% {
-//     opacity: 0.3;
-//   }
-// }
 #btn_box {
   position: fixed;
   overflow: hidden;
@@ -295,19 +288,23 @@ details {
   .btn:hover {
     opacity: 1;
   }
-  .start:hover {
+  .start:hover,
+  .start-active {
     background: rgba($color: rgb(0, 255, 0), $alpha: 0.5);
     border: 3px solid #4bd865;
   }
-  .stop:hover {
+  .stop:hover,
+  .stop-active {
     background: rgba($color: rgb(255, 0, 0), $alpha: 0.5);
     border: 3px solid #ff0000;
   }
-  .reset:hover {
+  .reset:hover,
+  .reset-active {
     background: rgba($color: rgb(255, 247, 0), $alpha: 0.5);
     border: 3px solid #fff700;
   }
-  .emergency:hover {
+  .emergency:hover,
+  .emergency-active {
     background: rgba($color: rgb(255, 0, 0), $alpha: 1);
     border: 3px solid #ff0000;
   }

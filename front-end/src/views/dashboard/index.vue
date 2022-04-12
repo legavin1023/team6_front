@@ -550,9 +550,15 @@ export default {
     -webkit-tap-highlight-color: transparent;
   }
   input {
+    label {
+      box-shadow: 0px 0px 10px #fd1015;
+    }
+  }
+  input {
     display: none;
     &:checked + label {
-      background-color: #57de72;
+      background-color: #00ff33;
+      box-shadow: 0px 0px 10px #00ff33;
     }
   }
 }
@@ -565,31 +571,34 @@ export default {
   }
   .plc:first-child {
     label {
-      background-color: #6b4d4d;
+      background-color: #6e6060;
     }
     input {
       &:checked + label {
         background-color: #fd1015;
+        box-shadow: 0px 0px 10px #fd1015;
       }
     }
   }
   .plc:nth-of-type(2) {
     label {
-      background-color: #9ba06d;
+      background-color: #9ea08b;
     }
     input {
       &:checked + label {
         background-color: #edff47;
+        box-shadow: 0px 0px 10px #edff47;
       }
     }
   }
   .plc:nth-of-type(3) {
     label {
-      background-color: #6da07a;
+      background-color: #839487;
     }
     input {
       &:checked + label {
-        background-color: #57de72;
+        background-color: #00ff33;
+        box-shadow: 0px 0px 10px #00ff33;
       }
     }
   }

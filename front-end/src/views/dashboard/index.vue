@@ -2,69 +2,66 @@
   <div class="main">
     <div class="text_box wrap">
       <div>
-        <p>1호기 전원 : {{ plc.mqttNo1On === true ? 'ON' : 'OFF' }}</p>
-        <p>2호기 전원 : {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}</p>
+        <p>1호기 전원</p>
+        <p>
+          {{ plc.mqttNo1On === true ? 'ON' : 'OFF' }}
+          <span class="toggle">
+            <input id="toggle1" v-model="plc.mqttNo1On" type="checkbox" />
+            <label for="toggle1"></label>
+          </span>
+        </p>
       </div>
       <div>
-        <div v-if="plc.mqttNo1Box !== null">
-          <p>내보낸 상자 수</p>
-          <p>{{ plc.mqttNo1Box }}</p>
-        </div>
-        <p v-if="plc.mqttNo1Box == null">PLC와 연결되어있지 않습니다.</p>
+        <p>2호기 전원</p>
+        <p>
+          {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}
+          <span class="toggle">
+            <input id="toggle2" v-model="plc.mqttNo2On" type="checkbox" />
+            <label for="toggle2"></label>
+          </span>
+        </p>
       </div>
       <div>
-        <div v-if="plc.mqttNo2Box !== null">
-          <p>내보낸 주사위 수</p>
-          <p>{{ plc.mqttNo2Box }}</p>
-        </div>
-        <p v-if="plc.mqttNo2Box == null">PLC와 연결되어있지 않습니다.</p>
+        <p>3호기 전원</p>
+        <p>
+          {{ plc.mqttNo3On === true ? 'ON' : 'OFF' }}
+          <span class="toggle">
+            <input id="toggle3" v-model="plc.mqttNo3On" type="checkbox" />
+            <label for="toggle3"></label>
+          </span>
+        </p>
       </div>
-
-      <div class="border">
-        <div v-if="plc.mqttNo3Box !== null">
-          <p>총 생산량 수</p>
-          <p>{{ plc.mqttNo3Box }}</p>
-        </div>
-        <p v-if="plc.mqttNo3Box == null">PLC와 연결되어있지 않습니다.</p>
+      <div>
+        <p>총 생산량 수</p>
+        <p>{{ plc.mqttNo3Box }}</p>
       </div>
-      <div class="donut_chart">
-        <pie-chart-3
-          :key="pieChart3Key"
-          :chart-data="pieChart3.chartData"
-          :options="pieOptions"
-          style="height: 160px; width: 245px"
-        />
+      <div>
+        <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
+        <p>3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
+      </div>
+      <div>
+        <p>공정 반복 시간</p>
+        <p>{{ plc.mqttNo1Delay }}</p>
       </div>
     </div>
     <div class="box">
       <div class="text_box">
         <div>
-          <p v-if="plc.mqttNo3Xaxis !== null">3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
-          <p v-if="plc.mqttNo3Yaxis !== null">3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
-          <p v-if="plc.mqttNo3Xaxis == null || plc.mqttNo3Yaxis == null">PLC와 연결되어있지 않습니다.</p>
+          <p>내보낸 상자 수</p>
+          <p>{{ plc.mqttNo1Box }}</p>
         </div>
-        <div>
-          <p>하루 총 생산량</p>
-          <p>{{ pieChart1.product }}</p>
-        </div>
-        <div>
-          <p>3호기 가동 시작 : {{}}</p>
-          <p>3호기 가동 종료 : {{}}</p>
-        </div>
-        <div class="clack border">
-          <span>시계아이콘</span>
-          <p>작동 시간</p>
-          <p>{{}}</p>
+        <div class="border">
+          <p>내보낸 주사위 수</p>
+          <p>{{ plc.mqttNo2Box }}</p>
         </div>
       </div>
 
       <div class="line_chart pc">
-        <!-- <canvas ref="canvas" style="height: 260px; width: 980px"> -->
         <line-chart
           :key="lineChartKey"
           :chart-data="lineChart.chartData"
-          :options="options"
-          style="height: 260px; width: 980px"
+          :options="lineChart.options"
+          style="height: 260px; width: 470px"
         />
       </div>
       <div class="line_chart movi">
@@ -72,53 +69,59 @@
           :key="lineChartKey"
           :chart-data="lineChart.chartData"
           :options="options"
-          style="height: height: 260px; width: 320px"
+          style="height: 260px; width: 320px"
         />
       </div>
 
       <div class="chart_box">
         <div class="donut_chart pc">
+          <pie-chart-3
+            :key="pieChart3Key"
+            :chart-data="pieChart3.chartData"
+            :options="pieOptions"
+            style="height: 150px; width: 245px"
+          />
           <pie-chart-1
             :key="pieChart1Key"
             :chart-data="pieChart1.chartData"
             :options="pieOptions"
-            style="height: 160px; width: 245px"
-          />
-          <pie-chart-2
-            :key="pieChart2Key"
-            :chart-data="pieChart2.chartData"
-            :options="pieOptions"
-            style="height: 160px; width: 245px"
+            style="height: 150px; width: 245px"
+            class="PieChart_margin"
           />
         </div>
         <div class="donut_chart movi">
+          <pie-chart-3
+            :key="pieChart3Key"
+            :chart-data="pieChart3.chartData"
+            :options="pieOptions"
+            style="height: 200px; width: 300px"
+          />
           <pie-chart-1
             :key="pieChart1Key"
             :chart-data="pieChart1.chartData"
             :options="pieOptions"
-            style="height: 160px; width: 245px"
+            style="height: 200px; width: 300px"
+            class="PieChart_margin"
           />
-        </div>
-        <div id="movi" class="donut_chart movi">
-          <pie-chart-2
-            :key="pieChart2Key"
-            :chart-data="pieChart2.chartData"
-            :options="pieOptions"
-            style="height: 160px; width: 245px"
-          />
-        </div>
-        <div class="bar_chart pc">
-          <bar-chart
-            :key="barChartKey"
-            :chart-data="barChart.chartData"
-            :options="options"
-            style="height: 190px; width: 470px"
-          />
-        </div>
-        <div class="bar_chart movi">
-          <bar-chart :chart-data="barChart.chartData" :options="options" style="height: 190px; width: 320px" />
         </div>
       </div>
+    </div>
+    <div class="plc_box">
+      <span class="plc">
+        <!-- red lamp -->
+        <input id="plc1" v-model="plc.mqttLamp3" type="checkbox" />
+        <label for="plc1"></label>
+      </span>
+      <span class="plc">
+        <!-- yellow lamp -->
+        <input id="plc2" v-model="plc.mqttLamp2" type="checkbox" />
+        <label for="plc2"></label>
+      </span>
+      <span class="plc">
+        <!-- green lamp -->
+        <input id="plc3" v-model="plc.mqttLamp1" type="checkbox" />
+        <label for="plc3"></label>
+      </span>
     </div>
   </div>
 </template>
@@ -127,42 +130,46 @@
 import mqtt from 'mqtt'
 import LineChart from '@/components/chart/lineChart'
 import PieChart from '@/components/chart/doughnutChart'
-import BarChart from '@/components/chart/barChart'
 
 export default {
   components: {
     'line-chart': LineChart,
     'pie-chart-1': PieChart,
-    'pie-chart-2': PieChart,
-    'pie-chart-3': PieChart,
-    'bar-chart': BarChart
+    'pie-chart-3': PieChart
   },
   data() {
     return {
       // chartKey data들입니다.
       lineChartKey: +new Date(),
-      barChartKey: +new Date() + 1,
-      pieChart1Key: +new Date() + 2,
-      pieChart2Key: +new Date() + 3,
-      pieChart3Key: +new Date() + 3,
+      pieChart1Key: +new Date() + 1,
+      pieChart3Key: +new Date() + 2,
 
       // mqttData
       mqttData: null,
 
       // PLC 관련 data들입니다.
       plc: {
-        // 1호기 & 2호기 데이터
+        // 1호기 & 2호기 & 3호기 전원 데이터
         mqttNo1On: null,
         mqttNo2On: null,
+        mqttNo3On: null,
 
-        // 3호기 데이터
+        // 3호기 X축 Y축 데이터
         mqttNo3Yaxis: null,
         mqttNo3Xaxis: null,
 
         // 생산량 카운트
         mqttNo1Box: null,
         mqttNo2Box: null,
-        mqttNo3Box: null
+        mqttNo3Box: null,
+
+        // PLC 상태 전원
+        mqttLamp1: null,
+        mqttLamp2: null,
+        mqttLamp3: null,
+
+        // 1호기 박스 반출 시간
+        mqttNo1Delay: null
       },
 
       // chart 공통 option data 입니다.
@@ -277,37 +284,6 @@ export default {
         }
       },
 
-      // barChart 관련 data들입니다.
-      barChart: {
-        // barChart gradient
-        gradient: null,
-
-        // barChart diceNum
-        diceNum1: 0,
-        diceNum2: 0,
-        diceNum3: 0,
-        diceNum4: 0,
-        diceNum5: 0,
-        diceNum6: 0,
-
-        // barChart settings
-        chartData: null,
-
-        // barChart config
-        config: {
-          labels: [1, 2, 3, 4, 5, 6],
-          datasets: [
-            {
-              label: '주사위 갯수',
-              backgroundColor: '',
-              data: [],
-              borderWidth: 1,
-              borderColor: '#9e4fd4'
-            }
-          ]
-        }
-      },
-
       // pieChart 관련 data들입니다.
       pieChart: {
         // pieChart gradient
@@ -324,25 +300,6 @@ export default {
         // pieChart1 config
         config: {
           labels: ['양품', '불량품'],
-          datasets: [
-            {
-              borderWidth: 1,
-              borderColor: '#9e4fd4',
-              backgroundColor: [],
-              data: []
-            }
-          ]
-        }
-      },
-      pieChart2: {
-        // pieChart2 settings
-        chartData: null,
-        odd: 0,
-        even: 0,
-
-        // pieChart2 config
-        config: {
-          labels: ['홀수', '짝수'],
           datasets: [
             {
               borderWidth: 1,
@@ -393,22 +350,8 @@ export default {
     this.lineChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
 
     this.lineChart.config.datasets[0].backgroundColor = this.lineChart.gradient
-    // this.lineChart.config.datasets[1].backgroundColor = this.lineChart.gradient2
 
-    this.makeLineChartData()
-
-    // this.renderChart(this.lineChart.config, this.lineChart.options)
-
-    // ----------BARCHART DRAWING----------
-    const barCanvas = document.getElementById('bar-chart')
-
-    this.barChart.gradient = barCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.barChart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
-    this.barChart.gradient.addColorStop(0.9, 'rgba(0, 231, 255, 0.9)')
-
-    this.makeBarChartData()
-
-    // ----------PIECHART 1, 2 DRAWING ----------
+    // ----------PIECHART 1 DRAWING ----------
     const pieCanvas = document.getElementById('doughnut-chart')
 
     this.pieChart.gradient = pieCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
@@ -423,7 +366,6 @@ export default {
     this.pieChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
 
     this.pieChart1.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
-    this.pieChart2.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
   },
   methods: {
     createMqtt() {
@@ -432,9 +374,8 @@ export default {
 
       mqttClient.on('connect', () => {
         // mqtt 연결 시 구독한다.
-        // const topic = 'UVC' // 구독할 토픽
         // console.log('mqtt success')
-        const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽
+        const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽: "UVC"
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
             console.error('mqtt client error', error)
@@ -448,12 +389,13 @@ export default {
         this.mqttData = JSON.parse(message) // json string으로만 받을 수 있음
         // ------PLC DATA FILTERING------
 
-        // 1호기 & 2호기 데이터
-        let no12Data = this.mqttData.Wrapper.filter(p => p.tagId === '9' || p.tagId === '10')
-        this.plc.mqttNo1On = no12Data[0].value
-        this.plc.mqttNo2On = no12Data[1].value
+        // 1호기 & 2호기 & 3호기 전원 데이터
+        let no123Data = this.mqttData.Wrapper.filter(p => p.tagId === '9' || p.tagId === '10' || p.tagId === '11')
+        this.plc.mqttNo1On = no123Data[0].value
+        this.plc.mqttNo2On = no123Data[1].value
+        this.plc.mqttNo3On = no123Data[2].value
 
-        // 3호기 데이터
+        // 3호기 X축 Y축 데이터
         let no3Data = this.mqttData.Wrapper.filter(p => p.tagId === '21' || p.tagId === '22')
         no3Data = no3Data.map(p => parseInt(p.value))
         this.plc.mqttNo3Yaxis = no3Data[0]
@@ -465,6 +407,17 @@ export default {
         this.plc.mqttNo1Box = boxData[0]
         this.plc.mqttNo2Box = boxData[1]
         this.plc.mqttNo3Box = boxData[2]
+
+        // PLC 상태 전원
+        let lampData = this.mqttData.Wrapper.filter(p => p.tagId === '18' || p.tagId === '19' || p.tagId === '20')
+        this.plc.mqttLamp1 = lampData[0].value // green
+        this.plc.mqttLamp2 = lampData[1].value // yellow
+        this.plc.mqttLamp3 = lampData[2].value // red
+
+        // 1호기 박스 반출 시간
+        let no1Delay = this.mqttData.Wrapper.filter(p => p.tagId === '14')
+        no1Delay = no1Delay.map(p => parseInt(p.value))
+        this.plc.mqttNo1Delay = no1Delay[0]
 
         // ------LINECHART DATA FILTERING------
         this.removeOldLineData() // 오래된 데이터 제거
@@ -492,20 +445,6 @@ export default {
 
         this.makePieChart1Data()
 
-        // ------PIECHART2 DATA FILTERING------
-        let diceNum = this.mqttData.Wrapper.filter(p => p.tagId === '37')
-        diceNum = diceNum.map(p => parseInt(p.value))
-
-        if (diceNum[0] !== 0 && diceNum[0] % 2 == 0) {
-          this.pieChart2.even += 1
-        } else if (diceNum[0] !== 0 && diceNum[0] % 2 !== 0) {
-          this.pieChart2.odd += 1
-        }
-
-        this.pieChart2.config.datasets[0].data = [this.pieChart2.odd, this.pieChart2.even]
-
-        this.makePieChart2Data()
-
         // ------PIECHART3 DATA FILTERING------
         let colorSence = this.mqttData.Wrapper.filter(p => p.tagId == '39')
         colorSence = colorSence.map(p => parseInt(p.value))
@@ -519,44 +458,6 @@ export default {
         this.pieChart3.config.datasets[0].data = [this.pieChart3.white, this.pieChart3.red]
 
         this.makePieChart3Data()
-
-        // ------BARCHART DATA FILTERING------
-        let diceData = this.mqttData.Wrapper.filter(p => p.tagId === '37')
-        diceData = diceData.map(p => parseInt(p.value))
-
-        // console.log(diceData)
-
-        setTimeout(() => {
-          if (diceData[0] === 1) {
-            this.barChart.diceNum1 += 1
-          } else if (diceData[0] === 2) {
-            this.barChart.diceNum2 += 1
-          } else if (diceData[0] === 3) {
-            this.barChart.diceNum3 += 1
-          } else if (diceData[0] === 4) {
-            this.barChart.diceNum4 += 1
-          } else if (diceData[0] === 5) {
-            this.barChart.diceNum5 += 1
-          } else if (diceData[0] === 6) {
-            this.barChart.diceNum6 += 1
-          }
-        }, 3000)
-
-        this.barChart.config.datasets[0].data = [
-          this.barChart.diceNum1,
-          this.barChart.diceNum2,
-          this.barChart.diceNum3,
-          this.barChart.diceNum4,
-          this.barChart.diceNum5,
-          this.barChart.diceNum6
-        ]
-
-        this.makeBarChartData()
-
-        // console.log(this.barChart.config.datasets[0].data)
-
-        // console.log(this.lineChart.chartLabels)
-        // console.log(this.lineChart.datasetDatas)
       })
     },
 
@@ -592,27 +493,6 @@ export default {
       this.lineChart.chartData = this.lineChart.config
     },
 
-    // ---------BARCHART DATA METHOD---------
-    makeBarChartData() {
-      // 차트용 데이터 생성
-      // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.barChart.config.datasets[0].data.length === 0) {
-        this.barChart.chartData = {
-          labels: ['0'],
-          datasets: [
-            {
-              label: 'PLC와 연결되어있지 않습니다.',
-              data: [0]
-            }
-          ]
-        }
-        return
-      }
-
-      this.barChartKey = +new Date() + 1
-      this.barChart.chartData = this.barChart.config
-    },
-
     // ---------PIECHART 1, 2 DATA METHOD---------
     makePieChart1Data() {
       // mqtt 정보가 없으면 기본 그래프를 그려준다.
@@ -629,26 +509,8 @@ export default {
         return
       }
 
-      this.pieChart1Key = +new Date() + 2
+      this.pieChart1Key = +new Date() + 1
       this.pieChart1.chartData = this.pieChart1.config
-    },
-    makePieChart2Data() {
-      // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.pieChart2.config.datasets[0].data.length === 0) {
-        this.pieChart2.chartData = {
-          labels: ['PLC와 연결되어있지 않습니다.'],
-          datasets: [
-            {
-              label: 'PLC와 연결되어있지 않습니다.',
-              data: [0]
-            }
-          ]
-        }
-        return
-      }
-
-      this.pieChart2Key = +new Date() + 3
-      this.pieChart2.chartData = this.pieChart2.config
     },
     makePieChart3Data() {
       // mqtt 정보가 없으면 기본 그래프를 그려준다.
@@ -665,7 +527,7 @@ export default {
         return
       }
 
-      this.pieChart3Key = +new Date() + 4
+      this.pieChart3Key = +new Date() + 2
       this.pieChart3.chartData = this.pieChart3.config
     }
   }
@@ -673,11 +535,59 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.toggle,
+.plc_box {
+  label {
+    position: relative;
+    display: inline-block;
+    left: 10px;
+    top: 4px;
+    width: 15px;
+    height: 15px;
+    background-color: #fd1015;
+    border-radius: 50px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input {
+    display: none;
+    &:checked + label {
+      background-color: #57de72;
+    }
+  }
+}
+.plc_box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  .plc {
+    margin-bottom: 10px;
+    label {
+      background-color: #848484;
+    }
+  }
+  .plc:first-child {
+    input {
+      &:checked + label {
+        background-color: #fd1015;
+      }
+    }
+  }
+  .plc:nth-of-type(2) {
+    input {
+      &:checked + label {
+        background-color: #edff47;
+      }
+    }
+  }
+}
 @media (min-width: 481px) {
   .main {
+    position: relative;
     display: flex;
     justify-content: center;
     .box {
+      margin-top: -20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -685,7 +595,7 @@ export default {
     }
     .line_chart {
       border: 3px solid $sub3;
-      width: 1000px;
+      width: 480px;
       height: 280px;
       margin-left: -20px;
       margin-top: 20px;
@@ -694,7 +604,6 @@ export default {
       justify-content: center;
     }
     .chart_box {
-      width: 1000px;
       margin-left: -20px;
       margin-top: 20px;
       display: flex;
@@ -704,10 +613,11 @@ export default {
     .bar_chart {
       display: flex;
       justify-content: center;
-      width: 490px;
+      width: 480px;
+      margin-left: 20px;
       border: 3px solid $sub3;
       border-radius: 20px;
-      height: 200px;
+      height: 180px;
     }
     .donut_chart {
       display: flex;
@@ -740,20 +650,6 @@ export default {
         position: relative;
         top: 10px;
       }
-      .clack p {
-        position: relative;
-        top: -10px;
-      }
-      span {
-        display: block;
-        position: relative;
-        left: 40px;
-        top: 15px;
-        text-indent: -9999px;
-        width: 20px;
-        height: 20px;
-        background: url('../../assets/image/clock.png') center/cover no-repeat;
-      }
     }
     .wrap {
       flex-wrap: wrap;
@@ -763,11 +659,6 @@ export default {
       > div {
         margin-bottom: 20px;
       }
-      > div:last-child {
-        margin-bottom: 0px;
-        height: 200px;
-        background: none;
-      }
     }
   }
   .movi {
@@ -776,6 +667,9 @@ export default {
 }
 
 @media (max-width: 480px) {
+  .border {
+    border-bottom: 3px solid $sub3;
+  }
   .main {
     padding-top: 50px;
     display: flex;
@@ -797,19 +691,6 @@ export default {
         color: $light;
         background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
       }
-      .border {
-        border-bottom: 3px solid $sub3;
-      }
-      span {
-        display: block;
-        position: absolute;
-        left: 120px;
-        top: 920px;
-        text-indent: -9999px;
-        width: 20px;
-        height: 20px;
-        background: url('../../assets/image/clock.png') center/cover no-repeat;
-      }
     }
   }
   .chart_box {
@@ -817,11 +698,18 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 100px;
   }
   .donut_chart,
   .line_chart,
   .bar_chart {
     margin: 30px auto;
+  }
+  .line_chart {
+    padding-left: 12px;
+  }
+  .PieChart_margin {
+    margin-top: 40px;
   }
   .pc {
     display: none !important;

@@ -1,47 +1,41 @@
 <template>
   <div id="edukit">
     <div id="btn_box">
-      <button class="sart btn">시작</button>
+      <button class="start btn">시작</button>
       <button class="stop btn">정지</button>
       <button class="reset btn">리셋</button>
       <button class="emergency btn">비상</button>
     </div>
     <helloEdukit />
-    <!-- <div>
-      <span class="top" :class="{ up: isActiveT }">+y</span>
-      <span class="bottom" :class="{ up: isActiveB }">-y</span>
-      <span class="left" :class="{ up: isActiveL }">-x</span>
-      <span class="right" :class="{ up: isActiveR }">+x</span>
-    </div> -->
     <details>
       <summary>MQTT 부분 제어</summary>
       <div id="button_box">
         <div>
           <label>
             1호기
-            <input type="checkbox" />
+            <input v-model="control.no1" type="checkbox" />
             <i></i>
           </label>
           <label>
             2호기
-            <input type="checkbox" />
+            <input v-model="control.no2" type="checkbox" />
             <i></i>
           </label>
           <label>
             3호기
-            <input type="checkbox" />
+            <input v-model="control.no3" type="checkbox" />
             <i></i>
           </label>
         </div>
         <div>
           <label>
             센서1
-            <input type="checkbox" />
+            <input v-model="control.sen1" type="checkbox" />
             <i></i>
           </label>
           <label>
             센서2
-            <input type="checkbox" />
+            <input v-model="control.sen2" type="checkbox" />
             <i></i>
           </label>
         </div>
@@ -51,6 +45,7 @@
 </template>
 
 <script>
+import mqtt from 'mqtt'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -58,22 +53,46 @@ export default {
   components: {
     helloEdukit
   },
-  async created() {
-    // this.publishMqtt()
+  data() {
+    return {
+      // PLC 프로세스 ON / OFF data들입니다.
+      plc: {
+        isPlcStart: null,
+        isPlcStop: null,
+        isPlcReset: null,
+        isPlcEmergency: null
+      },
+
+      // PLC 내부기기 ON / OFF data들입니다.
+      control: {
+        no1: null,
+        no2: null,
+        no3: null,
+
+        sen1: null,
+        sen2: null
+      }
+    }
+  },
+  created() {
+    this.publishMqtt()
   },
   methods: {
-    // publishMqtt(message) {
-    //   // mqtt pubish
-    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
-    //   const topic = toString(process.env.MQTT_TOPIC)
-    //   message = JSON.stringify(message)
-    //   mqttClient.publish(topic, message, error => {
-    //     console.log(message)
-    //     if (error) {
-    //       console.error('mqtt client error', error)
-    //     }
-    //   })
-    // }
+    publishMqtt(id, v) {
+      // mqtt pubish
+      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+      const topic = process.env.VUE_APP_MQTT_WRITE_TOPIC // UVC-Write
+      const message = JSON.stringify({ tagId: id, value: v })
+      // PLC 제어에 쓰이는 모든 publish message들은
+      // { "tagId" : "id값", "value" : "value값" }으로 이루어져야 합니다.
+
+      mqttClient.publish(topic, message, error => {
+        console.log(message)
+        if (error) {
+          console.error('mqtt client error', error)
+        }
+      })
+    }
   }
 }
 </script>
@@ -244,7 +263,7 @@ details {
   .btn:hover {
     opacity: 1;
   }
-  .sart:hover {
+  .start:hover {
     background: rgba($color: rgb(0, 255, 0), $alpha: 0.5);
     border: 3px solid #4bd865;
   }

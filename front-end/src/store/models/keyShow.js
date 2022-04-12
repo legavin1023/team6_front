@@ -1,6 +1,6 @@
 export default {
   state: {
-    keyShowMode: 'false'
+    keyShowMode: false
   },
   getters: {
     keyShowMode: state => state.keyShowMode
@@ -9,6 +9,7 @@ export default {
   mutations: {
     setKeyShowMode(state, data) {
       state.keyShowMode = data
+      // console.log('바뀜')
     }
   },
   actions: {

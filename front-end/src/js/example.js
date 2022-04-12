@@ -41,15 +41,18 @@ export default async element => {
   render.renderer = rendererElement
 
   /* raycaster 형식 클릭 이벤트 */
-
-  document.addEventListener('click', onclick, true)
-
   let selectedObject = null
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
-  function onclick(event) {
+  // 마우스 감지
+  function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+  }
+  window.addEventListener('onMouseMove', onMouseMove)
+
+  document.addEventListener('click', onclick, true)
+  function onclick(event) {
     raycaster.setFromCamera(mouse, cameraElement)
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
 
@@ -158,6 +161,16 @@ export default async element => {
       }
     }
   }
+  // 마우스 hover 효과 시도
+  // function Hover() {
+  //   raycaster.setFromCamera(mouse, cameraElement)
+  //   let intersects = raycaster.intersectObject(scene.resource.obj.children)
+  //   for (let i = 0; i < intersects.length; i++) {
+  //     console.log('mouse')
+  //   }
+  // }
+  // document.addEventListener('mousemove', Hover)
+  // window.requestAnimationFrame(Hover)
 
   // Rendering Start
   render.start()

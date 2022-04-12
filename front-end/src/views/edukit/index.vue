@@ -80,11 +80,13 @@ export default {
       }
     }
   },
+
   computed: {
     show() {
       return this.$store.getters.keyShowMode
     }
   },
+
   created() {
     this.publishMqtt()
   },
@@ -104,6 +106,7 @@ export default {
         }
       })
     }
+
     // async created() {
     // this.publishMqtt()
     // this.wsConnect()
@@ -115,7 +118,7 @@ export default {
     //   console.log(msg)
     // })
     // },
-  }
+
 }
 </script>
 

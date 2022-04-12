@@ -60,7 +60,7 @@
         <line-chart
           :key="lineChartKey"
           :chart-data="lineChart.chartData"
-          :options="lineChart.options"
+          :options="options"
           style="height: 260px; width: 470px"
         />
       </div>
@@ -562,11 +562,11 @@ export default {
   margin-top: 40px;
   .plc {
     margin-bottom: 10px;
-    label {
-      background-color: #848484;
-    }
   }
   .plc:first-child {
+    label {
+      background-color: #6b4d4d;
+    }
     input {
       &:checked + label {
         background-color: #fd1015;
@@ -574,16 +574,28 @@ export default {
     }
   }
   .plc:nth-of-type(2) {
+    label {
+      background-color: #9ba06d;
+    }
     input {
       &:checked + label {
         background-color: #edff47;
       }
     }
   }
+  .plc:nth-of-type(3) {
+    label {
+      background-color: #6da07a;
+    }
+    input {
+      &:checked + label {
+        background-color: #57de72;
+      }
+    }
+  }
 }
 @media (min-width: 481px) {
   .main {
-    position: relative;
     display: flex;
     justify-content: center;
     .box {
@@ -594,6 +606,7 @@ export default {
       justify-content: center;
     }
     .line_chart {
+      display: block;
       border: 3px solid $sub3;
       width: 480px;
       height: 280px;

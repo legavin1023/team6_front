@@ -12,7 +12,6 @@
         </p>
       </div>
       <div>
-
         <p>2호기 전원</p>
         <p>
           {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}
@@ -35,7 +34,6 @@
       <div>
         <p>총 생산량 수</p>
         <p>{{ plc.mqttNo3Box }}</p>
-
       </div>
       <div>
         <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
@@ -61,11 +59,9 @@
       <div class="line_chart pc">
         <line-chart
           :key="lineChartKey"
-
           :chart-data="chart.chartData"
           :options="chart.options"
           style="height: 260px; width: 470px"
-
         />
       </div>
       <div class="line_chart movi">
@@ -79,14 +75,12 @@
 
       <div class="chart_box">
         <div class="donut_chart pc">
-
           <PieChart_3 style="height: 150px; width: 245px" />
           <PieChart_1 style="height: 150px; width: 245px" class="PieChart_margin" />
         </div>
         <div class="donut_chart movi">
           <PieChart_3 style="height: 200px; width: 300px" />
           <PieChart_1 style="height: 200px; width: 300px" class="PieChart_margin" />
-
         </div>
       </div>
     </div>
@@ -114,14 +108,12 @@ import LineChart from '@/components/chart/lineChart'
 import PieChart_1 from './PieChart_1.vue'
 import PieChart_3 from './PieChart_3.vue'
 
-
 export default {
   components: {
     'line-chart': LineChart,
 
     PieChart_1,
     PieChart_3
-
   },
   data() {
     return {

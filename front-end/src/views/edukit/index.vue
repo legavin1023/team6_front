@@ -80,7 +80,11 @@ export default {
       }
     }
   },
-<<<<<<< HEAD
+  computed: {
+    show() {
+      return this.$store.getters.keyShowMode
+    }
+  },
   created() {
     this.publishMqtt()
   },
@@ -100,41 +104,17 @@ export default {
         }
       })
     }
-=======
-  // async created() {
-  // this.publishMqtt()
-  // this.wsConnect()
-  // this.socket = io('http://localhost:3001')
-  // this.socket.on('connect', () => {
-  //   console.log('hello socketio')
-  // })
-  // this.socket.on('msg', msg => {
-  //   console.log(msg)
-  // })
-  // },
-  computed: {
-    show() {
-      return this.$store.getters.keyShowMode
-    }
-  },
-  methods: {
-    // publishMqtt(message) {
-    //   // mqtt pubish
-    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
-    //   const topic = toString(process.env.MQTT_TOPIC)
-    //   message = JSON.stringify(message)
-    //   mqttClient.publish(topic, message, error => {
-    //     console.log(message)
-    //     if (error) {
-    //       console.error('mqtt client error', error)
-    //     }
-    //   })
+    // async created() {
+    // this.publishMqtt()
+    // this.wsConnect()
+    // this.socket = io('http://localhost:3001')
+    // this.socket.on('connect', () => {
+    //   console.log('hello socketio')
+    // })
+    // this.socket.on('msg', msg => {
+    //   console.log(msg)
+    // })
     // },
-    // sendMessage() {
-    // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
-    // this.socket.emit('msg', 'hello socketio')
-    // }
->>>>>>> 1ff8b48892d9a3ec279e11a7d49e229fcad9744d
   }
 }
 </script>

@@ -40,29 +40,29 @@
         <div>
           <label>
             1호기
-            <input v-model="control.no1" type="checkbox" />
+            <input v-model="control.no1" type="checkbox" @change="onChangeControl(control.no1, 9)" />
             <i></i>
           </label>
           <label>
             2호기
-            <input v-model="control.no2" type="checkbox" />
+            <input v-model="control.no2" type="checkbox" @change="onChangeControl(control.no2, 10)" />
             <i></i>
           </label>
           <label>
             3호기
-            <input v-model="control.no3" type="checkbox" />
+            <input v-model="control.no3" type="checkbox" @change="onChangeControl(control.no3, 11)" />
             <i></i>
           </label>
         </div>
         <div>
           <label>
             센서1
-            <input v-model="control.sen1" type="checkbox" />
+            <input v-model="control.sen1" type="checkbox" @change="onChangeControl(control.sen1, 12)" />
             <i></i>
           </label>
           <label>
             센서2
-            <input v-model="control.sen2" type="checkbox" />
+            <input v-model="control.sen2" type="checkbox" @change="onChangeControl(control.sen2, 13)" />
             <i></i>
           </label>
           <!-- {{ this.$store.getters.keyShowMode }} // 스토어 상태 확인용-->
@@ -135,7 +135,16 @@ export default {
         this.plc.isPlcStart = plcData[0].value // 시작
         this.plc.isPlcReset = plcData[1].value // 리셋
         this.plc.isPlcEmergency = plcData[2].value // 비상정지
-        console.log(this.plc.isPlcStart, this.plc.isPlcReset, this.plc.isPlcEmergency)
+
+        let controlData = this.mqttData.Wrapper.filter(
+          p => p.tagId === '9' || p.tagId === '10' || p.tagId === '11' || p.tagId === '12' || p.tagId === '13'
+        )
+        this.control.no1 = controlData[0].value // 1호기 전원
+        this.control.no2 = controlData[1].value // 2호기 전원
+        this.control.no3 = controlData[2].value // 3호기 전원
+
+        this.control.sen1 = controlData[3].value // 1번 센서 전원
+        this.control.sen2 = controlData[4].value // 2번 센서 전원
       })
     },
     publishMqtt(id, v) {
@@ -165,6 +174,15 @@ export default {
     onClickReset() {
       this.publishMqtt(1, 0)
       this.publishMqtt(8, 1)
+    },
+
+    // PLC 내부기기 ON / OFF method 입니다.
+    onChangeControl(model, tagId) {
+      if (model) {
+        this.publishMqtt(tagId, 1)
+      } else {
+        this.publishMqtt(tagId, 0)
+      }
     }
   }
 }

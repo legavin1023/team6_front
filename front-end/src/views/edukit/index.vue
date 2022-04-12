@@ -2,7 +2,11 @@
   <div id="edukit">
     <div id="youtube" class="youtube">
       <div v-if="this.$store.getters.keyShowMode" class="embed-container">
-        <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <iframe
+          src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1&mute=1 "
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
     <div id="btn_box">
@@ -409,7 +413,7 @@ details {
 
 .youtube {
   position: fixed;
-  // z-index: 90;
+  z-index: 90;
   width: 600px;
   height: 350px;
   top: 50vh;

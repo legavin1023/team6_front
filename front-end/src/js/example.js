@@ -41,18 +41,15 @@ export default async element => {
   render.renderer = rendererElement
 
   /* raycaster 형식 클릭 이벤트 */
+
+  document.addEventListener('click', onclick, true)
+
   let selectedObject = null
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
-  // 마우스 감지
-  function onMouseMove(event) {
+  function onclick(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-  }
-  window.addEventListener('onMouseMove', onMouseMove)
-
-  document.addEventListener('click', onclick, true)
-  function onclick(event) {
     raycaster.setFromCamera(mouse, cameraElement)
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
 
@@ -96,81 +93,43 @@ export default async element => {
           let keyControlShow = store.commit('setKeyShowMode')
           keyControlShow = store.commit('setKeyShowMode', true)
           return
-
-          // 키 제어
-          // document.addEventListener('keydown', function (event) {
-          //   let code = event.keyCode
-          //   if (code == 37) {
-          //     // scene.resource.edukit.xAxis -= 0.01
-          //     // console.log('왼쪽키 입력', scene.resource.edukit)
-          //     allObject[1].rotation.z -= 0.01
-          //   } // leftKey, -z
-          //   if (code == 39) {
-          //     allObject[1].rotation.z += 0.01
-          //   } // rightKey +z
-          //   if (code == 38) {
-          //     // scene.resource.edukit.yAxis += 0.01
-          //     // console.log('위에 키 입력', scene.resource.edukit)
-          //     for (let i = 1; i < 4; i++) {
-          //       allObject[i].position.y += 0.1
-          //     }
-          //   } // upKey +y
-          //   if (code == 40) {
-          //     for (let i = 1; i < 4; i++) {
-          //       allObject[i].position.y -= 0.1
-          //     }
-          //   } // downKey -y
-          // })
-
-          // 시도한 다른 방법
-          // const LEFT = 37,
-          //   RIGHT = 39,
-          //   UP = 38,
-          //   DOWN = 40
-          // document.onkeydown = function (e) {
-          //   if (e.keyCode === DOWN) {
-          //     // keyDown
-          //     for (let i = 1; i < 4; i++) {
-          //       allObject[i].position.y -= 1
-          //     }
-          //     // scene.resource.edukit.yAxis -= 1
-          //     // allObject[1].position.y -= 1
-          //     // allObject[2].position.y -= 1
-          //     // allObject[3].position.y -= 1
-          //   } else if (e.keyCode == UP) {
-          //     // keyUp
-          //     render.edukit.yAxis += 1
-          //     console.log(scene.resource.edukit)
-          //     // scene.resource.obj.position.y += 1
-          //     // allObject[1].position.y += 1
-          //     // allObject[2].position.y += 1
-          //     // allObject[3].position.y += 1
-          //   } else if (e.keyCode == LEFT) {
-          //     // keyLeft
-          //     allObject[1].rotation.z -= 1
-          //     // allObject[2].rotation.z -= 1
-          //     // allObject[3].rotation.z -= 1
-          //   } else if (e.keyCode == RIGHT) {
-          //     // keyRight
-          //     allObject[1].rotation.z += 1
-          //     // allObject[2].rotation.z += 1
-          //     // allObject[3].rotation.z += 1
-          //   }
-          // }
         }
       }
     }
   }
-  // 마우스 hover 효과 시도
-  // function Hover() {
-  //   raycaster.setFromCamera(mouse, cameraElement)
-  //   let intersects = raycaster.intersectObject(scene.resource.obj.children)
-  //   for (let i = 0; i < intersects.length; i++) {
-  //     console.log('mouse')
-  //   }
-  // }
-  // document.addEventListener('mousemove', Hover)
-  // window.requestAnimationFrame(Hover)
+
+  function hover(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+    raycaster.setFromCamera(mouse, cameraElement)
+    const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
+    // object define
+    const allObject = scene.resource.obj.children
+    if (intersects.length > 0) {
+      // 3호기 호버 시
+      const res = intersects.filter(function (res) {
+        return res && res.object
+      })[0]
+      if (res && res.object) {
+        selectedObject = res.object
+        const allSelectObject =
+          selectedObject.parent.name == 'StaticMesh1' ||
+          selectedObject.parent.name == 'StaticMesh2' ||
+          selectedObject.parent.name == 'StaticMesh3' ||
+          selectedObject.parent.name == 'StaticMesh4'
+
+        if (allSelectObject) {
+          for (let i = 1; i < 5; i++) {
+            allObject[i].children[0].material.forEach(element => {
+              element.emissive.setHex(0x9e4fd4)
+            })
+          }
+          console.log('move')
+        }
+      }
+    }
+  }
+  document.addEventListener('mousemove', hover)
 
   // Rendering Start
   render.start()

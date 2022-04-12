@@ -1,5 +1,10 @@
 <template>
   <div id="edukit">
+    <div class="youtube">
+      <div v-if="this.$store.getters.keyShowMode" class="embed-container">
+        <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
     <div id="btn_box">
       <button class="start btn">시작</button>
       <button class="stop btn">정지</button>
@@ -38,6 +43,7 @@
             <input v-model="control.sen2" type="checkbox" />
             <i></i>
           </label>
+          <!-- {{ this.$store.getters.keyShowMode }} // 스토어 상태 확인용-->
         </div>
       </div>
     </details>
@@ -74,6 +80,7 @@ export default {
       }
     }
   },
+<<<<<<< HEAD
   created() {
     this.publishMqtt()
   },
@@ -93,6 +100,41 @@ export default {
         }
       })
     }
+=======
+  // async created() {
+  // this.publishMqtt()
+  // this.wsConnect()
+  // this.socket = io('http://localhost:3001')
+  // this.socket.on('connect', () => {
+  //   console.log('hello socketio')
+  // })
+  // this.socket.on('msg', msg => {
+  //   console.log(msg)
+  // })
+  // },
+  computed: {
+    show() {
+      return this.$store.getters.keyShowMode
+    }
+  },
+  methods: {
+    // publishMqtt(message) {
+    //   // mqtt pubish
+    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+    //   const topic = toString(process.env.MQTT_TOPIC)
+    //   message = JSON.stringify(message)
+    //   mqttClient.publish(topic, message, error => {
+    //     console.log(message)
+    //     if (error) {
+    //       console.error('mqtt client error', error)
+    //     }
+    //   })
+    // },
+    // sendMessage() {
+    // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
+    // this.socket.emit('msg', 'hello socketio')
+    // }
+>>>>>>> 1ff8b48892d9a3ec279e11a7d49e229fcad9744d
   }
 }
 </script>
@@ -364,5 +406,32 @@ details {
     font-weight: bold;
     text-align: center;
   }
+}
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.youtube {
+  position: fixed;
+  z-index: 90;
+  width: 600px;
+  height: 350px;
+  top: 50vh;
+  left: 50vw;
+  margin-top: -175px;
+  margin-left: -300px;
 }
 </style>

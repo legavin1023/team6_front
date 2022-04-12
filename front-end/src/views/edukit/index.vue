@@ -51,6 +51,8 @@
 </template>
 
 <script>
+// import mqtt from 'mqtt'
+// import { io } from 'socket.io-client'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -58,7 +60,7 @@ export default {
   components: {
     helloEdukit
   },
-  data: function () {
+  data() {
     return {
       // isActiveT: false,
       // isActiveB: false,
@@ -66,44 +68,36 @@ export default {
       // isActiveR: false
     }
   },
-  mounted() {
-    // window.addEventListener('keyup', event => {
-    //   if (event.keyCode === 38) {
-    //     this.isActiveT = true
-    //     setTimeout(() => {
-    //       this.isActiveT = false
-    //     }, 1000)
-    //   } else {
-    //     this.isActiveT = false
-    //   }
-    //   if (event.keyCode === 40) {
-    //     this.isActiveB = true
-    //     setTimeout(() => {
-    //       this.isActiveB = false
-    //     }, 1000)
-    //   } else {
-    //     this.isActiveB = false
-    //   }
-    //   if (event.keyCode === 37) {
-    //     this.isActiveL = true
-    //     setTimeout(() => {
-    //       this.isActiveL = false
-    //     }, 1000)
-    //   } else {
-    //     this.isActiveL = false
-    //   }
-    //   if (event.keyCode === 39) {
-    //     this.isActiveR = true
-    //     setTimeout(() => {
-    //       this.isActiveR = false
-    //     }, 1000)
-    //   } else {
-    //     this.isActiveR = false
-    //   }
+  async created() {
+    // this.publishMqtt()
+    // this.wsConnect()
+    // this.socket = io('http://localhost:3001')
+    // this.socket.on('connect', () => {
+    //   console.log('hello socketio')
+    // })
+    // this.socket.on('msg', msg => {
+    //   console.log(msg)
     // })
   },
   methods: {
-    activeTop() {}
+    // publishMqtt(message) {
+    //   // mqtt pubish
+    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+    //   const topic = toString(process.env.MQTT_TOPIC)
+    //   message = JSON.stringify(message)
+
+    //   mqttClient.publish(topic, message, error => {
+    //     console.log(message)
+    //     if (error) {
+    //       console.error('mqtt client error', error)
+    //     }
+    //   })
+    // },
+
+    sendMessage() {
+      // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
+      // this.socket.emit('msg', 'hello socketio')
+    }
   }
 }
 </script>

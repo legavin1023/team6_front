@@ -12,6 +12,7 @@
         </p>
       </div>
       <div>
+
         <p>2호기 전원</p>
         <p>
           {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}
@@ -34,6 +35,7 @@
       <div>
         <p>총 생산량 수</p>
         <p>{{ plc.mqttNo3Box }}</p>
+
       </div>
       <div>
         <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
@@ -58,33 +60,33 @@
 
       <div class="line_chart pc">
         <line-chart
-          ref="lineChartRef"
           :key="lineChartKey"
+
           :chart-data="chart.chartData"
           :options="chart.options"
           style="height: 260px; width: 470px"
+
         />
-        <!-- </canvas> -->
       </div>
       <div class="line_chart movi">
         <line-chart
-          ref="lineChartRef"
           :key="lineChartKey"
-          :chart-data="chart.chartData"
-          :options="chart.options"
+          :chart-data="lineChart.chartData"
+          :options="options"
           style="height: height: 260px; width: 320px"
         />
-        <!-- </canvas> -->
       </div>
 
       <div class="chart_box">
         <div class="donut_chart pc">
+
           <PieChart_3 style="height: 150px; width: 245px" />
           <PieChart_1 style="height: 150px; width: 245px" class="PieChart_margin" />
         </div>
         <div class="donut_chart movi">
           <PieChart_3 style="height: 200px; width: 300px" />
           <PieChart_1 style="height: 200px; width: 300px" class="PieChart_margin" />
+
         </div>
       </div>
     </div>
@@ -108,19 +110,31 @@
 <script>
 import mqtt from 'mqtt'
 import LineChart from '@/components/chart/lineChart'
+
 import PieChart_1 from './PieChart_1.vue'
 import PieChart_3 from './PieChart_3.vue'
+
 
 export default {
   components: {
     'line-chart': LineChart,
+
     PieChart_1,
     PieChart_3
+
   },
   data() {
     return {
+      // chartKey data들입니다.
       lineChartKey: +new Date(),
+      barChartKey: +new Date() + 1,
+      pieChart1Key: +new Date() + 2,
+      pieChart2Key: +new Date() + 3,
+
+      // mqttData
       mqttData: null,
+
+      // PLC 관련 data들입니다.
       plc: {
         // 1호기 & 2호기 데이터
         mqttNo1On: null,
@@ -135,22 +149,93 @@ export default {
         mqttNo2Box: null,
         mqttNo3Box: null
       },
-      chart: {
-        // chart gradient
+
+      // chart 공통 option data 입니다.
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        xAxes: [
+          {
+            type: 'realtime',
+            realtime: {
+              duration: 200,
+              refresh: 1000,
+              delay: 200
+            }
+          }
+        ],
+        yAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: 'value'
+            }
+          }
+        ],
+        tooltips: {
+          mode: 'nearest',
+          intersect: false
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: false
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        },
+        animation: {
+          duration: 0
+        }
+      },
+      pieOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        xAxes: [
+          {
+            type: 'realtime',
+            realtime: {
+              duration: 200,
+              refresh: 1000,
+              delay: 200
+            }
+          }
+        ],
+        tooltips: {
+          mode: 'nearest',
+          intersect: false
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: false
+        },
+        animation: {
+          duration: 0
+        }
+      },
+
+      // lineChart 관련 data들입니다.
+      lineChart: {
+        // lineChart gradient
         gradient: null,
         gradient2: null,
 
-        // chart settings
+        // lineChart settings
         maxDataLength: 20,
-        mqttDataListA: [],
-        mqttDataListB: [],
-        datasetDatas: [],
+        // mqttDataListA: [],
+        // mqttDataListB: [],
+        // datasetDatas: [],
         chartData: null,
-        chartLabels: [],
+        // lineChartLabels: [],
 
-        // chart config
+        // lineChart config
         config: {
-          // labels: this.chartLabels,
+          // labels: this.lineChartLabels,
           labels: [],
           datasets: [
             {
@@ -160,7 +245,7 @@ export default {
               borderWidth: 1,
               pointBorderColor: 'white',
               backgroundColor: '',
-              // data: this.chart.mqttDataListA
+              // data: this.lineChart.mqttDataListA
               data: []
             },
             {
@@ -170,52 +255,87 @@ export default {
               pointBorderColor: 'white',
               borderWidth: 1,
               backgroundColor: '',
-              // data: this.chart.mqttDataListB
+              // data: this.lineChart.mqttDataListB
               data: []
             }
           ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          xAxes: [
+        }
+      },
+
+      // barChart 관련 data들입니다.
+      barChart: {
+        // barChart gradient
+        gradient: null,
+
+        // barChart diceNum
+        diceNum1: 0,
+        diceNum2: 0,
+        diceNum3: 0,
+        diceNum4: 0,
+        diceNum5: 0,
+        diceNum6: 0,
+
+        // barChart settings
+        chartData: null,
+
+        // barChart config
+        config: {
+          labels: [1, 2, 3, 4, 5, 6],
+          datasets: [
             {
-              type: 'realtime',
-              realtime: {
-                duration: 200,
-                refresh: 1000,
-                delay: 200
-              }
+              label: '주사위 갯수',
+              backgroundColor: '',
+              data: [],
+              borderWidth: 1,
+              borderColor: '#9e4fd4'
             }
-          ],
-          yAxes: [
+          ]
+        }
+      },
+
+      // pieChart 관련 data들입니다.
+      pieChart: {
+        // pieChart gradient
+        gradient: null,
+        gradient2: null
+      },
+
+      pieChart1: {
+        // pieChart1 settings
+        chartData: null,
+        product: null,
+        defective: null,
+
+        // pieChart1 config
+        config: {
+          labels: ['양품', '불량품'],
+          datasets: [
             {
-              scaleLabel: {
-                display: true,
-                labelString: 'value'
-              }
+              borderWidth: 1,
+              borderColor: '#9e4fd4',
+              backgroundColor: [],
+              data: []
             }
-          ],
-          tooltips: {
-            mode: 'nearest',
-            intersect: false
-          },
-          hover: {
-            mode: 'nearest',
-            intersect: false
-          },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
-              }
-            ]
-          },
-          animation: {
-            duration: 0
-          }
+          ]
+        }
+      },
+      pieChart2: {
+        // pieChart2 settings
+        chartData: null,
+        odd: 0,
+        even: 0,
+
+        // pieChart2 config
+        config: {
+          labels: ['홀수', '짝수'],
+          datasets: [
+            {
+              borderWidth: 1,
+              borderColor: '#9e4fd4',
+              backgroundColor: [],
+              data: []
+            }
+          ]
         }
       }
     }
@@ -224,24 +344,51 @@ export default {
     this.createMqtt()
   },
   mounted() {
+    // ---------LINECHART DRAWING---------
     const lineCanvas = document.getElementById('line-chart')
-    this.chart.gradient = lineCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.chart.gradient2 = lineCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
 
-    this.chart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
-    this.chart.gradient.addColorStop(0.5, 'rgba(158, 79, 212, 0.25)')
-    this.chart.gradient.addColorStop(1, 'rgba(158, 79, 212, 0)')
+    this.lineChart.gradient = lineCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
+    this.lineChart.gradient2 = lineCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
 
-    this.chart.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.5)')
-    this.chart.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.25)')
-    this.chart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
+    this.lineChart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
+    this.lineChart.gradient.addColorStop(0.5, 'rgba(158, 79, 212, 0.25)')
+    this.lineChart.gradient.addColorStop(1, 'rgba(158, 79, 212, 0)')
 
-    this.chart.config.datasets[0].backgroundColor = this.chart.gradient
-    // this.chart.config.datasets[1].backgroundColor = this.chart.gradient2
+    this.lineChart.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.5)')
+    this.lineChart.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.25)')
+    this.lineChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
 
-    this.makeChartData()
+    this.lineChart.config.datasets[0].backgroundColor = this.lineChart.gradient
+    // this.lineChart.config.datasets[1].backgroundColor = this.lineChart.gradient2
 
-    // this.renderChart(this.chart.config, this.chart.options)
+    this.makeLineChartData()
+
+    // this.renderChart(this.lineChart.config, this.lineChart.options)
+
+    // ----------BARCHART DRAWING----------
+    const barCanvas = document.getElementById('bar-chart')
+
+    this.barChart.gradient = barCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
+    this.barChart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
+    this.barChart.gradient.addColorStop(0.9, 'rgba(0, 231, 255, 0.9)')
+
+    this.makeBarChartData()
+
+    // ----------PIECHART 1, 2 DRAWING ----------
+    const pieCanvas = document.getElementById('doughnut-chart')
+
+    this.pieChart.gradient = pieCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
+    this.pieChart.gradient2 = pieCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
+
+    this.pieChart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
+    this.pieChart.gradient.addColorStop(0.5, 'rgba(158, 79, 212, 0.25)')
+    this.pieChart.gradient.addColorStop(1, 'rgba(158, 79, 212, 0)')
+
+    this.pieChart.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.9)')
+    this.pieChart.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.25)')
+    this.pieChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
+
+    this.pieChart1.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
   },
   methods: {
     createMqtt() {
@@ -250,7 +397,8 @@ export default {
 
       mqttClient.on('connect', () => {
         // mqtt 연결 시 구독한다.
-        const topic = 'UVC' // 구독할 토픽
+        // const topic = 'UVC' // 구독할 토픽
+        const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
             console.error('mqtt client error', error)
@@ -260,6 +408,7 @@ export default {
 
       // 메세지 실시간 수신
       mqttClient.on('message', (topic, message) => {
+        // console.log('hello mqtt')
         this.mqttData = JSON.parse(message) // json string으로만 받을 수 있음
         // ------PLC DATA FILTERING------
 
@@ -282,49 +431,106 @@ export default {
         this.plc.mqttNo3Box = boxData[2]
 
         // ------LINECHART DATA FILTERING------
-        this.removeOldData() // 오래된 데이터 제거
+        this.removeOldLineData() // 오래된 데이터 제거
 
         // 라벨 데이터 필터링 & 추가
         let timeData = this.mqttData.Wrapper.filter(p => p.tagId === '0')
-        this.chart.config.labels.push(timeData[0].value.substring(14, 19)) // 차트라벨 생성
+        this.lineChart.config.labels.push(timeData[0].value.substring(14, 19)) // 차트라벨 생성
 
         // 양품 불량품 데이터 필터링
         let productData = this.mqttData.Wrapper.filter(p => p.tagId === '17' || p.tagId === '15')
         productData = productData.map(p => parseInt(p.value))
 
         // 리스트에 계속 추가
-        this.chart.config.datasets[0].data.push(productData[1])
+        this.lineChart.config.datasets[0].data.push(productData[1])
         // 불량품은 반출한 박스의 개수에서 총 생산량 개수를 제한다.
-        this.chart.config.datasets[1].data.push(productData[0] - productData[1])
+        this.lineChart.config.datasets[1].data.push(productData[0] - productData[1])
 
-        this.makeChartData() // 차트용 데이터 작성
+        this.makeLineChartData() // 차트용 데이터 작성
 
-        // console.log(this.chart.chartLabels)
-        // console.log(this.chart.datasetDatas)
+        // ------PIECHART1 DATA FILTERING------
+        this.pieChart1.product = productData[1]
+        this.pieChart1.defective = productData[0] - productData[1]
+
+        this.pieChart1.config.datasets[0].data = [this.pieChart1.product, this.pieChart1.defective]
+
+        this.makePieChart1Data()
+
+        // ------PIECHART2 DATA FILTERING------
+        let diceNum = this.mqttData.Wrapper.filter(p => p.tagId === '34' || p.tagId === '37')
+        diceNum = diceNum.map(p => parseInt(p.value))
+
+        if (diceNum[0] !== 0 && diceNum[1] % 2 == 0) {
+          this.pieChart2.even += 1
+        } else if (diceNum[0] !== 0 && diceNum[1] % 2 !== 0) {
+          this.pieChart2.odd + 1
+        }
+
+        this.pieChart2.config.datasets[0].data = [this.pieChart2.odd, this.pieChart2.even]
+
+        this.makePieChart2Data()
+
+        // ------BARCHART DATA FILTERING------
+        let diceData = this.mqttData.Wrapper.filter(p => p.tagId === '37')
+        diceData = diceData.map(p => parseInt(p.value))
+
+        console.log(diceData)
+
+        setTimeout(() => {
+          if (diceData[0] === 1) {
+            this.barChart.diceNum1 += 1
+          } else if (diceData[0] === 2) {
+            this.barChart.diceNum2 += 1
+          } else if (diceData[0] === 3) {
+            this.barChart.diceNum3 += 1
+          } else if (diceData[0] === 4) {
+            this.barChart.diceNum4 += 1
+          } else if (diceData[0] === 5) {
+            this.barChart.diceNum5 += 1
+          } else if (diceData[0] === 6) {
+            this.barChart.diceNum6 += 1
+          }
+        }, 3000)
+
+        this.barChart.config.datasets[0].data = [
+          this.barChart.diceNum1,
+          this.barChart.diceNum2,
+          this.barChart.diceNum3,
+          this.barChart.diceNum4,
+          this.barChart.diceNum5,
+          this.barChart.diceNum6
+        ]
+
+        this.makeBarChartData()
+
+        console.log(this.barChart.config.datasets[0].data)
+
+        // console.log(this.lineChart.chartLabels)
+        // console.log(this.lineChart.datasetDatas)
       })
     },
 
     // ---------LINECHART DATA METHOD---------
-    removeOldData() {
+    removeOldLineData() {
       // 현재 차트에 출력할 개수가 x개를 넘어서면 제일 오래된 데이터를 제거한다.
       if (
-        this.chart.maxDataLength - 1 < this.chart.config.datasets[0].data.length &&
-        this.chart.maxDataLength - 1 < this.chart.config.datasets[1].data.length
+        this.lineChart.maxDataLength - 1 < this.lineChart.config.datasets[0].data.length &&
+        this.lineChart.maxDataLength - 1 < this.lineChart.config.datasets[1].data.length
       ) {
-        this.chart.config.labels.shift() // 차트라벨 제거
-        this.chart.config.datasets[0].data.shift() // mqttdata 제거
-        this.chart.config.datasets[1].data.shift() // mqttdata 제거
+        this.lineChart.config.labels.shift() // 차트라벨 제거
+        this.lineChart.config.datasets[0].data.shift() // mqttdata 제거
+        this.lineChart.config.datasets[1].data.shift() // mqttdata 제거
       }
     },
-    makeChartData() {
+    makeLineChartData() {
       // 차트용 데이터 생성
       // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.chart.config.datasets[0].data.length === 0 || this.chart.config.datasets[1].data.length === 0) {
-        this.chart.chartData = {
+      if (this.lineChart.config.datasets[0].data.length === 0 || this.lineChart.config.datasets[1].data.length === 0) {
+        this.lineChart.chartData = {
           labels: ['0'],
           datasets: [
             {
-              label: 'no data',
+              label: 'PLC와 연결되어있지 않습니다.',
               data: [0]
             }
           ]
@@ -333,8 +539,66 @@ export default {
       }
 
       this.lineChartKey = +new Date()
-      this.chart.chartData = this.chart.config
-      // console.log(this.chart.config.labels, this.chart.config.datasets[0].data)
+      this.lineChart.chartData = this.lineChart.config
+    },
+
+    // ---------BARCHART DATA METHOD---------
+    makeBarChartData() {
+      // 차트용 데이터 생성
+      // mqtt 정보가 없으면 기본 그래프를 그려준다.
+      if (this.barChart.config.datasets[0].data.length === 0) {
+        this.barChart.chartData = {
+          labels: ['0'],
+          datasets: [
+            {
+              label: 'PLC와 연결되어있지 않습니다.',
+              data: [0]
+            }
+          ]
+        }
+        return
+      }
+
+      this.barChartKey = +new Date() + 1
+      this.barChart.chartData = this.barChart.config
+    },
+
+    // ---------PIECHART 1, 2 DATA METHOD---------
+    makePieChart1Data() {
+      // mqtt 정보가 없으면 기본 그래프를 그려준다.
+      if (this.pieChart1.config.datasets[0].data.length === 0) {
+        this.pieChart1.chartData = {
+          labels: ['0'],
+          datasets: [
+            {
+              label: 'PLC와 연결되어있지 않습니다.',
+              data: [0]
+            }
+          ]
+        }
+        return
+      }
+
+      this.pieChart1Key = +new Date() + 2
+      this.pieChart1.chartData = this.pieChart1.config
+    },
+    makePieChart2Data() {
+      // mqtt 정보가 없으면 기본 그래프를 그려준다.
+      if (this.pieChart2.config.datasets[0].data.length === 0 || this.pieChart2.even == 0 || this.pieChart2.odd == 0) {
+        this.pieChart2.chartData = {
+          labels: ['PLC와 연결되어있지 않습니다.'],
+          datasets: [
+            {
+              label: 'PLC와 연결되어있지 않습니다.',
+              data: [0]
+            }
+          ]
+        }
+        return
+      }
+
+      this.pieChart2Key = +new Date() + 3
+      this.pieChart2.chartData = this.pieChart2.config
     }
   }
 }

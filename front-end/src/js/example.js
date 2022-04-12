@@ -64,6 +64,9 @@ export default async element => {
           element.emissive.setHex(0x000000)
         })
       }
+      let keyControlShow = store.commit('setKeyShowMode')
+      // console.log('keyControlShow before', keyControlShow)
+      keyControlShow = store.commit('setKeyShowMode', false)
     }
 
     if (intersects.length > 0) {
@@ -87,35 +90,34 @@ export default async element => {
           }
           console.log('모델 찾았습니다')
           // console.log(KeyShow.actions.actKeyShowMode('setKeyShowMode', 'true'))
-          let keyControlShow = store.getters.keyShowMode
-          console.log('keyControlShow before', keyControlShow)
-          keyControlShow = 'true'
-          console.log('keyControlShow after', keyControlShow)
+          let keyControlShow = store.commit('setKeyShowMode')
+          keyControlShow = store.commit('setKeyShowMode', true)
+          return
 
           // 키 제어
-          document.addEventListener('keydown', function (event) {
-            let code = event.keyCode
-            if (code == 37) {
-              // scene.resource.edukit.xAxis -= 0.01
-              // console.log('왼쪽키 입력', scene.resource.edukit)
-              allObject[1].rotation.z -= 0.01
-            } // leftKey, -z
-            if (code == 39) {
-              allObject[1].rotation.z += 0.01
-            } // rightKey +z
-            if (code == 38) {
-              // scene.resource.edukit.yAxis += 0.01
-              // console.log('위에 키 입력', scene.resource.edukit)
-              for (let i = 1; i < 4; i++) {
-                allObject[i].position.y += 0.1
-              }
-            } // upKey +y
-            if (code == 40) {
-              for (let i = 1; i < 4; i++) {
-                allObject[i].position.y -= 0.1
-              }
-            } // downKey -y
-          })
+          // document.addEventListener('keydown', function (event) {
+          //   let code = event.keyCode
+          //   if (code == 37) {
+          //     // scene.resource.edukit.xAxis -= 0.01
+          //     // console.log('왼쪽키 입력', scene.resource.edukit)
+          //     allObject[1].rotation.z -= 0.01
+          //   } // leftKey, -z
+          //   if (code == 39) {
+          //     allObject[1].rotation.z += 0.01
+          //   } // rightKey +z
+          //   if (code == 38) {
+          //     // scene.resource.edukit.yAxis += 0.01
+          //     // console.log('위에 키 입력', scene.resource.edukit)
+          //     for (let i = 1; i < 4; i++) {
+          //       allObject[i].position.y += 0.1
+          //     }
+          //   } // upKey +y
+          //   if (code == 40) {
+          //     for (let i = 1; i < 4; i++) {
+          //       allObject[i].position.y -= 0.1
+          //     }
+          //   } // downKey -y
+          // })
 
           // 시도한 다른 방법
           // const LEFT = 37,
@@ -152,7 +154,6 @@ export default async element => {
           //     // allObject[3].rotation.z += 1
           //   }
           // }
-          return
         }
       }
     }

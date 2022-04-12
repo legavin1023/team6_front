@@ -5,6 +5,9 @@
       <button class="stop btn">정지</button>
       <button class="reset btn">리셋</button>
       <button class="emergency btn">비상</button>
+      <div v-if="this.$store.getters.keyShowMode" class="embed-container">
+        <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
     <helloEdukit />
     <!-- <div>
@@ -44,6 +47,7 @@
             <input type="checkbox" />
             <i></i>
           </label>
+          <!-- {{ this.$store.getters.keyShowMode }} // 스토어 상태 확인용-->
         </div>
       </div>
     </details>
@@ -68,16 +72,21 @@ export default {
       // isActiveR: false
     }
   },
-  async created() {
-    // this.publishMqtt()
-    // this.wsConnect()
-    // this.socket = io('http://localhost:3001')
-    // this.socket.on('connect', () => {
-    //   console.log('hello socketio')
-    // })
-    // this.socket.on('msg', msg => {
-    //   console.log(msg)
-    // })
+  // async created() {
+  // this.publishMqtt()
+  // this.wsConnect()
+  // this.socket = io('http://localhost:3001')
+  // this.socket.on('connect', () => {
+  //   console.log('hello socketio')
+  // })
+  // this.socket.on('msg', msg => {
+  //   console.log(msg)
+  // })
+  // },
+  computed: {
+    show() {
+      return this.$store.getters.keyShowMode
+    }
   },
   methods: {
     // publishMqtt(message) {
@@ -85,7 +94,6 @@ export default {
     //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
     //   const topic = toString(process.env.MQTT_TOPIC)
     //   message = JSON.stringify(message)
-
     //   mqttClient.publish(topic, message, error => {
     //     console.log(message)
     //     if (error) {
@@ -93,11 +101,10 @@ export default {
     //     }
     //   })
     // },
-
-    sendMessage() {
-      // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
-      // this.socket.emit('msg', 'hello socketio')
-    }
+    // sendMessage() {
+    // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
+    // this.socket.emit('msg', 'hello socketio')
+    // }
   }
 }
 </script>
@@ -369,5 +376,21 @@ details {
     font-weight: bold;
     text-align: center;
   }
+}
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

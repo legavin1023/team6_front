@@ -1,6 +1,6 @@
 <template>
   <div id="edukit">
-    <div class="youtube">
+    <div id="youtube" class="youtube">
       <div v-if="this.$store.getters.keyShowMode" class="embed-container">
         <iframe src="https://www.youtube.com/embed//p_mDR0fAk2g?autoplay=1" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -409,12 +409,13 @@ details {
 
 .youtube {
   position: fixed;
-  z-index: 90;
+  // z-index: 90;
   width: 600px;
   height: 350px;
   top: 50vh;
   left: 50vw;
   margin-top: -175px;
   margin-left: -300px;
+  pointer-events: none;
 }
 </style>

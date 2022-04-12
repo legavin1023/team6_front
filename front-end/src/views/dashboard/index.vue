@@ -27,7 +27,14 @@
         </div>
         <p v-if="plc.mqttNo3Box == null">PLC와 연결되어있지 않습니다.</p>
       </div>
-      <div class="donut_chart"><PieChart_3 style="height: 160px; width: 245px" /></div>
+      <div class="donut_chart">
+        <pie-chart-3
+          :key="pieChart3Key"
+          :chart-data="pieChart3.chartData"
+          :options="pieOptions"
+          style="height: 160px; width: 245px"
+        />
+      </div>
     </div>
     <div class="box">
       <div class="text_box">
@@ -120,8 +127,6 @@
 import mqtt from 'mqtt'
 import LineChart from '@/components/chart/lineChart'
 import PieChart from '@/components/chart/doughnutChart'
-import PieChart_2 from './PieChart_2.vue'
-import PieChart_3 from './PieChart_3.vue'
 import BarChart from '@/components/chart/barChart'
 
 export default {
@@ -129,7 +134,7 @@ export default {
     'line-chart': LineChart,
     'pie-chart-1': PieChart,
     'pie-chart-2': PieChart,
-    PieChart_3,
+    'pie-chart-3': PieChart,
     'bar-chart': BarChart
   },
   data() {
@@ -139,6 +144,7 @@ export default {
       barChartKey: +new Date() + 1,
       pieChart1Key: +new Date() + 2,
       pieChart2Key: +new Date() + 3,
+      pieChart3Key: +new Date() + 3,
 
       // mqttData
       mqttData: null,
@@ -346,6 +352,25 @@ export default {
             }
           ]
         }
+      },
+      pieChart3: {
+        // pieChart2 settings
+        chartData: null,
+        red: 0,
+        white: 0,
+
+        // pieChart2 config
+        config: {
+          labels: ['하양', '빨강'],
+          datasets: [
+            {
+              borderWidth: 1,
+              borderColor: '#ff0000',
+              backgroundColor: ['rgba(255, 100, 100, 1)', 'rgba(255, 255, 255, 1)'],
+              data: []
+            }
+          ]
+        }
       }
     }
   },
@@ -398,6 +423,7 @@ export default {
     this.pieChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
 
     this.pieChart1.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
+    this.pieChart2.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
   },
   methods: {
     createMqtt() {
@@ -407,6 +433,7 @@ export default {
       mqttClient.on('connect', () => {
         // mqtt 연결 시 구독한다.
         // const topic = 'UVC' // 구독할 토픽
+        // console.log('mqtt success')
         const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
@@ -466,24 +493,38 @@ export default {
         this.makePieChart1Data()
 
         // ------PIECHART2 DATA FILTERING------
-        let diceNum = this.mqttData.Wrapper.filter(p => p.tagId === '34' || p.tagId === '37')
+        let diceNum = this.mqttData.Wrapper.filter(p => p.tagId === '37')
         diceNum = diceNum.map(p => parseInt(p.value))
 
-        if (diceNum[0] !== 0 && diceNum[1] % 2 == 0) {
+        if (diceNum[0] !== 0 && diceNum[0] % 2 == 0) {
           this.pieChart2.even += 1
-        } else if (diceNum[0] !== 0 && diceNum[1] % 2 !== 0) {
-          this.pieChart2.odd + 1
+        } else if (diceNum[0] !== 0 && diceNum[0] % 2 !== 0) {
+          this.pieChart2.odd += 1
         }
 
         this.pieChart2.config.datasets[0].data = [this.pieChart2.odd, this.pieChart2.even]
 
         this.makePieChart2Data()
 
+        // ------PIECHART3 DATA FILTERING------
+        let colorSence = this.mqttData.Wrapper.filter(p => p.tagId == '39')
+        colorSence = colorSence.map(p => parseInt(p.value))
+
+        if (colorSence == 0) {
+          this.pieChart3.red += 1
+        } else if (colorSence == 1) {
+          this.pieChart3.white += 1
+        }
+
+        this.pieChart3.config.datasets[0].data = [this.pieChart3.white, this.pieChart3.red]
+
+        this.makePieChart3Data()
+
         // ------BARCHART DATA FILTERING------
         let diceData = this.mqttData.Wrapper.filter(p => p.tagId === '37')
         diceData = diceData.map(p => parseInt(p.value))
 
-        console.log(diceData)
+        // console.log(diceData)
 
         setTimeout(() => {
           if (diceData[0] === 1) {
@@ -512,7 +553,7 @@ export default {
 
         this.makeBarChartData()
 
-        console.log(this.barChart.config.datasets[0].data)
+        // console.log(this.barChart.config.datasets[0].data)
 
         // console.log(this.lineChart.chartLabels)
         // console.log(this.lineChart.datasetDatas)
@@ -593,7 +634,7 @@ export default {
     },
     makePieChart2Data() {
       // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.pieChart2.config.datasets[0].data.length === 0 || this.pieChart2.even == 0 || this.pieChart2.odd == 0) {
+      if (this.pieChart2.config.datasets[0].data.length === 0) {
         this.pieChart2.chartData = {
           labels: ['PLC와 연결되어있지 않습니다.'],
           datasets: [
@@ -608,6 +649,24 @@ export default {
 
       this.pieChart2Key = +new Date() + 3
       this.pieChart2.chartData = this.pieChart2.config
+    },
+    makePieChart3Data() {
+      // mqtt 정보가 없으면 기본 그래프를 그려준다.
+      if (this.pieChart3.config.datasets[0].data.length === 0) {
+        this.pieChart3.chartData = {
+          labels: ['PLC와 연결되어있지 않습니다.'],
+          datasets: [
+            {
+              label: 'PLC와 연결되어있지 않습니다.',
+              data: [0]
+            }
+          ]
+        }
+        return
+      }
+
+      this.pieChart3Key = +new Date() + 4
+      this.pieChart3.chartData = this.pieChart3.config
     }
   }
 }

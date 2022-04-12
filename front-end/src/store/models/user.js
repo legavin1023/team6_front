@@ -54,6 +54,7 @@ export default {
         })
         .catch(error => {
           console.error('setInsertedResult.error', error)
+          alert('회원가입 정보를 다시 확인해주세요.')
           context.commit('setInsertedResult', -1)
         })
     },

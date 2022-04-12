@@ -51,8 +51,6 @@
 </template>
 
 <script>
-// import mqtt from 'mqtt'
-// import { io } from 'socket.io-client'
 import helloEdukit from './edukit.vue'
 
 export default {
@@ -60,24 +58,8 @@ export default {
   components: {
     helloEdukit
   },
-  data() {
-    return {
-      // isActiveT: false,
-      // isActiveB: false,
-      // isActiveL: false,
-      // isActiveR: false
-    }
-  },
   async created() {
     // this.publishMqtt()
-    // this.wsConnect()
-    // this.socket = io('http://localhost:3001')
-    // this.socket.on('connect', () => {
-    //   console.log('hello socketio')
-    // })
-    // this.socket.on('msg', msg => {
-    //   console.log(msg)
-    // })
   },
   methods: {
     // publishMqtt(message) {
@@ -85,19 +67,13 @@ export default {
     //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
     //   const topic = toString(process.env.MQTT_TOPIC)
     //   message = JSON.stringify(message)
-
     //   mqttClient.publish(topic, message, error => {
     //     console.log(message)
     //     if (error) {
     //       console.error('mqtt client error', error)
     //     }
     //   })
-    // },
-
-    sendMessage() {
-      // this.socket.emit(`SEND${process.env.VUE_APP_MQTT_TOPIC}`, 'hello socketio')
-      // this.socket.emit('msg', 'hello socketio')
-    }
+    // }
   }
 }
 </script>

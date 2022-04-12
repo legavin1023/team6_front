@@ -80,6 +80,13 @@ export default {
       }
     }
   },
+
+  computed: {
+    show() {
+      return this.$store.getters.keyShowMode
+    }
+  },
+
   created() {
     this.publishMqtt()
   },
@@ -99,7 +106,19 @@ export default {
         }
       })
     }
-  }
+
+    // async created() {
+    // this.publishMqtt()
+    // this.wsConnect()
+    // this.socket = io('http://localhost:3001')
+    // this.socket.on('connect', () => {
+    //   console.log('hello socketio')
+    // })
+    // this.socket.on('msg', msg => {
+    //   console.log(msg)
+    // })
+    // },
+
 }
 </script>
 

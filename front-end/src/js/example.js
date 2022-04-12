@@ -105,6 +105,8 @@ export default async element => {
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
     // object define
     const allObject = scene.resource.obj.children
+    // allObject.style.cursor = 'pointer'
+
     if (intersects.length > 0) {
       // 3호기 호버 시
       const res = intersects.filter(function (res) {
@@ -122,6 +124,8 @@ export default async element => {
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {
               element.emissive.setHex(0x9e4fd4)
+              // element.style.cursor = 'pointer'
+              // element.classList.add('hover')
             })
           }
           // console.log('move')

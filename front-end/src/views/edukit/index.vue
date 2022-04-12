@@ -189,6 +189,9 @@ export default {
 </script>
 
 <style lang="scss">
+.hover {
+  cursor: pointer;
+}
 details {
   position: fixed;
   z-index: 90;
@@ -410,7 +413,7 @@ details {
 
 .youtube {
   position: fixed;
-  z-index: 90;
+  z-index: 9999;
   width: 600px;
   height: 350px;
   top: 50vh;

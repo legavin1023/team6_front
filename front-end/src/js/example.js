@@ -162,14 +162,14 @@ export default async element => {
     }
   }
   // 마우스 hover 효과 시도
-  // function Hover() {
-  //   raycaster.setFromCamera(mouse, cameraElement)
-  //   let intersects = raycaster.intersectObject(scene.resource.obj.children)
-  //   for (let i = 0; i < intersects.length; i++) {
-  //     console.log('mouse')
-  //   }
-  // }
-  // document.addEventListener('mousemove', Hover)
+  function Hover() {
+    raycaster.setFromCamera(mouse, cameraElement)
+    let intersects = raycaster.intersectObject(scene.resource.obj.children)
+    for (let i = 0; i < intersects.length; i++) {
+      console.log('mouse')
+    }
+  }
+  document.addEventListener('mousemove', Hover)
   // window.requestAnimationFrame(Hover)
 
   // Rendering Start

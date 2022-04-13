@@ -6,7 +6,7 @@ import { AmbientLight, DirectionalLight } from 'three'
 class Light {
   constructor() {
     this.ambientLight = new AmbientLight(0x20202a, 6.5, 100)
-    this.dirLight = new DirectionalLight(0xffffff, 1)
+    this.dirLight = new DirectionalLight(0xffffff, 0.5)
     console.log('this.dirLight', this.dirLight)
 
     this.setLight()

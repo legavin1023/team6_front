@@ -111,6 +111,8 @@ export default async element => {
     const intersects = raycaster.intersectObjects(scene.resource.obj.children, true) //array
     // object define
     const allObject = scene.resource.obj.children
+    // allObject.style.cursor = 'pointer'
+
     if (intersects.length > 0) {
       // 3호기 호버 시
       const res = intersects.filter(function (res) {

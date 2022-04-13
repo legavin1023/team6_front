@@ -92,25 +92,23 @@ export default {
   },
 
   created() {
-    this.publishMqtt()
+    // this.publishMqtt()
   },
   methods: {
-    publishMqtt(id, v) {
-      // mqtt pubish
-      const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
-      const topic = process.env.VUE_APP_MQTT_WRITE_TOPIC // UVC-Write
-      const message = JSON.stringify({ tagId: id, value: v })
-      // PLC 제어에 쓰이는 모든 publish message들은
-      // { "tagId" : "id값", "value" : "value값" }으로 이루어져야 합니다.
-
-      mqttClient.publish(topic, message, error => {
-        console.log(message)
-        if (error) {
-          console.error('mqtt client error', error)
-        }
-      })
-    }
-
+    // publishMqtt(id, v) {
+    //   // mqtt pubish
+    //   const mqttClient = mqtt.connect(process.env.VUE_APP_MQTT)
+    //   const topic = process.env.VUE_APP_MQTT_WRITE_TOPIC // UVC-Write
+    //   const message = JSON.stringify({ tagId: id, value: v })
+    //   // PLC 제어에 쓰이는 모든 publish message들은
+    //   // { "tagId" : "id값", "value" : "value값" }으로 이루어져야 합니다.
+    //   mqttClient.publish(topic, message, error => {
+    //     console.log(message)
+    //     if (error) {
+    //       console.error('mqtt client error', error)
+    //     }
+    //   })
+    // }
     // async created() {
     // this.publishMqtt()
     // this.wsConnect()

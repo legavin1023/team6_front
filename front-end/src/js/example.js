@@ -42,7 +42,13 @@ export default async element => {
 
   /* raycaster 형식 클릭 이벤트 */
 
-  document.addEventListener('click', onclick, true)
+  let container
+
+  init()
+
+  function init() {
+    container = document.getElementById('hover')
+  }
 
   let selectedObject = null
   const raycaster = new THREE.Raycaster()
@@ -121,9 +127,10 @@ export default async element => {
         if (allSelectObject) {
           for (let i = 1; i < 5; i++) {
             allObject[i].children[0].material.forEach(element => {
-              element.emissive.setHex(0x9e4fd4)
+              element.emissive.setHex(0x412057)
             })
           }
+          container.style.cursor = 'pointer'
           // console.log('move')
         } else {
           for (let i = 1; i < 5; i++) {
@@ -131,11 +138,14 @@ export default async element => {
               element.emissive.setHex(0x000000)
             })
           }
+          container.style.cursor = 'default'
         }
       }
     }
   }
-  document.addEventListener('mousemove', hover)
+  // container(renderer.domElement)
+  container.addEventListener('mousemove', hover)
+  container.addEventListener('click', onclick, true)
 
   // Rendering Start
   render.start()

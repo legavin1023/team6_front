@@ -31,7 +31,7 @@
       >
         리셋
       </button>
-      <button :class="!plc.isPlcEmergency ? 'emergency-active btn' : 'emergency btn'">비상</button>
+      <!-- <button :class="!plc.isPlcEmergency ? 'emergency-active btn' : 'emergency btn'">비상</button> -->
     </div>
     <helloEdukit />
     <details>

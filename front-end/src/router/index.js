@@ -22,6 +22,14 @@ const routes = [
     component: () => import('../views/dashboard'),
     meta: { noLogin: true }
   },
+  {
+    path: '/user',
+    component: () => import('../views/user')
+  },
+  {
+    path: '/history',
+    component: () => import('../views/history')
+  },
 
   {
     path: '/auth',

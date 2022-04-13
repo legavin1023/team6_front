@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in userList" :key="index">
+        <tr v-for="item in userList" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.userid }}</td>
@@ -128,7 +128,7 @@ export default {
     },
     onClickDelete(id) {
       // 삭제
-      const result = window.confirm('삭제 하시겠습니까?')
+      const result = window.confirm('해당 담당자를 삭제 하시겠습니까?')
       if (result == true) {
         console.log(id)
         this.$store.dispatch('actUserDelete', id)

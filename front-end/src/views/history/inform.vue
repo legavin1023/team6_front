@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="modal-history-inform" :title="getTitle" @ok="onSubmit">
+    <div id="modal-history-inform" @ok="onSubmit">
       <div>
         <h1>{{ history.date }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
@@ -25,12 +25,19 @@
           <input id="end_at" v-model="history.end_at" />
         </div>
         <div label="담당자" label-for="manager">
-          <input id="manager" v-model="history.manager" />
+          <!-- <input id="manager" v-model="history.manager" /> -->
+          <select id="manager" v-model="history.manager" name="manager">
+            <option value="" disabled selected required>담당자를 선택해주세요.</option>
+            <option v-for="(item, index) in historyManager.options" :key="index" :value="item.value">
+              {{ item.text }}
+            </option>
+          </select>
         </div>
         <div label="비고란" label-for="remarks">
-          <input id="remarks" v-model="history.remarks" />
+          <textarea id="remarks" v-model="history.remarks" />
         </div>
       </div>
+      <button>{{ inputMode == 'insert' ? '등록하기' : '수정하기' }}</button>
     </div>
   </div>
 </template>
@@ -45,7 +52,15 @@ export default {
         products_all: null,
         products_good: null,
         Products_error: null,
+        manager: null,
         start_at: null
+      },
+      historyManager: {
+        default: 0,
+        options: [
+          { value: 1, text: '관리자' },
+          { value: 0, text: '담당자' }
+        ]
       }
     }
   },
@@ -55,19 +70,6 @@ export default {
     },
     inputMode() {
       return this.$store.getters.HistoryInputMode
-    },
-    getTitle() {
-      let title = ''
-      if (this.inputMode === 'insert') {
-        title = '사용자 입력'
-      } else if (this.inputMode === 'update') {
-        title = '사용자 수정'
-      }
-
-      return title
-    },
-    getCreatedAt() {
-      return this.history.createdAt && this.history.createdAt.substring(0, 10)
     }
   },
   watch: {

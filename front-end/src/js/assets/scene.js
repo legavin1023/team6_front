@@ -28,6 +28,8 @@ class Scene {
     this.scene.add(this.light.ambientLight)
 
     this.scene.add(this.camera.camera)
+
+    this.scene.add(this.light.dirLight)
   }
 
   // // 오브젝트 클릭
@@ -132,9 +134,9 @@ class Scene {
   //   this.scene.add(this.grid)
   // }
 
-  setLight() {
-    this.scene.add(this.light.dirLight)
-  }
+  // setLight() {
+  //   this.scene.add(this.light.dirLight)
+  // }
 
   setLightHelper() {
     this.helper = new THREE.CameraHelper(this.light.dirLight.shadow.camera)

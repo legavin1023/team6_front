@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div id="modal-user-inform" :title="getTitle" @ok="onSubmit">
+    <div id="modal-user-inform">
       <div>
-        <div v-if="inputMode === 'update'" label="id" label-for="id">
+        <h1>{{ user.name }}</h1>
+        <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="user.id" />
-        </div>
-        <div label="이름" label-for="name">
+        </div> -->
+        <!-- <div label="이름" label-for="name">
           <input id="name" v-model="user.name" />
-        </div>
+        </div> -->
         <div label="아이디" label-for="userid">
           <input id="userid" v-model="user.userid" />
         </div>
@@ -18,9 +19,15 @@
           <input id="phone" v-model="user.phone" />
         </div>
         <div label="권한" label-for="auth">
-          <input id="auth" v-model="user.auth" />
+          <select id="auth" v-model="user.auth" name="auth">
+            <option value="" disabled selected required>권한을 선택해주세요.</option>
+            <option v-for="(item, index) in options" :key="index" :value="item.value">
+              {{ item.text }}
+            </option>
+          </select>
         </div>
       </div>
+      <button @click="onSubmit">수정 완료</button>
     </div>
   </div>
 </template>
@@ -34,9 +41,13 @@ export default {
         name: null,
         userid: null,
         email: null,
-        Phone: null,
+        phone: null,
         auth: null
-      }
+      },
+      options: [
+        { value: 1, text: '관리자' },
+        { value: 0, text: '담당자' }
+      ]
     }
   },
   computed: {
@@ -72,15 +83,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      // 1. 등록인 경우
-      if (this.inputMode === 'insert') {
-        this.$store.dispatch('actUserInsert', this.user) // 입력 실행
-      }
-
-      // 2. 수정인 경우
-      if (this.inputMode === 'update') {
-        this.$store.dispatch('actUserUpdate', this.user) // 수정 실행
-      }
+      console.log(this.user)
+      this.$store.dispatch('actUserModify', this.user) // 수정 실행
     }
   }
 }

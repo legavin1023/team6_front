@@ -2,12 +2,13 @@
   <div>
     <div id="modal-history-inform" :title="getTitle" @ok="onSubmit">
       <div>
-        <div v-if="inputMode === 'update'" label="id" label-for="id">
+        <h1>{{ history.date }}</h1>
+        <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="history.id" />
         </div>
         <div label="날짜" label-for="date">
           <input id="date" v-model="history.date" />
-        </div>
+        </div> -->
         <div label="총 생산량" label-for="products_all">
           <input id="products_all" v-model="history.products_all" />
         </div>

@@ -1,24 +1,32 @@
 <template>
   <div>
-    <h1>사용자 관리</h1>
+    <h1>PLC 작업내역</h1>
     <div>
-      <input v-model="search.name" type="text" placeholder="사용자 이름 검색" />
-      <button variant="success" size="sm" @click="onClickAddNew">신규등록</button>
+      <button>등록</button>
     </div>
-    <table :items="deviceList" :fields="fields">
-      <tr>
-        <td>{{ row.item.createdAt.substring(0, 10) }}</td>
-      </tr>
-      <tr>
-        <td>
-          <button size="sm" variant="success" @click="onClickEdit(row.item.id)">수정</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button size="sm" variant="danger" @click="onClickDelete(row.item.id)">삭제</button>
-        </td>
-      </tr>
+    <table :items="deviceList">
+      <thead>
+        <tr>
+          <td>번호</td>
+          <td v-for="(item, index) in fields" :key="index">{{ item.label }}</td>
+          <td>수정</td>
+          <td>삭제</td>
+          <!-- <td>{{ row.item.createdAt.substring(0, 10) }}</td> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 임시 데이터로 fields의 key 값을 넣었습니다. -->
+        <tr v-for="(item, index) in fields" :key="index">
+          <td>{{ index + 1 }}</td>
+          <td v-for="(item, index) in fields" :key="index">{{ item.key }}</td>
+          <td>
+            <button size="sm" variant="success" @click="onClickEdit(row.item.id)">수정</button>
+          </td>
+          <td>
+            <button size="sm" variant="danger" @click="onClickDelete(row.item.id)">삭제</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <inform />
   </div>
@@ -38,14 +46,11 @@ export default {
         { key: 'products_all', label: '총 생산량' },
         { key: 'products_good', label: '양품 수량' },
         { key: 'products_error', label: '불량품 수량' },
-        { key: 'start_at', label: '기기 가동 시작 시간' },
-        { key: 'end_at', label: '기기 가동 종료 시간' },
+        { key: 'start_at', label: '가동 시작 시간' },
+        { key: 'end_at', label: '가동 종료 시간' },
         { key: 'manager', label: '담당자' },
         { key: 'remarks', label: '비고란' }
-      ],
-      search: {
-        name: null
-      }
+      ]
     }
   },
   computed: {

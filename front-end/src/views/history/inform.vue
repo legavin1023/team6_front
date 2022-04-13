@@ -2,12 +2,13 @@
   <div>
     <div id="modal-history-inform" :title="getTitle" @ok="onSubmit">
       <div>
-        <div v-if="inputMode === 'update'" label="id" label-for="id">
+        <h1>{{ history.date }}</h1>
+        <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="history.id" />
         </div>
         <div label="날짜" label-for="date">
           <input id="date" v-model="history.date" />
-        </div>
+        </div> -->
         <div label="총 생산량" label-for="products_all">
           <input id="products_all" v-model="history.products_all" />
         </div>
@@ -20,13 +21,13 @@
         <div label="기기 가동 시작 시간" label-for="start_at">
           <input id="start_at" v-model="history.start_at" />
         </div>
-         <div label="기기 가동 종료 시간" label-for="end_at">
+        <div label="기기 가동 종료 시간" label-for="end_at">
           <input id="end_at" v-model="history.end_at" />
         </div>
-         <div label="담당자" label-for="manager">
+        <div label="담당자" label-for="manager">
           <input id="manager" v-model="history.manager" />
         </div>
-         <div label="비고란" label-for="remarks">
+        <div label="비고란" label-for="remarks">
           <input id="remarks" v-model="history.remarks" />
         </div>
       </div>

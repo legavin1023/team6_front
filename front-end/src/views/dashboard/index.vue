@@ -33,7 +33,7 @@
       </div>
       <div>
         <p>총 생산량 수</p>
-        <p>{{ plc.mqttNo3Box }}</p>
+        <p>{{ plc.mqttNo1Box }}</p>
       </div>
       <div>
         <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>

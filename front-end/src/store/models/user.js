@@ -14,19 +14,26 @@ const stateInit = {
 
 export default {
   state: {
+    UserList: [],
     User: { ...stateInit.User },
     InsertedResult: null,
     ModifiedResult: null,
+    DeletedResult: null,
     ShowMode: 'show'
+    // 쇼잉모드 (show: 모달 사용자 정보 쇼잉, modify: 모달 사용자 정보 수정)
   },
   getters: {
+    UserList: state => state.UserList,
     User: state => state.User,
     UserInsertedResult: state => state.InsertedResult,
     UserModifiedResult: state => state.ModifiedResult,
+    UserDeletedResult: state => state.DeletedResult,
     UserShowMode: state => state.ShowMode
-    // 쇼잉모드 (show: 모달 사용자 정보 쇼잉, modify: 모달 사용자 정보 수정)
   },
   mutations: {
+    setUserList(state, data) {
+      state.UserList = data
+    },
     setUser(state, data) {
       state.User = data
     },
@@ -36,11 +43,29 @@ export default {
     setModifiedResult(state, data) {
       state.ModifiedResult = data
     },
+    setDeletedResult(state, data) {
+      state.DeletedResult = data
+    },
     setShowMode(state, data) {
       state.ShowMode = data
     }
   },
   actions: {
+    // 리스트 조회
+    actUserList(context, payload) {
+      api
+        .get('/serverApi/users', { params: payload })
+        .then(response => {
+          const UserList = response && response.data && response.data.rows
+          context.commit('setUserList', UserList)
+        })
+        .catch(error => {
+          console.error('setInsertedResult.error', error)
+          alert('담당자 정보 로드에 실패했습니다.')
+          context.commit('setUserList', [])
+        })
+    },
+
     // 등록
     actUserInsert(context, payload) {
       context.commit('setInsertedResult', null)
@@ -100,6 +125,23 @@ export default {
         .catch(error => {
           console.error('UserModify.error', error)
           context.commit('setModifiedResult', -1)
+        })
+    },
+
+    // 사용자 정보 삭제
+    actUserDelete(context, payload) {
+      // 상태값 초기화
+      context.commit('setDeletedResult', null)
+
+      api
+        .delete(`/serverApi/users/${payload}`)
+        .then(response => {
+          const deletedResult = response && response.data && response.data.deletedCount
+          context.commit('setDeletedResult', deletedResult)
+        })
+        .catch(error => {
+          console.error('UserDelete.error', error)
+          context.commit('setDeletedResult', -1)
         })
     }
   }

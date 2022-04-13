@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div id="modal-user-inform">
+  <div class="black-bg">
+    <div id="modal-user-inform" class="white-bg">
       <div>
         <h1>{{ user.name }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
@@ -27,7 +27,7 @@
           </select>
         </div>
       </div>
-      <button @click="onSubmit">수정 완료</button>
+      <button class="btnmy" @click="onSubmit">수정 완료</button>
     </div>
   </div>
 </template>
@@ -90,4 +90,26 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#modal-user-inform {
+  margin-top: -185px;
+  margin-left: -150px;
+  width: 300px;
+  height: 370px;
+  h1 {
+    font-size: 1.6em;
+    padding: 20px;
+  }
+  input {
+    margin-top: 20px;
+  }
+  select {
+    margin-top: 12px;
+    height: 30px;
+    width: 80%;
+    border: 1px solid $main;
+    border-radius: 20px;
+    padding-left: 10px;
+  }
+}
+</style>

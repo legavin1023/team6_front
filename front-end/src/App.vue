@@ -14,6 +14,8 @@
         <div id="data">
           <router-link to="/dashboard"><img src="@/assets/image/dashboard.png" alt="대시보드" /></router-link>
           <router-link to="/home"><img src="@/assets/image/settings.png" alt="Edukit 제어" /></router-link>
+          <router-link to="/user"><img src="@/assets/image/board.png" alt="유저" /></router-link>
+          <router-link to="/history"><img src="@/assets/image/board.png" alt="게시판" /></router-link>
         </div>
       </div>
     </div>

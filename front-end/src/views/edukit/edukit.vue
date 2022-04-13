@@ -1,5 +1,5 @@
 <template>
-  <div ref="webgl"></div>
+  <div id="hover" ref="webgl"></div>
 </template>
 
 <script>

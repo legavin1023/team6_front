@@ -67,6 +67,7 @@
           aria-describedby="전화번호"
           type="text"
           placeholder="전화번호"
+          @keyup="getPhoneMask(user.phone)"
         />
       </div>
       <input class="button" type="button" value="회원가입" @click="onSubmit" />
@@ -181,6 +182,36 @@ export default {
         this.$refs.userPhone.focus()
         return false
       }
+    },
+
+    // 전화번호 숫자만 입력 시 파이프(-) 자동 입력
+    getPhoneMask(val) {
+      let res = this.getMask(val)
+      this.user.phone = res
+
+      // // 서버 전송 값에는 '-'를 제외하고 숫자만 저장
+      // this.$store.getters.User.userPhoneNumber = this.user.userPhoneNumber.replace(/[^0-9]/g, '')
+    },
+
+    getMask(inputNumber) {
+      if (!inputNumber) return inputNumber
+      inputNumber = inputNumber.replace(/[^0-9]/g, '')
+
+      let res = ''
+      if (inputNumber.length < 8) {
+        res = inputNumber
+      } else if (inputNumber.length == 8) {
+        res = inputNumber.substr(0, 4) + '-' + inputNumber.substr(4)
+      } else if (inputNumber.length == 9) {
+        res = inputNumber.substr(0, 3) + '-' + inputNumber.substr(3, 3) + '-' + inputNumber.substr(6)
+      } else if (inputNumber.length == 10) {
+        res = inputNumber.substr(0, 3) + '-' + inputNumber.substr(3, 3) + '-' + inputNumber.substr(6)
+      } else if (inputNumber.length > 10) {
+        res = inputNumber.substr(0, 3) + '-' + inputNumber.substr(3, 4) + '-' + inputNumber.substr(7)
+      }
+      //   }
+      // }
+      return res
     },
 
     // Sign button click

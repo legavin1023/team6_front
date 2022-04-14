@@ -20,13 +20,13 @@
         <div label="기기 가동 시작 시간" label-for="start_at">
           <input id="start_at" v-model="history.start_at" />
         </div>
-         <div label="기기 가동 종료 시간" label-for="end_at">
+        <div label="기기 가동 종료 시간" label-for="end_at">
           <input id="end_at" v-model="history.end_at" />
         </div>
-         <div label="담당자" label-for="manager">
+        <div label="담당자" label-for="manager">
           <input id="manager" v-model="history.manager" />
         </div>
-         <div label="비고란" label-for="remarks">
+        <div label="비고란" label-for="remarks">
           <input id="remarks" v-model="history.remarks" />
         </div>
       </div>

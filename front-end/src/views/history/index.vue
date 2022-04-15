@@ -11,29 +11,32 @@
           <td v-for="(item, index) in fields" :key="index">{{ item.label }}</td>
           <td>수정</td>
           <td>삭제</td>
-          <!-- <td>{{ row.item.createdAt.substring(0, 10) }}</td> -->
         </tr>
       </thead>
       <tbody>
-        <!-- 임시 데이터로 fields의 key 값을 넣었습니다. -->
-        <tr v-for="item in fields" :key="item.id">
+        <tr v-for="item in historyList" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.date }}</td>
           <td>{{ item.productsAll }}</td>
           <td>{{ item.productsGood }}</td>
           <td>{{ item.productsError }}</td>
-          <td>{{ item.startAt }}</td>
-          <td>{{ item.endAt }}</td>
+          <td>{{ item.startAt.substring(0, 10) }}</td>
+          <td>{{ item.endAt.substring(0, 10) }}</td>
+          <td>{{ item.Users.name }}</td>
+          <!-- <template v-for="item in userList">
+            <td :key="item.id">{{ item.id }}</td>
+          </template> -->
           <td>{{ item.remarks }}</td>
           <td>
-            <button size="sm" variant="success" @click="onClickEdit(item.id)">수정</button>
+            <button @click="onClickEdit(item.id)">수정</button>
           </td>
           <td>
-            <button size="sm" variant="danger" @click="onClickDelete(item.id)">삭제</button>
+            <button @click="onClickDelete(item.id)">삭제</button>
           </td>
         </tr>
       </tbody>
     </table>
+    {{ historyList }}
     <inform v-if="show" />
   </div>
 </template>
@@ -64,14 +67,17 @@ export default {
     historyList() {
       return this.$store.getters.HistoryList
     },
+    userList() {
+      return this.$store.getters.UserList
+    },
     insertedResult() {
-      return this.$store.getters.DeviceInsertedResult
+      return this.$store.getters.HistoryInsertedResult
     },
     updatedResult() {
-      return this.$store.getters.DeviceUpdatedResult
+      return this.$store.getters.HistoryModifiedResult
     },
     deletedResult() {
-      return this.$store.getters.DeviceDeletedResult
+      return this.$store.getters.HistoryDeletedResult
     }
   },
   watch: {
@@ -99,7 +105,6 @@ export default {
       if (value !== null) {
         if (value > 0) {
           // 수정이 성공한 경우
-
           // 1. 메세지 출력
           alert('작업내역 수정이 성공하였습니다.')
           // 2. 리스트 재 검색
@@ -131,21 +136,20 @@ export default {
   },
   created() {
     this.searchHistoryList()
+    this.$store.dispatch('actUserList')
   },
   methods: {
     searchHistoryList() {
-      this.$store.dispatch('actHistoryList', this.search)
+      this.$store.dispatch('actHistoryList')
     },
     onClickAddNew() {
       // 신규등록
+      // 1. 입력모드 설정
+      this.$store.dispatch('actHistoryInputMode', 'insert')
+      // 2. 상세정보 초기화
+      this.$store.dispatch('actHistoryInit')
 
       if (!this.show) {
-        // 1. 입력모드 설정
-        this.$store.dispatch('actHistoryInputMode', 'insert')
-
-        // 2. 상세정보 초기화
-        this.$store.dispatch('actHistoryInit')
-
         // 3. 모달 출력
         this.show = true
       } else {
@@ -154,14 +158,12 @@ export default {
     },
     onClickEdit(id) {
       // (수정을 위한)상세정보
+      // 1. 입력모드 설정
+      this.$store.dispatch('actHistoryInputMode', 'update')
+      // 2. 상세정보 호출
+      this.$store.dispatch('actHistoryInfo', id)
 
       if (!this.show) {
-        // 1. 입력모드 설정
-        this.$store.dispatch('actHistoryInputMode', 'update')
-
-        // 2. 상세정보 호출
-        this.$store.dispatch('actHistoryInfo', id)
-
         // 3. 모달 출력
         this.show = true
       } else {
@@ -173,7 +175,7 @@ export default {
       const result = window.confirm('해당 작업내역을 삭제 하시겠습니까?')
       if (result == true) {
         console.log(id)
-        this.$store.dispatch('actUserDelete', id)
+        this.$store.dispatch('actHistoryDelete', id)
       } else {
         return
       }

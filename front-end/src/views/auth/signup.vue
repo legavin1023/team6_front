@@ -60,6 +60,11 @@
         <p v-if="!userPwCheckState">비밀번호가 일치하지 않습니다.</p>
       </div>
       <div class="form-group">
+        <select id="auth" v-model="user.auth" name="auth">
+          <option v-for="(item, index) in userAuth.auth" :key="index" :value="item.value">{{ item.text }}</option>
+        </select>
+      </div>
+      <div class="form-group">
         <input
           id="userPhone"
           ref="userPhone"
@@ -83,9 +88,17 @@ export default {
         name: '',
         email: '',
         userid: '',
+        auth: null,
         password: '',
         pwCheck: '',
         phone: ''
+      },
+      userAuth: {
+        default: 0,
+        auth: [
+          { value: 0, text: '담당자' },
+          { value: 1, text: '관리자' }
+        ]
       }
     }
   },

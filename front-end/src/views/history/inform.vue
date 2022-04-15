@@ -2,42 +2,53 @@
   <div>
     <div id="modal-history-inform" @ok="onSubmit">
       <div>
-        <h1>{{ history.date }}</h1>
+        <h1 v-if="inputMode === 'update'">{{ history.date }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="history.id" />
-        </div>
-        <div label="날짜" label-for="date">
-          <input id="date" v-model="history.date" />
         </div> -->
+        <div v-if="inputMode === 'insert'" label="날짜" label-for="date">
+          <input id="date" ref="date" v-model="history.date" />
+        </div>
         <div label="총 생산량" label-for="products_all">
-          <input id="products_all" v-model="history.products_all" />
+          <p>총 생산량</p>
+          <input id="products_all" ref="productsAll" v-model="history.productsAll" />
         </div>
         <div label="양품 수량" label-for="products_good">
-          <input id="products_good" v-model="history.products_good" />
+          <p>양품 수량</p>
+          <input id="products_good" ref="productsGood" v-model="history.productsGood" />
+          <p v-if="!historyProductLimitState">양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.</p>
         </div>
         <div label="불량품 수량" label-for="products_error">
-          <input id="products_error" v-model="history.products_error" />
+          <p>불량품 수량</p>
+          <input id="products_error" ref="productsError" v-model="history.productsError" />
+          <p v-if="!historyProductLimitState">양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.</p>
         </div>
-        <div label="기기 가동 시작 시간" label-for="start_at">
-          <input id="start_at" v-model="history.start_at" />
+        <div label="가동 시작 시간" label-for="start_at">
+          <p>가동 시작 시간</p>
+          <input id="start_at" ref="startAt" v-model="history.startAt" />
         </div>
-        <div label="기기 가동 종료 시간" label-for="end_at">
-          <input id="end_at" v-model="history.end_at" />
+        <div label="가동 종료 시간" label-for="end_at">
+          <p>가동 종료 시간</p>
+          <input id="end_at" ref="endAt" v-model="history.endAt" />
         </div>
         <div label="담당자" label-for="manager">
+          <p>담당자</p>
           <!-- <input id="manager" v-model="history.manager" /> -->
-          <select id="manager" v-model="history.manager" name="manager">
-            <option value="" disabled selected required>담당자를 선택해주세요.</option>
-            <option v-for="(item, index) in historyManager.options" :key="index" :value="item.value">
-              {{ item.text }}
+          <select id="manager" v-model="history.userId" name="manager">
+            <option v-if="inputMode == 'insert'" value="" disabled selected required>담당자를 선택해주세요.</option>
+            <option v-for="item in userList" :key="item.id" :value="item.id">
+              {{ item.name }}
+              <!-- {{ history.userId }}
+              {{ userList[index] }} -->
             </option>
           </select>
         </div>
         <div label="비고란" label-for="remarks">
+          <p>비고란</p>
           <textarea id="remarks" v-model="history.remarks" />
         </div>
       </div>
-      <button>{{ inputMode == 'insert' ? '등록하기' : '수정하기' }}</button>
+      <button @click="onSubmit">{{ inputMode == 'insert' ? '등록하기' : '수정하기' }}</button>
     </div>
   </div>
 </template>
@@ -48,19 +59,13 @@ export default {
     return {
       history: {
         id: null,
-        name: null,
-        products_all: null,
-        products_good: null,
-        Products_error: null,
-        manager: null,
-        start_at: null
-      },
-      historyManager: {
-        default: 0,
-        options: [
-          { value: 1, text: '관리자' },
-          { value: 0, text: '담당자' }
-        ]
+        date: null,
+        productsAll: null,
+        productsGood: null,
+        productsError: null,
+        userId: null,
+        startAt: null,
+        endAt: null
       }
     }
   },
@@ -70,6 +75,14 @@ export default {
     },
     inputMode() {
       return this.$store.getters.HistoryInputMode
+    },
+    userList() {
+      return this.$store.getters.UserList
+    },
+
+    // input validation
+    historyProductLimitState() {
+      return this.history.productsGood + this.history.productsError == this.history.productsAll
     }
   },
   watch: {
@@ -81,17 +94,76 @@ export default {
   created() {
     // 모달이 최초 열릴때 감지됨
     this.history = { ...this.infoData }
+    this.$store.dispatch('actUserList')
   },
   methods: {
-    onSubmit() {
-      // 1. 등록인 경우
-      if (this.inputMode === 'insert') {
-        this.$store.dispatch('actHistoryInsert', this.history) // 입력 실행
+    checkInput() {
+      const inputForm = this.history
+
+      // date 확인
+      if (inputForm.date == null) {
+        alert('날짜는 필수로 입력해야 합니다.')
+        this.$refs.date.focus()
+        return false
       }
 
-      // 2. 수정인 경우
-      if (this.inputMode === 'update') {
-        this.$store.dispatch('actHistoryUpdate', this.history) // 수정 실행
+      // productsAll 확인
+      else if (inputForm.productsAll == null) {
+        alert('총 생산량은 필수로 입력해야 합니다.')
+        this.$refs.productsAll.focus()
+        return false
+      }
+
+      // productsGood 확인
+      else if (inputForm.productsGood == null) {
+        alert('양품 수량은 필수로 입력해야 합니다.')
+        this.$refs.productsGood.focus()
+        return false
+      }
+
+      // productsError 확인
+      else if (inputForm.productsError == null) {
+        alert('불량품 수량은 필수로 입력해야 합니다.')
+        this.$refs.productsError.focus()
+        return false
+      }
+
+      // startAt 확인
+      else if (inputForm.startAt == null) {
+        alert('가동 시작 시간은 필수로 입력해야 합니다.')
+        this.$refs.startAt.focus()
+        return false
+      }
+
+      // userId 확인
+      else if (inputForm.userId == null) {
+        alert('담당자를 필수로 지정해야 합니다.')
+        return false
+      }
+
+      // endAt 확인
+      else if (inputForm.endAt == null) {
+        alert('가동 종료 시간은 필수로 입력해야 합니다.')
+        this.$refs.endAt.focus()
+        return false
+      } else {
+        return true
+      }
+    },
+
+    onSubmit() {
+      if (this.checkInput() === false) {
+        return false
+      } else {
+        // 1. 등록인 경우
+        if (this.inputMode === 'insert') {
+          this.$store.dispatch('actHistoryInsert', this.history) // 입력 실행
+        }
+
+        // 2. 수정인 경우
+        if (this.inputMode === 'update') {
+          this.$store.dispatch('actHistoryModify', this.history) // 수정 실행
+        }
       }
     }
   }

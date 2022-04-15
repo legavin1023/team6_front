@@ -7,7 +7,8 @@ const stateInit = {
     productsAll: null,
     productsGood: null,
     productsError: null,
-    manager: null,
+    userId: null,
+    Users: null,
     remarks: null,
     startAt: null,
     endAt: null
@@ -20,13 +21,15 @@ export default {
     History: { ...stateInit.History },
     InsertedResult: null,
     ModifiedResult: null,
-    InsertMode: null // insert: 입력, update: 수정
+    DeletedResult: null,
+    InputMode: null // insert: 입력, update: 수정
   },
   getters: {
     HistoryList: state => state.HistoryList,
     History: state => state.History,
     HistoryInsertedResult: state => state.InsertedResult,
     HistoryModifiedResult: state => state.ModifiedResult,
+    HistoryDeletedResult: state => state.DeletedResult,
     HistoryInputMode: state => state.InputMode
   },
   mutations: {
@@ -41,6 +44,9 @@ export default {
     },
     setModifiedResult(state, data) {
       state.ModifiedResult = data
+    },
+    setDeletedResult(state, data) {
+      state.DeletedResult = data
     },
     setInputMode(state, data) {
       state.InputMode = data
@@ -71,6 +77,7 @@ export default {
         .then(response => {
           const insertedResult = response && response.data && response.data.id
           context.commit('setInsertedResult', insertedResult)
+          console.log(insertedResult)
         })
         .catch(error => {
           console.error('setInsertedResult.error', error)
@@ -102,6 +109,40 @@ export default {
         .catch(error => {
           console.error('HistoryInfo.error', error)
           context.commit('setHistory', null)
+        })
+    },
+
+    // 작업내역 정보 수정
+    actHistoryModify(context, payload) {
+      // 상태값 초기화
+      context.commit('setModifiedResult', null)
+
+      api
+        .put(`/serverApi/history/${payload.id}`, payload)
+        .then(response => {
+          const modifiedResult = response && response.data && response.data.updatedCount
+          context.commit('setModifiedResult', modifiedResult)
+          console.log(modifiedResult)
+        })
+        .catch(error => {
+          console.error('HistoryModify.error', error)
+          context.commit('setModifiedResult', -1)
+        })
+    },
+
+    // 작업내역 정보 삭제
+    actHistoryDelete(context, payload) {
+      context.commit('setDeletedResult', null)
+
+      api
+        .delete(`/serverApi/users/${payload}`)
+        .then(response => {
+          const deletedResult = response && response.data && response.data.deletedCount
+          context.commit('setDeletedResult', deletedResult)
+        })
+        .catch(error => {
+          console.error('HistoryDelete.error', error)
+          context.commit('setDeletedResult', -1)
         })
     }
   }

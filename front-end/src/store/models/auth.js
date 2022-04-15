@@ -5,7 +5,8 @@ const stateInit = {
   TokenUser: {
     id: null,
     iat: null,
-    exp: null
+    exp: null,
+    auth: null
   }
 }
 

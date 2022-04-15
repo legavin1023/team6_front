@@ -24,7 +24,8 @@ const routes = [
   },
   {
     path: '/user',
-    component: () => import('../views/user')
+    component: () => import('../views/user'),
+    meta: { auth: true }
   },
   {
     path: '/history',
@@ -62,6 +63,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  const auth = to.meta.auth
   const noLogin = to.meta.noLogin
   // 이동할 페이지에서 로그인 허용여부 확인
 
@@ -100,6 +102,33 @@ router.beforeEach(async (to, from, next) => {
       next('/auth/login')
       //로그인 페이지로 이동
     }
+  }
+
+  if (auth === true) {
+    // 권한 체크가 필요한 페이지는 토큰의 권한 체크 후 통과 여부 결정
+
+    // 1. localStorage에서 토큰 추출
+    const token = window.localStorage.getItem('token')
+
+    try {
+      const decodedToken = jwtDecode(token) // 토큰 디코딩
+      const auth = decodedToken.auth // 토큰에서 권한 추출
+
+      if (auth == 0) {
+        // 권한이 담당자인 경우
+        alert('관리자 권한이 없습니다.')
+        this.$router.go()
+      } else {
+        next()
+      }
+    } catch (err) {
+      // 토큰 추출이 실패한 경우에 대한 처리
+      next('/auth/login')
+      //로그인 페이지로 이동
+    }
+  } else {
+    // 권한 체크가 필요없는 페이지는 그냥 이동
+    next()
   }
 })
 

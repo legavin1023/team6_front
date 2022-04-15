@@ -318,7 +318,7 @@ export default {
 
         // pieChart2 config
         config: {
-          labels: ['하양', '빨강'],
+          labels: ['빨강', '하양'],
           datasets: [
             {
               borderWidth: 1,
@@ -447,15 +447,20 @@ export default {
 
         // ------PIECHART3 DATA FILTERING------
         let colorSence = this.mqttData.Wrapper.filter(p => p.tagId == '39')
-        colorSence = colorSence.map(p => parseInt(p.value))
+        let chipOut = this.mqttData.Wrapper.filter(p => p.tagId == '3')
+        // colorSence = colorSence.map(p => parseInt(p.value))
+        chipOut = chipOut[0].value
+        colorSence = colorSence[0].value
 
-        if (colorSence == 0) {
+        console.log('chipOut', chipOut, 'colorSence', colorSence)
+
+        if (colorSence == false) {
           this.pieChart3.red += 1
-        } else if (colorSence == 1) {
+        } else if (colorSence == true) {
           this.pieChart3.white += 1
         }
 
-        this.pieChart3.config.datasets[0].data = [this.pieChart3.white, this.pieChart3.red]
+        this.pieChart3.config.datasets[0].data = [this.pieChart3.red, this.pieChart3.white]
 
         this.makePieChart3Data()
       })

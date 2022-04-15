@@ -60,7 +60,7 @@ export default {
           context.commit('setUserList', UserList)
         })
         .catch(error => {
-          console.error('setInsertedResult.error', error)
+          console.error('setUserList.error', error)
           alert('담당자 정보 로드에 실패했습니다.')
           context.commit('setUserList', [])
         })
@@ -74,7 +74,7 @@ export default {
         .post('/serverApi/users', payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id
-          console.log(insertedResult)
+          // console.log(insertedResult)
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {

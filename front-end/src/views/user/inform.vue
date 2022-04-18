@@ -1,6 +1,8 @@
 <template>
   <div class="black-bg">
     <div id="modal-user-inform" class="white-bg">
+      <span class="xbtn" @click="closed">X</span>
+
       <div>
         <h1>{{ user.name }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
@@ -111,5 +113,10 @@ export default {
     border-radius: 20px;
     padding-left: 10px;
   }
+}
+.xbtn {
+  position: absolute;
+  right: -140px;
+  top: 10px;
 }
 </style>

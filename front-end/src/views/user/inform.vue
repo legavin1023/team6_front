@@ -1,7 +1,7 @@
 <template>
   <div class="black-bg">
     <div id="modal-user-inform" class="white-bg">
-      <span class="xbtn" @click="closed">X</span>
+      <!-- <span class="xbtn" @click="closed">X</span> -->
 
       <div>
         <h1>{{ user.name }}</h1>
@@ -87,7 +87,8 @@ export default {
     onSubmit() {
       // console.log(this.user)
       this.$store.dispatch('actUserModify', this.user) // 수정 실행
-    }
+    },
+    closed() {}
   }
 }
 </script>

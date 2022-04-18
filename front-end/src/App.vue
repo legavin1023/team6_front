@@ -107,7 +107,10 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    const token = window.localStorage.getItem('token')
+    // console.log(token)
+  },
   methods: {
     closed() {
       this.isActive = true

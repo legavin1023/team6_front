@@ -133,9 +133,10 @@ export default {
       context.commit('setDeletedResult', null)
 
       api
-        .delete(`/serverApi/users/${payload}`)
+        .delete(`/serverApi/history/${payload}`)
         .then(response => {
           const deletedResult = response && response.data && response.data.deletedCount
+          console.log(deletedResult)
           context.commit('setDeletedResult', deletedResult)
         })
         .catch(error => {

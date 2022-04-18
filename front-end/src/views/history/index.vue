@@ -173,7 +173,7 @@ export default {
       // 삭제
       const result = window.confirm('해당 작업내역을 삭제 하시겠습니까?')
       if (result == true) {
-        console.log(id)
+        // console.log(id)
         this.$store.dispatch('actHistoryDelete', id)
       } else {
         return

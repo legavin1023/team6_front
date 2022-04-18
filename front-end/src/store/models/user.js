@@ -60,7 +60,7 @@ export default {
           context.commit('setUserList', UserList)
         })
         .catch(error => {
-          console.error('setUserList.error', error)
+          // console.error('setUserList.error', error)
           alert('담당자 정보 로드에 실패했습니다.')
           context.commit('setUserList', [])
         })
@@ -78,7 +78,7 @@ export default {
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {
-          console.error('setInsertedResult.error', error)
+          // console.error('setInsertedResult.error', error)
           alert('회원가입 정보를 다시 확인해주세요.')
           context.commit('setInsertedResult', -1)
         })
@@ -106,7 +106,7 @@ export default {
           context.commit('setUser', user)
         })
         .catch(error => {
-          console.error('UserInfo.error', error)
+          // console.error('UserInfo.error', error)
           context.commit('setUser', null)
         })
     },
@@ -123,7 +123,7 @@ export default {
           context.commit('setModifiedResult', modifiedResult)
         })
         .catch(error => {
-          console.error('UserModify.error', error)
+          // console.error('UserModify.error', error)
           context.commit('setModifiedResult', -1)
         })
     },
@@ -140,7 +140,7 @@ export default {
           context.commit('setDeletedResult', deletedResult)
         })
         .catch(error => {
-          console.error('UserDelete.error', error)
+          // console.error('UserDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
     }

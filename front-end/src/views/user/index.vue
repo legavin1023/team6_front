@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     searchUserList() {
-      console.log('search')
+      // console.log('search')
       this.$store.dispatch('actUserList', this.search)
     },
     onClickEdit(id) {
@@ -130,7 +130,7 @@ export default {
       // 삭제
       const result = window.confirm('삭제 하시겠습니까?')
       if (result == true) {
-        console.log(id)
+        // console.log(id)
         this.$store.dispatch('actUserDelete', id)
       } else {
         return

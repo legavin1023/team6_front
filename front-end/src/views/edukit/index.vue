@@ -118,11 +118,12 @@ export default {
 
       mqttClient.on('connect', () => {
         // mqtt 연결 시 구독한다.
-        console.log('mqtt success')
+        // console.log('mqtt success')
         const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽: "UVC"
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
-            console.error('mqtt client error', error)
+            // console.error('mqtt client error', error)
+            alert('MQTT 연결이 실패했습니다.')
           }
         })
       })
@@ -159,7 +160,8 @@ export default {
       mqttClient.publish(topic, message, error => {
         console.log(message)
         if (error) {
-          console.error('mqtt client error', error)
+          // console.error('mqtt client error', error)
+          alert('MQTT 데이터 전송이 실패했습니다.')
         }
       })
     },

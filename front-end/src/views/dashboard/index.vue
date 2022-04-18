@@ -347,7 +347,8 @@ export default {
         const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽: "UVC"
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
-            console.error('mqtt client error', error)
+            // console.error('mqtt client error', error)
+            alert('MQTT 연결이 실패했습니다.')
           }
         })
       })
@@ -421,7 +422,7 @@ export default {
         chipOut = chipOut[0].value
         colorSence = colorSence[0].value
 
-        console.log('chipOut', chipOut, 'colorSence', colorSence)
+        // console.log('chipOut', chipOut, 'colorSence', colorSence)
 
         if (colorSence == false) {
           this.pieChart3.red += 1

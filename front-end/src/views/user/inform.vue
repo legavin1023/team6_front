@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.user)
+      // console.log(this.user)
       this.$store.dispatch('actUserModify', this.user) // 수정 실행
     }
   }

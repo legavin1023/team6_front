@@ -36,11 +36,11 @@
         <div class="box">
           <div label="가동 시작 날짜" label-for="start_at">
             <p>가동 시작 날짜</p>
-            <input id="start_at" ref="startAt" v-model="history.startAt" type="date" />
+            <input id="start_at" ref="startAt" v-model="history.startAt" type="date" :min="history.date" />
           </div>
           <div label="가동 종료 날짜" label-for="end_at">
             <p>가동 종료 날짜</p>
-            <input id="end_at" ref="endAt" v-model="history.endAt" type="date" />
+            <input id="end_at" ref="endAt" v-model="history.endAt" type="date" :min="history.startAt" />
           </div>
         </div>
         <div label="담당자" label-for="manager">
@@ -103,7 +103,7 @@ export default {
     // 모달이 열린 이후에 감지됨
     infoData(value) {
       this.history = { ...value }
-      this.setDefaultValue()
+      // this.setDefaultValue()
     }
   },
   created() {

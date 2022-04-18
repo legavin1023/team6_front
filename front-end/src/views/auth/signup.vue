@@ -130,7 +130,9 @@ export default {
       return this.user.pwCheck === this.user.password
     }
   },
-  watch: {},
+  created() {
+    this.setDefaultValues() // 기본값 세팅
+  },
   methods: {
     // 공란, 유효성 여부 확인
     checkInput() {
@@ -201,9 +203,6 @@ export default {
     getPhoneMask(val) {
       let res = this.getMask(val)
       this.user.phone = res
-
-      // // 서버 전송 값에는 '-'를 제외하고 숫자만 저장
-      // this.$store.getters.User.userPhoneNumber = this.user.userPhoneNumber.replace(/[^0-9]/g, '')
     },
 
     getMask(inputNumber) {
@@ -222,9 +221,13 @@ export default {
       } else if (inputNumber.length > 10) {
         res = inputNumber.substr(0, 3) + '-' + inputNumber.substr(3, 4) + '-' + inputNumber.substr(7)
       }
-      //   }
-      // }
+
       return res
+    },
+
+    // auth default setting
+    setDefaultValues() {
+      this.user.auth = this.userAuth.default // 사용자 권한
     },
 
     // Sign button click

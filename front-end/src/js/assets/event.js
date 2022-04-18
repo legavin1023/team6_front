@@ -66,15 +66,15 @@ class Event {
     })
 
     this.client.on('connect', () => {
-      console.log('MQTT Connected')
+      // console.log('MQTT Connected')
       status.color = '#00ff00'
       status.border = '3px solid #00ff00'
       status.opacity = '1'
       this.client.subscribe([topic], () => {
-        console.log(`토픽 연결 완료: ${topic}`)
+        // console.log(`토픽 연결 완료: ${topic}`)
       })
       this.client.on('message', (topic, payload) => {
-        console.log(`토픽 ${topic}에서 전송된 메시지: ${payload.toString()}`)
+        // console.log(`토픽 ${topic}에서 전송된 메시지: ${payload.toString()}`)
 
         let message = JSON.parse(payload)
         let data = message.Wrapper.filter(p => p.tagId === '21' || p.tagId === '22')

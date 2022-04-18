@@ -94,7 +94,7 @@ export default async element => {
               element.emissive.setHex(0x9e4fd4)
             })
           }
-          console.log('모델 찾았습니다')
+          // console.log('모델 찾았습니다')
           // console.log(KeyShow.actions.actKeyShowMode('setKeyShowMode', 'true'))
           let keyControlShow = store.commit('setKeyShowMode')
           keyControlShow = store.commit('setKeyShowMode', true)

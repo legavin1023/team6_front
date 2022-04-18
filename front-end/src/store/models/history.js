@@ -62,7 +62,7 @@ export default {
           context.commit('setHistoryList', HistoryList)
         })
         .catch(error => {
-          console.error('setHistoryList.error', error)
+          // console.error('setHistoryList.error', error)
           alert('작업내역 조회에 실패했습니다.')
         })
     },
@@ -77,10 +77,9 @@ export default {
         .then(response => {
           const insertedResult = response && response.data && response.data.id
           context.commit('setInsertedResult', insertedResult)
-          console.log(insertedResult)
         })
         .catch(error => {
-          console.error('setInsertedResult.error', error)
+          // console.error('setInsertedResult.error', error)
           context.commit('setInsertedResult', -1)
         })
     },
@@ -107,7 +106,7 @@ export default {
           context.commit('setHistory', history)
         })
         .catch(error => {
-          console.error('HistoryInfo.error', error)
+          // console.error('HistoryInfo.error', error)
           context.commit('setHistory', null)
         })
     },
@@ -122,10 +121,9 @@ export default {
         .then(response => {
           const modifiedResult = response && response.data && response.data.updatedCount
           context.commit('setModifiedResult', modifiedResult)
-          console.log(modifiedResult)
         })
         .catch(error => {
-          console.error('HistoryModify.error', error)
+          // console.error('HistoryModify.error', error)
           context.commit('setModifiedResult', -1)
         })
     },
@@ -135,13 +133,14 @@ export default {
       context.commit('setDeletedResult', null)
 
       api
-        .delete(`/serverApi/users/${payload}`)
+        .delete(`/serverApi/history/${payload}`)
         .then(response => {
           const deletedResult = response && response.data && response.data.deletedCount
+          console.log(deletedResult)
           context.commit('setDeletedResult', deletedResult)
         })
         .catch(error => {
-          console.error('HistoryDelete.error', error)
+          // console.error('HistoryDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
     }

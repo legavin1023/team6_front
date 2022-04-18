@@ -70,10 +70,10 @@ export default {
       return this.$store.getters.User
     },
     showMode() {
-      return this.$store.getters.UserShowMode
+      return this.$store.getters.ModalShowMode
     },
     modifiedResult() {
-      return this.$store.getters.UserModifiedResult
+      return this.$store.getters.ModalModifiedResult
     }
   },
   watch: {
@@ -107,7 +107,10 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    const token = window.localStorage.getItem('token')
+    // console.log(token)
+  },
   methods: {
     closed() {
       this.isActive = true
@@ -132,13 +135,13 @@ export default {
     },
     onClickEdit() {
       // 입력모드 '수정'으로 전환
-      this.$store.dispatch('actUserShowMode', 'modify')
+      this.$store.dispatch('actModalShowMode', 'modify')
     },
     onClickSubmit() {
       // 사용자 정보 수정
-      this.$store.dispatch('actUserModify', this.mypage)
+      this.$store.dispatch('actModalModify', this.mypage)
       // 입력모드 '쇼잉'으로 전환
-      this.$store.dispatch('actUserShowMode', 'show')
+      this.$store.dispatch('actModalShowMode', 'show')
       this.searchInfoData()
     },
     searchInfoData() {

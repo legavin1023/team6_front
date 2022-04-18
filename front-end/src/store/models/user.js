@@ -18,17 +18,14 @@ export default {
     User: { ...stateInit.User },
     InsertedResult: null,
     ModifiedResult: null,
-    DeletedResult: null,
-    ShowMode: 'show'
-    // 쇼잉모드 (show: 모달 사용자 정보 쇼잉, modify: 모달 사용자 정보 수정)
+    DeletedResult: null
   },
   getters: {
     UserList: state => state.UserList,
     User: state => state.User,
     UserInsertedResult: state => state.InsertedResult,
     UserModifiedResult: state => state.ModifiedResult,
-    UserDeletedResult: state => state.DeletedResult,
-    UserShowMode: state => state.ShowMode
+    UserDeletedResult: state => state.DeletedResult
   },
   mutations: {
     setUserList(state, data) {
@@ -45,9 +42,6 @@ export default {
     },
     setDeletedResult(state, data) {
       state.DeletedResult = data
-    },
-    setShowMode(state, data) {
-      state.ShowMode = data
     }
   },
   actions: {
@@ -60,7 +54,7 @@ export default {
           context.commit('setUserList', UserList)
         })
         .catch(error => {
-          console.error('setUserList.error', error)
+          // console.error('setUserList.error', error)
           alert('담당자 정보 로드에 실패했습니다.')
           context.commit('setUserList', [])
         })
@@ -78,7 +72,7 @@ export default {
           context.commit('setInsertedResult', insertedResult)
         })
         .catch(error => {
-          console.error('setInsertedResult.error', error)
+          // console.error('setInsertedResult.error', error)
           alert('회원가입 정보를 다시 확인해주세요.')
           context.commit('setInsertedResult', -1)
         })
@@ -87,11 +81,6 @@ export default {
     // 회원가입 데이터 초기화
     actUserInit(context, payload) {
       context.commit('setUser', { ...stateInit.User })
-    },
-
-    // 쇼잉모드
-    actUserShowMode(context, payload) {
-      context.commit('setShowMode', payload)
     },
 
     // 사용자 상세정보 조회
@@ -106,7 +95,7 @@ export default {
           context.commit('setUser', user)
         })
         .catch(error => {
-          console.error('UserInfo.error', error)
+          // console.error('UserInfo.error', error)
           context.commit('setUser', null)
         })
     },
@@ -123,7 +112,7 @@ export default {
           context.commit('setModifiedResult', modifiedResult)
         })
         .catch(error => {
-          console.error('UserModify.error', error)
+          // console.error('UserModify.error', error)
           context.commit('setModifiedResult', -1)
         })
     },
@@ -140,7 +129,7 @@ export default {
           context.commit('setDeletedResult', deletedResult)
         })
         .catch(error => {
-          console.error('UserDelete.error', error)
+          // console.error('UserDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
     }

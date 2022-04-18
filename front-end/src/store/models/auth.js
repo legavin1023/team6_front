@@ -23,7 +23,7 @@ export default {
   },
   mutations: {
     setTokenUser(state, data) {
-      console.log('token:', data)
+      // console.log('token:', data)
       state.TokenUser = data
     },
     setTokenLoading(state, data) {
@@ -56,14 +56,14 @@ export default {
         .then(response => {
           const token = window.localStorage.getItem('token')
           const decodedToken = jwtDecode(token)
-          console.log('token', decodedToken)
+          // console.log('token', decodedToken)
 
           // 정상인 경우 처리
           context.commit('setTokenUser', decodedToken)
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('에러:', error)
+          // console.error(error)
           alert('아이디, 비밀번호를 확인해주세요.')
           context.commit('setError', error)
         })

@@ -110,8 +110,6 @@ export default {
     return {
       // chartKey data들입니다.
       lineChartKey: +new Date(),
-      pieChart1Key: +new Date() + 1,
-      pieChart3Key: +new Date() + 2,
 
       // mqttData
       mqttData: null,
@@ -184,31 +182,6 @@ export default {
           duration: 0
         }
       },
-      pieOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        xAxes: [
-          {
-            type: 'realtime',
-            realtime: {
-              duration: 200,
-              refresh: 1000,
-              delay: 200
-            }
-          }
-        ],
-        tooltips: {
-          mode: 'nearest',
-          intersect: false
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: false
-        },
-        animation: {
-          duration: 0
-        }
-      },
 
       // lineChart 관련 data들입니다.
       lineChart: {
@@ -251,52 +224,6 @@ export default {
             }
           ]
         }
-      },
-
-      // pieChart 관련 data들입니다.
-      pieChart: {
-        // pieChart gradient
-        gradient: null,
-        gradient2: null
-      },
-
-      pieChart1: {
-        // pieChart1 settings
-        chartData: null,
-        product: null,
-        defective: null,
-
-        // pieChart1 config
-        config: {
-          labels: ['양품', '불량품'],
-          datasets: [
-            {
-              borderWidth: 1,
-              borderColor: '#9e4fd4',
-              backgroundColor: [],
-              data: []
-            }
-          ]
-        }
-      },
-      pieChart3: {
-        // pieChart2 settings
-        chartData: null,
-        red: 0,
-        white: 0,
-
-        // pieChart2 config
-        config: {
-          labels: ['빨강', '하양'],
-          datasets: [
-            {
-              borderWidth: 1,
-              borderColor: '#ff0000',
-              backgroundColor: ['rgba(255, 100, 100, 1)', 'rgba(255, 255, 255, 1)'],
-              data: []
-            }
-          ]
-        }
       }
     }
   },
@@ -319,22 +246,6 @@ export default {
     this.lineChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
 
     this.lineChart.config.datasets[0].backgroundColor = this.lineChart.gradient
-
-    // ----------PIECHART 1 DRAWING ----------
-    const pieCanvas = document.getElementById('doughnut-chart')
-
-    this.pieChart.gradient = pieCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-    this.pieChart.gradient2 = pieCanvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-
-    this.pieChart.gradient.addColorStop(0, 'rgba(158, 79, 212, 0.5)')
-    this.pieChart.gradient.addColorStop(0.5, 'rgba(158, 79, 212, 0.25)')
-    this.pieChart.gradient.addColorStop(1, 'rgba(158, 79, 212, 0)')
-
-    this.pieChart.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.9)')
-    this.pieChart.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.25)')
-    this.pieChart.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
-
-    this.pieChart1.config.datasets[0].backgroundColor = [this.pieChart.gradient, this.pieChart.gradient2]
   },
   methods: {
     createMqtt() {
@@ -347,7 +258,8 @@ export default {
         const topic = process.env.VUE_APP_MQTT_TOPIC // 구독할 토픽: "UVC"
         mqttClient.subscribe(topic, {}, (error, res) => {
           if (error) {
-            console.error('mqtt client error', error)
+            // console.error('mqtt client error', error)
+            alert('MQTT 연결이 실패했습니다.')
           }
         })
       })
@@ -405,33 +317,6 @@ export default {
         this.lineChart.config.datasets[1].data.push(productData[0] - productData[1])
 
         this.makeLineChartData() // 차트용 데이터 작성
-
-        // ------PIECHART1 DATA FILTERING------
-        this.pieChart1.product = productData[1]
-        this.pieChart1.defective = productData[0] - productData[1]
-
-        this.pieChart1.config.datasets[0].data = [this.pieChart1.product, this.pieChart1.defective]
-
-        this.makePieChart1Data()
-
-        // ------PIECHART3 DATA FILTERING------
-        let colorSence = this.mqttData.Wrapper.filter(p => p.tagId == '39')
-        let chipOut = this.mqttData.Wrapper.filter(p => p.tagId == '3')
-        // colorSence = colorSence.map(p => parseInt(p.value))
-        chipOut = chipOut[0].value
-        colorSence = colorSence[0].value
-
-        console.log('chipOut', chipOut, 'colorSence', colorSence)
-
-        if (colorSence == false) {
-          this.pieChart3.red += 1
-        } else if (colorSence == true) {
-          this.pieChart3.white += 1
-        }
-
-        this.pieChart3.config.datasets[0].data = [this.pieChart3.red, this.pieChart3.white]
-
-        this.makePieChart3Data()
       })
     },
 
@@ -465,44 +350,6 @@ export default {
 
       this.lineChartKey = +new Date()
       this.lineChart.chartData = this.lineChart.config
-    },
-
-    // ---------PIECHART 1, 2 DATA METHOD---------
-    makePieChart1Data() {
-      // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.pieChart1.config.datasets[0].data.length === 0) {
-        this.pieChart1.chartData = {
-          labels: ['0'],
-          datasets: [
-            {
-              label: 'PLC와 연결되어있지 않습니다.',
-              data: [0]
-            }
-          ]
-        }
-        return
-      }
-
-      this.pieChart1Key = +new Date() + 1
-      this.pieChart1.chartData = this.pieChart1.config
-    },
-    makePieChart3Data() {
-      // mqtt 정보가 없으면 기본 그래프를 그려준다.
-      if (this.pieChart3.config.datasets[0].data.length === 0) {
-        this.pieChart3.chartData = {
-          labels: ['PLC와 연결되어있지 않습니다.'],
-          datasets: [
-            {
-              label: 'PLC와 연결되어있지 않습니다.',
-              data: [0]
-            }
-          ]
-        }
-        return
-      }
-
-      this.pieChart3Key = +new Date() + 2
-      this.pieChart3.chartData = this.pieChart3.config
     }
   }
 }

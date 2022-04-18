@@ -36,7 +36,6 @@
         </tr>
       </tbody>
     </table>
-    {{ historyList }}
     <inform v-if="show" />
   </div>
 </template>

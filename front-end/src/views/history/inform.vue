@@ -1,7 +1,7 @@
 <template>
   <div class="black-bg">
     <div id="modal-history-inform" class="white-bg" @ok="onSubmit">
-      <span class="xbtn" @click="closed">X</span>
+      <!-- <span class="xbtn" @click="closed">X</span> -->
       <div>
         <h1 v-if="inputMode === 'update'">{{ history.date }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">

@@ -9,7 +9,7 @@
         <div class="box">
           <div v-if="inputMode === 'insert'" label="날짜" label-for="date">
             <p>날짜</p>
-            <input id="date" ref="date" v-model="history.date" />
+            <input id="date" ref="date" v-model="history.date" type="date" />
           </div>
           <div label="총 생산량" label-for="products_all">
             <p>총 생산량</p>
@@ -34,13 +34,13 @@
           </div>
         </div>
         <div class="box">
-          <div label="가동 시작 시간" label-for="start_at">
-            <p>가동 시작 시간</p>
-            <input id="start_at" ref="startAt" v-model="history.startAt" />
+          <div label="가동 시작 날짜" label-for="start_at">
+            <p>가동 시작 날짜</p>
+            <input id="start_at" ref="startAt" v-model="history.startAt" type="date" />
           </div>
-          <div label="가동 종료 시간" label-for="end_at">
-            <p>가동 종료 시간</p>
-            <input id="end_at" ref="endAt" v-model="history.endAt" />
+          <div label="가동 종료 날짜" label-for="end_at">
+            <p>가동 종료 날짜</p>
+            <input id="end_at" ref="endAt" v-model="history.endAt" type="date" />
           </div>
         </div>
         <div label="담당자" label-for="manager">
@@ -72,9 +72,9 @@ export default {
       history: {
         id: null,
         date: null,
-        productsAll: null,
-        productsGood: null,
-        productsError: null,
+        productsAll: 0,
+        productsGood: 0,
+        productsError: 0,
         userId: null,
         startAt: null,
         endAt: null
@@ -94,7 +94,9 @@ export default {
 
     // input validation
     historyProductLimitState() {
-      return this.history.productsGood + this.history.productsError == this.history.productsAll
+      return (
+        parseInt(this.history.productsGood) + parseInt(this.history.productsError) == parseInt(this.history.productsAll)
+      )
     }
   },
   watch: {

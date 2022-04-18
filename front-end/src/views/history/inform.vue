@@ -1,35 +1,47 @@
 <template>
-  <div>
-    <div id="modal-history-inform" @ok="onSubmit">
+  <div class="black-bg">
+    <div id="modal-history-inform" class="white-bg" @ok="onSubmit">
       <div>
         <h1 v-if="inputMode === 'update'">{{ history.date }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="history.id" />
         </div> -->
-        <div v-if="inputMode === 'insert'" label="날짜" label-for="date">
-          <input id="date" ref="date" v-model="history.date" />
+        <div class="box">
+          <div v-if="inputMode === 'insert'" label="날짜" label-for="date">
+            <p>날짜</p>
+            <input id="date" ref="date" v-model="history.date" />
+          </div>
+          <div label="총 생산량" label-for="products_all">
+            <p>총 생산량</p>
+            <input id="products_all" ref="productsAll" v-model="history.productsAll" />
+          </div>
         </div>
-        <div label="총 생산량" label-for="products_all">
-          <p>총 생산량</p>
-          <input id="products_all" ref="productsAll" v-model="history.productsAll" />
+
+        <div class="box">
+          <div label="양품 수량" label-for="products_good">
+            <p>양품 수량</p>
+            <input id="products_good" ref="productsGood" v-model="history.productsGood" />
+            <p v-if="!historyProductLimitState" class="explanation">
+              양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.
+            </p>
+          </div>
+          <div label="불량품 수량" label-for="products_error">
+            <p>불량품 수량</p>
+            <input id="products_error" ref="productsError" v-model="history.productsError" />
+            <p v-if="!historyProductLimitState" class="explanation">
+              양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.
+            </p>
+          </div>
         </div>
-        <div label="양품 수량" label-for="products_good">
-          <p>양품 수량</p>
-          <input id="products_good" ref="productsGood" v-model="history.productsGood" />
-          <p v-if="!historyProductLimitState">양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.</p>
-        </div>
-        <div label="불량품 수량" label-for="products_error">
-          <p>불량품 수량</p>
-          <input id="products_error" ref="productsError" v-model="history.productsError" />
-          <p v-if="!historyProductLimitState">양품과 불량품의 수량 합은 총 생산량을 넘어선 안됩니다.</p>
-        </div>
-        <div label="가동 시작 시간" label-for="start_at">
-          <p>가동 시작 시간</p>
-          <input id="start_at" ref="startAt" v-model="history.startAt" />
-        </div>
-        <div label="가동 종료 시간" label-for="end_at">
-          <p>가동 종료 시간</p>
-          <input id="end_at" ref="endAt" v-model="history.endAt" />
+        <div class="box">
+          <div label="가동 시작 시간" label-for="start_at">
+            <p>가동 시작 시간</p>
+            <input id="start_at" ref="startAt" v-model="history.startAt" />
+          </div>
+          <div label="가동 종료 시간" label-for="end_at">
+            <p>가동 종료 시간</p>
+            <input id="end_at" ref="endAt" v-model="history.endAt" />
+          </div>
         </div>
         <div label="담당자" label-for="manager">
           <p>담당자</p>
@@ -48,7 +60,7 @@
           <textarea id="remarks" v-model="history.remarks" />
         </div>
       </div>
-      <button @click="onSubmit">{{ inputMode == 'insert' ? '등록하기' : '수정하기' }}</button>
+      <button class="btnmy" @click="onSubmit">{{ inputMode == 'insert' ? '등록하기' : '수정하기' }}</button>
     </div>
   </div>
 </template>
@@ -170,4 +182,52 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#modal-history-inform {
+  margin-top: -300px;
+  margin-left: -200px;
+  width: 400px;
+  height: 600px;
+  h1 {
+    font-size: 1.6em;
+    padding: 20px;
+  }
+  input {
+    margin-top: 20px;
+  }
+
+  select,
+  textarea {
+    margin-top: 12px;
+    height: 30px;
+    width: 80%;
+    border: 1px solid $main;
+    border-radius: 20px;
+    padding-left: 10px;
+  }
+  textarea {
+    height: 80px;
+  }
+  p {
+    padding: 10px 0 0;
+  }
+}
+.box {
+  display: flex;
+  div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .explanation {
+      font-size: 0.8em;
+      width: 80%;
+    }
+    p {
+      margin-bottom: -10px;
+      margin-top: 20px;
+    }
+  }
+}
+</style>

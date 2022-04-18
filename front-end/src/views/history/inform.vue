@@ -103,12 +103,14 @@ export default {
     // 모달이 열린 이후에 감지됨
     infoData(value) {
       this.history = { ...value }
+      this.setDefaultValue()
     }
   },
   created() {
     // 모달이 최초 열릴때 감지됨
     this.history = { ...this.infoData }
     this.$store.dispatch('actUserList')
+    this.setDefaultValue()
   },
   methods: {
     checkInput() {
@@ -163,6 +165,10 @@ export default {
       } else {
         return true
       }
+    },
+
+    setDefaultValue() {
+      this.history.userId = ''
     },
 
     onSubmit() {

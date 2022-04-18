@@ -1,6 +1,7 @@
 <template>
   <div class="black-bg">
     <div id="modal-history-inform" class="white-bg" @ok="onSubmit">
+      <span class="xbtn" @click="closed">X</span>
       <div>
         <h1 v-if="inputMode === 'update'">{{ history.date }}</h1>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
@@ -222,6 +223,8 @@ export default {
 }
 .box {
   display: flex;
+  justify-content: center;
+  justify-items: center;
   div {
     width: 50%;
     display: flex;
@@ -237,5 +240,10 @@ export default {
       margin-top: 20px;
     }
   }
+}
+.xbtn {
+  position: absolute;
+  right: -230px;
+  top: 10px;
 }
 </style>

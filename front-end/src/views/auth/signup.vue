@@ -257,7 +257,8 @@ div.box {
     text-indent: -9999px;
     filter: invert(88%) sepia(14%) saturate(1356%) hue-rotate(199deg) brightness(99%) contrast(91%);
   }
-  input {
+  input,
+  select {
     width: 95%;
     height: 35px;
     line-height: 40px;

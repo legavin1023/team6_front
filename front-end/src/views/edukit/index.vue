@@ -195,7 +195,7 @@ export default {
 details {
   position: fixed;
   z-index: 90;
-  bottom: 330px;
+  bottom: 350px;
   right: 40px;
   width: 190px;
   border: 3px solid $main;
@@ -270,7 +270,7 @@ details {
 #btn_box {
   position: fixed;
   overflow: hidden;
-  top: 50px;
+  top: 60px;
   right: 40px;
   .btn {
     width: 50px;
@@ -360,7 +360,7 @@ details {
   position: absolute;
   display: flex;
   flex-direction: column;
-  bottom: 40px;
+  bottom: 70px;
   right: 40px;
   input {
     border: 3px solid $main;

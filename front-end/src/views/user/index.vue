@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in userList" :key="item.id">
+        <tr v-for="(item, index) in userList" :key="index">
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.userid }}</td>
@@ -24,10 +24,10 @@
           <td>{{ item.phone }}</td>
           <td>{{ item.auth == 1 ? '관리자' : '담당자' }}</td>
           <td>
-            <button size="sm" variant="success" @click="onClickEdit(item.id)">수정</button>
+            <button @click="onClickEdit(item.id)">수정</button>
           </td>
           <td>
-            <button size="sm" variant="danger" @click="onClickDelete(item.id)">삭제</button>
+            <button @click="onClickDelete(item.id)">삭제</button>
           </td>
         </tr>
       </tbody>
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     searchUserList() {
-      // console.log('search')
+      console.log('search')
       this.$store.dispatch('actUserList', this.search)
     },
     onClickEdit(id) {
@@ -128,7 +128,7 @@ export default {
     },
     onClickDelete(id) {
       // 삭제
-      const result = window.confirm('해당 담당자를 삭제 하시겠습니까?')
+      const result = window.confirm('삭제 하시겠습니까?')
       if (result == true) {
         console.log(id)
         this.$store.dispatch('actUserDelete', id)
@@ -192,8 +192,6 @@ table {
   }
   tbody {
     font-size: 1em;
-    // display: flex;
-    // flex-direction: column-reverse;
     tr {
       opacity: 0.8;
       td {

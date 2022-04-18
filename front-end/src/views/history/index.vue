@@ -1,16 +1,16 @@
 <template>
   <div>
     <h1>PLC 작업내역</h1>
-    <div>
+    <div class="input_box">
       <button @click="onClickAddNew">등록</button>
     </div>
     <table>
       <thead>
         <tr>
-          <td>번호</td>
-          <td v-for="(item, index) in fields" :key="index">{{ item.label }}</td>
-          <td>수정</td>
-          <td>삭제</td>
+          <th>번호</th>
+          <th v-for="(item, index) in fields" :key="index">{{ item.label }}</th>
+          <th>수정</th>
+          <th>삭제</th>
         </tr>
       </thead>
       <tbody>
@@ -185,7 +185,87 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  box-sizing: border-box;
+}
+h1 {
+  font-size: 2em;
+  padding-top: 50px;
+  text-align: center;
+}
+.input_box {
+  width: 1000px;
+  text-align: right;
+  margin: auto;
+  margin-bottom: 20px;
+  button {
+    border: none;
+    border: 3px solid $main;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: none;
+    color: $main;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 1;
+  }
+}
 table {
-  border: 1px solid red;
+  width: 1000px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+
+  thead {
+    border-bottom: 1px solid $main;
+    th {
+      padding: 15px 0px 10px;
+      font-size: 1em;
+      line-height: 1.6em;
+      background-color: $sub2;
+      color: $dark;
+    }
+  }
+  tbody {
+    font-size: 1em;
+    tr {
+      opacity: 0.8;
+      td {
+        padding: 10px 0px;
+        background: #888bbf12;
+        button {
+          border: none;
+          background: none;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+      }
+      td:last-child button {
+        opacity: 0.5;
+        color: #ff0000;
+      }
+      td:nth-last-child(2) button {
+        opacity: 0.5;
+        color: #00ff00;
+      }
+      td:last-child button:hover,
+      td:nth-last-child(2) button:hover {
+        opacity: 1;
+      }
+    }
+    tr:nth-child(2n) {
+      background: #888bbf4a;
+    }
+    tr:hover {
+      opacity: 1;
+    }
+  }
+}
+@media screen and (max-width: 480px) {
 }
 </style>

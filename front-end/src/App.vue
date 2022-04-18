@@ -192,21 +192,29 @@ export default {
 }
 @media screen and (max-width: 480px) {
   #nav {
-    padding-top: 10px;
-    width: 100%;
-    height: 50px;
-    z-index: 80;
-    position: fixed;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background: #000;
-    a {
-      padding: 20px;
-      img {
-        width: 30px;
-        height: 30px;
-      }
+    img {
+      width: 40px;
+      height: 40px;
+    }
+    .nav_box {
+      width: 100vw;
+      height: 60px;
+      background-color: #00000072;
+      position: fixed;
+      top: 0px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px 0 30px;
+    }
+    #data {
+      width: 100vw;
+      height: 60px;
+      background-color: #00000072;
+      position: fixed;
+      bottom: 0px;
+      display: flex;
+      justify-content: space-around;
+      padding-top: 10px;
     }
   }
 }
@@ -281,9 +289,6 @@ export default {
     cursor: pointer;
     font-weight: bold;
     background: linear-gradient(45deg, rgba(136, 139, 191, 0.3) 0%, #ffffff00 100%);
-  }
-  button.btnmy:hover {
-    background: rgba(136, 139, 191, 0.3);
   }
 }
 

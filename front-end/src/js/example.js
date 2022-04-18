@@ -11,7 +11,7 @@ import { Event } from './assets/event'
 import store from '../store'
 import * as THREE from 'three'
 
-import { Gui } from './plugins/gui'
+// import { Gui } from './plugins/gui'
 
 export default async element => {
   element.style.width = 'window.innerWidth'

@@ -33,7 +33,8 @@ class Resource {
         let obj = (this.edukit.body = object)
         obj.name = 'body'
 
-        obj.scale.x = obj.scale.y = obj.scale.z = 0.0005
+        obj.scale.x = obj.scale.z = 0.0005
+        obj.scale.y = 0.00065
 
         obj.position.x -= 15
 

@@ -250,7 +250,7 @@ div.box {
   width: 300px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 20px;
   .img {
     display: block;
     margin: 0 auto;
@@ -297,7 +297,7 @@ div.box {
   .login {
     display: block;
     color: $main;
-    padding-top: 20px;
+    padding-top: 10px;
     font-size: 0.9em;
   }
   .login:hover {

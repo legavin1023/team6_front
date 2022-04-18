@@ -1,108 +1,80 @@
 <template>
   <div class="main">
-    <div class="text_box wrap">
-      <div>
-        <p>1호기 전원</p>
-        <p>
-          {{ plc.mqttNo1On === true ? 'ON' : 'OFF' }}
-          <span class="toggle">
-            <input id="toggle1" v-model="plc.mqttNo1On" type="checkbox" />
-            <label for="toggle1"></label>
-          </span>
-        </p>
-      </div>
-      <div>
-        <p>2호기 전원</p>
-        <p>
-          {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}
-          <span class="toggle">
-            <input id="toggle2" v-model="plc.mqttNo2On" type="checkbox" />
-            <label for="toggle2"></label>
-          </span>
-        </p>
-      </div>
-      <div>
-        <p>3호기 전원</p>
-        <p>
-          {{ plc.mqttNo3On === true ? 'ON' : 'OFF' }}
-          <span class="toggle">
-            <input id="toggle3" v-model="plc.mqttNo3On" type="checkbox" />
-            <label for="toggle3"></label>
-          </span>
-        </p>
-      </div>
-      <div>
-        <p>총 생산량 수</p>
-        <p>{{ plc.mqttNo1Box }}</p>
-      </div>
-      <div>
-        <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
-        <p>3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
-      </div>
-      <div>
-        <p>공정 반복 시간</p>
-        <p>{{ plc.mqttNo1Delay }}</p>
-      </div>
-    </div>
-    <div class="box">
-      <div class="text_box">
-        <div>
-          <p>내보낸 상자 수</p>
-          <p>{{ plc.mqttNo1Box }}</p>
-        </div>
-        <div class="border">
-          <p>내보낸 주사위 수</p>
-          <p>{{ plc.mqttNo2Box }}</p>
+    <div>
+      <div class="box">
+        <div class="text_box">
+          <div>
+            <p>1호기 전원</p>
+            <p>
+              {{ plc.mqttNo1On === true ? 'ON' : 'OFF' }}
+              <span class="toggle">
+                <input id="toggle1" v-model="plc.mqttNo1On" type="checkbox" />
+                <label for="toggle1"></label>
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>2호기 전원</p>
+            <p>
+              {{ plc.mqttNo2On === true ? 'ON' : 'OFF' }}
+              <span class="toggle">
+                <input id="toggle2" v-model="plc.mqttNo2On" type="checkbox" />
+                <label for="toggle2"></label>
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>3호기 전원</p>
+            <p>
+              {{ plc.mqttNo3On === true ? 'ON' : 'OFF' }}
+              <span class="toggle">
+                <input id="toggle3" v-model="plc.mqttNo3On" type="checkbox" />
+                <label for="toggle3"></label>
+              </span>
+            </p>
+          </div>
+          <div class="border">
+            <p>3호기 x 좌표값 : {{ plc.mqttNo3Xaxis }}</p>
+            <p>3호기 y 좌표값 : {{ plc.mqttNo3Yaxis }}</p>
+          </div>
         </div>
       </div>
-
-      <div class="line_chart pc">
-        <line-chart
-          :key="lineChartKey"
-          :chart-data="lineChart.chartData"
-          :options="options"
-          style="height: 260px; width: 470px"
-        />
-      </div>
-      <div class="line_chart movi">
-        <line-chart
-          :key="lineChartKey"
-          :chart-data="lineChart.chartData"
-          :options="options"
-          style="height: 260px; width: 320px"
-        />
-      </div>
-
-      <div class="chart_box">
-        <div class="donut_chart pc">
-          <pie-chart-3
-            :key="pieChart3Key"
-            :chart-data="pieChart3.chartData"
-            :options="pieOptions"
-            style="height: 150px; width: 245px"
-          />
-          <pie-chart-1
-            :key="pieChart1Key"
-            :chart-data="pieChart1.chartData"
-            :options="pieOptions"
-            style="height: 150px; width: 245px"
-            class="PieChart_margin"
+      <div class="box">
+        <div class="line_chart pc">
+          <line-chart
+            :key="lineChartKey"
+            :chart-data="lineChart.chartData"
+            :options="options"
+            style="height: 260px; width: 1000px"
           />
         </div>
-        <div class="donut_chart movi">
-          <pie-chart-3
-            :key="pieChart3Key"
-            :chart-data="pieChart3.chartData"
-            :options="pieOptions"
-            style="height: 200px; width: 300px"
+        <div class="line_chart movi">
+          <line-chart
+            :key="lineChartKey"
+            :chart-data="lineChart.chartData"
+            :options="options"
+            style="height: 260px; width: 300px"
           />
-          <pie-chart-1
-            :key="pieChart1Key"
-            :chart-data="pieChart1.chartData"
-            :options="pieOptions"
-            style="height: 200px; width: 300px"
-            class="PieChart_margin"
-          />
+        </div>
+      </div>
+      <div class="box">
+        <div class="text_box">
+          <div>
+            <p>공정 반복 시간</p>
+            <p>{{ plc.mqttNo1Delay }}</p>
+          </div>
+          <div>
+            <p>내보낸 상자 수</p>
+            <p>{{ plc.mqttNo1Box }}</p>
+          </div>
+          <div>
+            <p>내보낸 주사위 수</p>
+            <p>{{ plc.mqttNo2Box }}</p>
+          </div>
+          <div class="border">
+            <p>총 생산량 수</p>
+            <p>{{ plc.mqttNo1Box }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -129,13 +101,10 @@
 <script>
 import mqtt from 'mqtt'
 import LineChart from '@/components/chart/lineChart'
-import PieChart from '@/components/chart/doughnutChart'
 
 export default {
   components: {
-    'line-chart': LineChart,
-    'pie-chart-1': PieChart,
-    'pie-chart-3': PieChart
+    'line-chart': LineChart
   },
   data() {
     return {
@@ -610,33 +579,29 @@ export default {
 }
 @media (min-width: 481px) {
   .main {
+    height: 100vh;
+    width: 100vw;
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
     .box {
-      margin-top: -20px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
     }
     .line_chart {
-      display: block;
       border: 3px solid $sub3;
-      width: 480px;
+      width: 1000px;
       height: 280px;
       margin-left: -20px;
       margin-top: 20px;
       border-radius: 20px;
+      padding-top: 10px;
       display: flex;
       justify-content: center;
     }
-    .chart_box {
-      margin-left: -20px;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-    }
-    .donut_chart,
     .bar_chart {
       display: flex;
       justify-content: center;
@@ -646,16 +611,10 @@ export default {
       border-radius: 20px;
       height: 180px;
     }
-    .donut_chart {
-      display: flex;
-      justify-content: center;
-      margin-right: 20px;
-      display: flex;
-      padding-top: 10px;
-    }
+
     .text_box {
       display: flex;
-      margin-top: 40px;
+      margin-top: 20px;
       > div {
         display: inline-block;
         width: 235px;
@@ -678,15 +637,6 @@ export default {
         top: 10px;
       }
     }
-    .wrap {
-      flex-wrap: wrap;
-      flex-direction: column;
-      margin-top: 40px;
-      padding-left: 20px;
-      > div {
-        margin-bottom: 20px;
-      }
-    }
   }
   .movi {
     display: none !important;
@@ -697,8 +647,11 @@ export default {
   .border {
     border-bottom: 3px solid $sub3;
   }
+  body {
+    overflow-x: hidden;
+  }
   .main {
-    padding-top: 50px;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -727,9 +680,8 @@ export default {
     justify-content: center;
     padding-bottom: 100px;
   }
-  .donut_chart,
-  .line_chart,
-  .bar_chart {
+
+  .line_chart {
     margin: 30px auto;
   }
   .line_chart {
@@ -737,6 +689,14 @@ export default {
   }
   .PieChart_margin {
     margin-top: 40px;
+  }
+  .plc_box {
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: -12px;
   }
   .pc {
     display: none !important;

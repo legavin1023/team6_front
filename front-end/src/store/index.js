@@ -6,6 +6,7 @@ import Auth from './models/auth'
 import User from './models/user'
 import KeyShow from './models/keyShow'
 import History from './models/history'
+import Mypage from './models/myPage'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     Auth,
     User,
     KeyShow,
-    History
+    History,
+    Mypage
   }
 })

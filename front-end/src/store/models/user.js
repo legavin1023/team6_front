@@ -18,17 +18,14 @@ export default {
     User: { ...stateInit.User },
     InsertedResult: null,
     ModifiedResult: null,
-    DeletedResult: null,
-    ShowMode: 'show'
-    // 쇼잉모드 (show: 모달 사용자 정보 쇼잉, modify: 모달 사용자 정보 수정)
+    DeletedResult: null
   },
   getters: {
     UserList: state => state.UserList,
     User: state => state.User,
     UserInsertedResult: state => state.InsertedResult,
     UserModifiedResult: state => state.ModifiedResult,
-    UserDeletedResult: state => state.DeletedResult,
-    UserShowMode: state => state.ShowMode
+    UserDeletedResult: state => state.DeletedResult
   },
   mutations: {
     setUserList(state, data) {
@@ -45,9 +42,6 @@ export default {
     },
     setDeletedResult(state, data) {
       state.DeletedResult = data
-    },
-    setShowMode(state, data) {
-      state.ShowMode = data
     }
   },
   actions: {
@@ -87,11 +81,6 @@ export default {
     // 회원가입 데이터 초기화
     actUserInit(context, payload) {
       context.commit('setUser', { ...stateInit.User })
-    },
-
-    // 쇼잉모드
-    actUserShowMode(context, payload) {
-      context.commit('setShowMode', payload)
     },
 
     // 사용자 상세정보 조회

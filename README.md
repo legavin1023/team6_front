@@ -97,15 +97,21 @@ npm start
 김채은
 + [Github]()
 + YourEmail@example.com
+
 <br/>
+
 김희선
 + [Github]()
 + YourEmail@example.com
+
 <br/>
+
 백동기
 + [Github]()
 + YourEmail@example.com
+
 <br/>
+
 진아영
 + [Github](https://github.com/jay0v0)
 + [Blog](https://keepgoinglog.tistory.com/)
@@ -115,9 +121,8 @@ npm start
 
 
 <!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
+[npm-image]: https://img.shields.io/badge/npm-v6.14.15-orange?style=flat-square
 [npm-url]: https://www.npmjs.com/
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [node-image]: https://img.shields.io/badge/node-v14.18.1-blue?style=flat-square
 [node-url]: https://nodejs.org/
 [vue-image]: https://img.shields.io/badge/vue-v2.6.14-brightgreen?style=flat-square

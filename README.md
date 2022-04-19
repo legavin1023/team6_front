@@ -101,8 +101,8 @@ npm start
 <br/>
 
 김희선
-+ [Github]()
-+ YourEmail@example.com
++ [Github](https://github.com/legavin1023)
++ wntkdnl1023@gmail.com
 
 <br/>
 

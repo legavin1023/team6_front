@@ -95,8 +95,8 @@ npm start
 ## :eyes: Members
 
 김채은
-+ [Github]()
-+ YourEmail@example.com
++ [Github](https://github.com/Dig-Something)
++ digsomething@gmail.com
 
 <br/>
 

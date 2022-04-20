@@ -1,13 +1,16 @@
 <template>
   <div class="black-bg">
     <div id="modal-history-inform" class="white-bg" @ok="onSubmit">
-      <!-- <span class="xbtn" @click="closed">X</span> -->
+      <span class="xbtn" @click="closed">X</span>
       <div>
         <!-- <div v-if="inputMode === 'update'" label="id" label-for="id">
           <input id="id" v-model="history.id" />
         </div> -->
         <div class="box">
-          <h1 v-if="inputMode === 'update'">{{ history.date }}</h1>
+          <div v-if="inputMode === 'update'" class="date">
+            <p>날짜</p>
+            <h1>{{ history.date }}</h1>
+          </div>
           <div v-if="inputMode === 'insert'" label="날짜" label-for="date">
             <p>날짜</p>
             <input id="date" ref="date" v-model="history.date" type="date" />
@@ -225,8 +228,7 @@ export default {
   display: flex;
   justify-content: center;
   justify-items: center;
-  div,
-  h1 {
+  div {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -240,6 +242,10 @@ export default {
       margin-bottom: -10px;
       margin-top: 20px;
     }
+  }
+  .date {
+    position: relative;
+    top: 10px;
   }
 }
 .xbtn {

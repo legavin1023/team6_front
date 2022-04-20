@@ -1,7 +1,7 @@
 <template>
   <div class="black-bg">
     <div id="modal-user-inform" class="white-bg">
-      <!-- <span class="xbtn" @click="closed">X</span> -->
+      <span class="xbtn" @click="closed">X</span>
 
       <div>
         <h1>{{ user.name }}</h1>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import index from './index.vue'
 export default {
   data() {
     return {
@@ -46,6 +47,7 @@ export default {
         phone: null,
         auth: null
       },
+      index: index,
       options: [
         { value: 1, text: '관리자' },
         { value: 0, text: '담당자' }
@@ -87,8 +89,7 @@ export default {
     onSubmit() {
       // console.log(this.user)
       this.$store.dispatch('actUserModify', this.user) // 수정 실행
-    },
-    closed() {}
+    }
   }
 }
 </script>

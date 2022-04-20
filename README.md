@@ -16,7 +16,7 @@
 
 **PLC Edukit의 기기를 제어하고 Edukit의 데이터를 모니터링하는 기기 제어 대시보드 웹 서비스**
 
-![Untitled (1)](https://user-images.githubusercontent.com/96156114/163905822-3f63019c-cc1f-4193-80c5-60855babc5cc.png)
+![unknown](https://user-images.githubusercontent.com/96156114/163985687-9f4e9483-8c27-4975-a4b6-0f6c5f70514c.png)
 
 - 회원가입 및 로그인이 선행되어야 고객정보 로드/수정, 실시간 데이터 모니터링 및 Edukit 제어를 수행할 수 있다.
 - 회원정보를 저장할 때 비밀번호는 암호화 되어야 한다.
@@ -26,7 +26,7 @@
 
 ## :pushpin: Architecture
 
-![Untitled (2)](https://user-images.githubusercontent.com/96156114/163905691-bb54e17b-e160-48f5-8c9b-ee5518473df0.png)
+![unknown2](https://user-images.githubusercontent.com/96156114/164124784-9d9564eb-96f2-42ea-8376-33b12601e3f6.png)
 
 <br/>
 

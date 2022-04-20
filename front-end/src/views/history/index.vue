@@ -59,7 +59,7 @@ export default {
         { key: 'manager', label: '담당자' },
         { key: 'remarks', label: '비고란' }
       ],
-      show: false
+      show: null
     }
   },
   computed: {
@@ -77,9 +77,15 @@ export default {
     },
     deletedResult() {
       return this.$store.getters.HistoryDeletedResult
+    },
+    HistoryShow() {
+      return this.$store.getters.HistoryShow
     }
   },
   watch: {
+    HistoryShow(value) {
+      this.show = value
+    },
     insertedResult(value) {
       // 등록 후 처리
 
@@ -92,7 +98,7 @@ export default {
           // 2. 리스트 재 검색
           this.searchHistoryList()
           // 3. 모달 닫기
-          this.show = false
+          this.$store.dispatch('actHistoryShow', false)
         } else {
           // 등록이 실패한 경우
           alert('작업내역 등록이 실패하였습니다.')
@@ -109,7 +115,7 @@ export default {
           // 2. 리스트 재 검색
           this.searchHistoryList()
           // 3. 모달 닫기
-          this.show = false
+          this.$store.dispatch('actHistoryShow', false)
         } else {
           // 수정이 실패한 경우
           alert('작업내역 수정이 실패하였습니다.')
@@ -150,9 +156,9 @@ export default {
 
       if (!this.show) {
         // 3. 모달 출력
-        this.show = true
+        this.$store.dispatch('actHistoryShow', true)
       } else {
-        this.show = false
+        this.$store.dispatch('actHistoryShow', false)
       }
     },
     onClickEdit(id) {
@@ -164,9 +170,9 @@ export default {
 
       if (!this.show) {
         // 3. 모달 출력
-        this.show = true
+        this.$store.dispatch('actHistoryShow', true)
       } else {
-        this.show = false
+        this.$store.dispatch('actHistoryShow', false)
       }
     },
     onClickDelete(id) {

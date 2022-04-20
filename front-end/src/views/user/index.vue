@@ -32,7 +32,7 @@
         </tr>
       </tbody>
     </table>
-    <inform v-if="show" />
+    <inform v-if="showStatus" />
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default {
       search: {
         name: null
       },
-      show: false
+      showStatus: null
     }
   },
   computed: {
@@ -68,9 +68,15 @@ export default {
     },
     deletedResult() {
       return this.$store.getters.UserDeletedResult
+    },
+    show() {
+      return this.$store.getters.Show
     }
   },
   watch: {
+    show(value) {
+      this.showStatus = value
+    },
     modifiedResult(value) {
       // 수정 후 처리
       if (value !== null) {
@@ -81,7 +87,8 @@ export default {
           alert('담당자 정보 수정이 성공하였습니다.')
           // 2. 리스트 재 검색
           this.searchUserList()
-          this.show = false
+          this.$store.dispatch('actShow', false)
+          // this.show = false
         } else {
           // 수정이 실패한 경우
           alert('담당자 정보 수정이 실패하였습니다.')
@@ -113,17 +120,15 @@ export default {
       // console.log('search')
       this.$store.dispatch('actUserList', this.search)
     },
-    onClickEdit(id) {
+    async onClickEdit(id) {
       // (수정을 위한)상세정보
-
-      if (!this.show) {
+      if (!this.showStatus) {
         // 1. 상세정보 호출
         this.$store.dispatch('actUserInfo', id)
-
         // 2. 모달 출력
-        this.show = true
+        this.$store.dispatch('actShow', true)
       } else {
-        this.show = false
+        this.$store.dispatch('actShow', false)
       }
     },
     onClickDelete(id) {

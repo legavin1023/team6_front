@@ -18,14 +18,17 @@ export default {
     User: { ...stateInit.User },
     InsertedResult: null,
     ModifiedResult: null,
-    DeletedResult: null
+    DeletedResult: null,
+    Show: false
+    // 쇼잉모드 (true: 모달 쇼잉, false: 모달 close)
   },
   getters: {
     UserList: state => state.UserList,
     User: state => state.User,
     UserInsertedResult: state => state.InsertedResult,
     UserModifiedResult: state => state.ModifiedResult,
-    UserDeletedResult: state => state.DeletedResult
+    UserDeletedResult: state => state.DeletedResult,
+    Show: state => state.Show
   },
   mutations: {
     setUserList(state, data) {
@@ -42,6 +45,9 @@ export default {
     },
     setDeletedResult(state, data) {
       state.DeletedResult = data
+    },
+    setShow(state, data) {
+      state.Show = data
     }
   },
   actions: {
@@ -132,6 +138,12 @@ export default {
           // console.error('UserDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
+    },
+
+    actShow(context, payload) {
+      // console.log('store')
+      context.commit('setShow', payload)
+      console.log(payload)
     }
   }
 }

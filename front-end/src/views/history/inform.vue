@@ -101,6 +101,9 @@ export default {
       return (
         parseInt(this.history.productsGood) + parseInt(this.history.productsError) == parseInt(this.history.productsAll)
       )
+    },
+    HistoryShow() {
+      return this.$store.getters.HistoryShow
     }
   },
   watch: {
@@ -189,6 +192,10 @@ export default {
           this.$store.dispatch('actHistoryModify', this.history) // 수정 실행
         }
       }
+    },
+    closed() {
+      this.$store.dispatch('actHistoryShow', false)
+      console.log(this.$store.dispatch('actHistoryShow', false))
     }
   }
 }

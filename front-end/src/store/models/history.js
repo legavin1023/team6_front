@@ -22,7 +22,9 @@ export default {
     InsertedResult: null,
     ModifiedResult: null,
     DeletedResult: null,
-    InputMode: null // insert: 입력, update: 수정
+    InputMode: null, // insert: 입력, update: 수정
+    HistoryShow: false
+    // 쇼잉모드 (true: 모달 쇼잉, false: 모달 close)
   },
   getters: {
     HistoryList: state => state.HistoryList,
@@ -30,7 +32,8 @@ export default {
     HistoryInsertedResult: state => state.InsertedResult,
     HistoryModifiedResult: state => state.ModifiedResult,
     HistoryDeletedResult: state => state.DeletedResult,
-    HistoryInputMode: state => state.InputMode
+    HistoryInputMode: state => state.InputMode,
+    HistoryShow: state => state.HistoryShow
   },
   mutations: {
     setHistoryList(state, data) {
@@ -50,6 +53,9 @@ export default {
     },
     setInputMode(state, data) {
       state.InputMode = data
+    },
+    setHistoryShow(state, data) {
+      state.HistoryShow = data
     }
   },
   actions: {
@@ -143,6 +149,12 @@ export default {
           // console.error('HistoryDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
+    },
+
+    actHistoryShow(context, payload) {
+      // console.log('store')
+      context.commit('setHistoryShow', payload)
+      // console.log(payload)
     }
   }
 }

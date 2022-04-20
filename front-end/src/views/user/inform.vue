@@ -73,6 +73,9 @@ export default {
     },
     getCreatedAt() {
       return this.user.createdAt && this.user.createdAt.substring(0, 10)
+    },
+    show() {
+      return this.$store.getters.Show
     }
   },
   watch: {
@@ -89,6 +92,10 @@ export default {
     onSubmit() {
       // console.log(this.user)
       this.$store.dispatch('actUserModify', this.user) // 수정 실행
+    },
+    closed() {
+      this.$store.dispatch('actShow', false)
+      console.log(this.$store.dispatch('actShow', false))
     }
   }
 }

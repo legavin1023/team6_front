@@ -26,9 +26,29 @@
 
 ## :pushpin: Architecture
 
-- 전체
+- 전체 서비스 흐름도
 
 ![unknown2](https://user-images.githubusercontent.com/96156114/164124784-9d9564eb-96f2-42ea-8376-33b12601e3f6.png)
+
+<br/>
+
+- 회원가입 및 로그인
+
+![회원가입 및 로그인](https://user-images.githubusercontent.com/96156114/164626301-e1263d3d-62e5-4acd-9606-72727860a840.png)
+
+<br/>
+
+- 마이 페이지
+
+![마이페이지](https://user-images.githubusercontent.com/96156114/164626312-a8d87f62-4910-4335-b381-32d532a917e4.png)
+
+<br/>
+
+- 담당자 관리
+
+![담당자 관리](https://user-images.githubusercontent.com/96156114/164626308-0795b887-4460-4db9-83e4-d375d6afb072.png)
+
+<br/>
 
 - 작업 내역
 
